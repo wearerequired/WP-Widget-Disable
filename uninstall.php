@@ -2,11 +2,11 @@
 /**
  * Fired when the plugin is uninstalled.
  *
- * @package   Plugin_Name
- * @author    Your Name <email@example.com>
+ * @package   WP_Widget_Disable
+ * @author    Silvan Hagen <silvan@required.ch>
  * @license   GPL-2.0+
- * @link      http://example.com
- * @copyright 2013 Your Name or Company Name
+ * @link      http://wp.required.ch/plugins/wp-widget-disable
+ * @copyright 2013 required gmbh
  */
 
 // If uninstall not called from WordPress, then exit
