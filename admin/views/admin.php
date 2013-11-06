@@ -17,7 +17,7 @@
 
 	<?php screen_icon( 'themes' ); ?>
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-    <?php //settings_errors(); ?>
+    <?php settings_errors(); ?>
 
     <?php
         $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : $this->sidebar_widgets_option;

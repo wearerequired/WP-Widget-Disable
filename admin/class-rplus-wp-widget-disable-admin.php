@@ -40,8 +40,9 @@ class WP_Widget_Disable_Admin {
 	protected $plugin_screen_hook_suffix = null;
 
 
-	private $sidebar_widgets_option 	= 'rplus_wp_widget_disable_sidebar_option';
-	private $dashboard_widgets_option 	= 'rplus_wp_widget_disable_dashboard_option';
+	private $sidebar_widgets_option 			= 'rplus_wp_widget_disable_sidebar_option';
+	private $dashboard_widgets_option 			= 'rplus_wp_widget_disable_dashboard_option';
+	private $dashboard_widgets_default_option 	= 'rplus_wp_widget_disable_dashboard_default_option';
 
 	protected $sidebar_widgets;
 
@@ -59,16 +60,18 @@ class WP_Widget_Disable_Admin {
 		$plugin = WP_Widget_Disable::get_instance();
 		$this->plugin_slug 	= $plugin->get_plugin_slug();
 
-		// Load admin style sheet and JavaScript.
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
-
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'register_sidebar_settings' ) );
 		add_action( 'admin_init', array( $this, 'register_dashboard_settings' ) );
 
+		// Get and disable the sidebar widgets.
+		add_action( 'widgets_init', array( $this, 'set_default_sidebar_widgets' ), 100 );
 		add_action( 'widgets_init', array( $this, 'disable_sidebar_widgets' ), 100 );
+
+		// Get and disable the dashboard widgets.
+		add_action( 'wp_dashboard_setup', array( $this, 'set_default_dashboard_widgets' ), 100 );
+		add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
 
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( dirname( __FILE__ ) ) . $this->plugin_slug . '.php' );
@@ -94,46 +97,6 @@ class WP_Widget_Disable_Admin {
 	}
 
 	/**
-	 * Register and enqueue admin-specific style sheet.
-	 *
-	 * @since     1.0.0
-	 *
-	 * @return    null    Return early if no settings page is registered.
-	 */
-	public function enqueue_admin_styles() {
-
-		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
-			return;
-		}
-
-		$screen = get_current_screen();
-		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.css', __FILE__ ), array(), WP_Widget_Disable::VERSION );
-		}
-
-	}
-
-	/**
-	 * Register and enqueue admin-specific JavaScript.
-	 *
-	 * @since     1.0.0
-	 *
-	 * @return    null    Return early if no settings page is registered.
-	 */
-	public function enqueue_admin_scripts() {
-
-		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
-			return;
-		}
-
-		$screen = get_current_screen();
-		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), WP_Widget_Disable::VERSION );
-		}
-
-	}
-
-	/**
 	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
 	 *
 	 * @since    1.0.0
@@ -141,9 +104,9 @@ class WP_Widget_Disable_Admin {
 	public function add_plugin_admin_menu() {
 
 		/*
-		 * Add a settings page for this plugin to the Settings menu.
+		 * Add a settings page for this plugin to the Theme menu.
 		 */
-		$this->plugin_screen_hook_suffix = add_options_page(
+		$this->plugin_screen_hook_suffix = add_theme_page(
 			__( 'Disable Sidebar and Dashboard Widgets', $this->plugin_slug ),
 			__( 'Disable Widgets', $this->plugin_slug ),
 			apply_filters( 'rplus_wp_widget_disable_capability', 'edit_theme_options' ),
@@ -157,8 +120,7 @@ class WP_Widget_Disable_Admin {
 
 		register_setting(
         	$this->sidebar_widgets_option,
-			$this->sidebar_widgets_option,
-			array( $this, 'sanitize' )
+			$this->sidebar_widgets_option
         );
 
         add_settings_section(
@@ -180,7 +142,7 @@ class WP_Widget_Disable_Admin {
 
 	public function render_sidebar_description() {
 
-		echo '<p>' . __( 'Check the boxes with the sidebar widgets you would like to disable for this site. Please note that a widget could still be called using code.', $this->plugin_slug ) . '</p>';
+		echo '<p>' . __( 'Check the boxes with the <strong>Sidebar Widgets</strong> you would like to disable for this site. Please note that a widget could still be called using code.', $this->plugin_slug ) . '</p>';
 
 	}
 
@@ -188,7 +150,13 @@ class WP_Widget_Disable_Admin {
 
         $widgets = $this->sidebars_widgets;
 
-        $options = get_option( $this->sidebar_widgets_option );
+        if ( ! $widgets ) {
+
+        	_e( 'Oops, it looks like something is already maniging the Widgets for you, because we can\'t get them for you', $this->plugin_slug );
+
+        }
+
+        $options = (array) get_option( $this->sidebar_widgets_option );
 
         foreach ( $widgets as $widget_class => $widget_object ) : ?>
         	<input type="checkbox" id="<?php echo esc_attr( $widget_class ); ?>" name="<?php echo $this->sidebar_widgets_option; ?>[<?php echo $widget_class; ?>]" value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[$widget_class] : false ), false ); ?>/>
@@ -204,8 +172,7 @@ class WP_Widget_Disable_Admin {
 
         register_setting(
         	$this->dashboard_widgets_option,
-			$this->dashboard_widgets_option,
-			array( $this, 'sanitize' )
+			$this->dashboard_widgets_option
         );
 
         add_settings_section(
@@ -217,7 +184,7 @@ class WP_Widget_Disable_Admin {
 
         add_settings_field(
         	'dashboard_widgets',
-        	__( 'Dashboard Widget', $this->plugin_slug ),
+        	__( 'Dashboard Widgets', $this->plugin_slug ),
         	array( $this, 'render_dashboard_checkboxes' ),
         	$this->dashboard_widgets_option,
         	'widget_disable_dashboard_section'
@@ -227,19 +194,37 @@ class WP_Widget_Disable_Admin {
 
 	public function render_dashboard_description() {
 
-		echo '<p>' . __( 'Disable the dashboard widgets you don\'t want to enable on the site', $this->plugin_slug ) . '</p>';
+		echo '<p>' . __( 'Check the boxes with the <strong>Dashboard Widgets</strong> you would like to disable for this site.', $this->plugin_slug ) . '</p>';
 
 	}
 
 	public function render_dashboard_checkboxes() {
 
-		global $wp_meta_boxes;
+		$default_widgets = get_option( $this->dashboard_widgets_default_option );
 
-	}
+		if ( ! $default_widgets ) {
 
-	public function sanitize( $input ) {
+			echo '<p>';
+			printf( __( 'We know it\'s inconvenient, but please travel to the %s first to make the list of dashboard widgets available to this plugin.', $this->plugin_slug ), '<a href="' . get_admin_url() . '">' . __( 'Dashboard', $this->plugin_slug ) . '</a>' );
+			echo '</p>';
 
-		return $input;
+		} else {
+
+			$options = (array) get_option( $this->dashboard_widgets_option );
+
+			foreach ( $default_widgets as $context => $data ) {
+				foreach ( $data as $priority => $data ) {
+					foreach( $data as $widget => $data ) {
+						$widget_name = strip_tags( preg_replace( '/( |)<span.*span>/im', '', $data['title'] ) ); ?>
+						<input type="checkbox" id="<?php echo esc_attr( $widget ); ?>" name="<?php echo $this->dashboard_widgets_option; ?>[<?php echo $widget; ?>]" value="<?php echo $context; ?>"<?php echo checked( $widget, ( array_key_exists( $widget, $options ) ? $widget : false ), false ); ?>/>
+						&nbsp;
+						<label for="<?php echo esc_attr( $widget ); ?>"><?php echo esc_html( $widget_name ); ?> (<code>ID <?php echo esc_html( $widget ); ?></code>)</label>
+						<br><?php
+					}
+				}
+			}
+
+		}
 
 	}
 
@@ -262,16 +247,20 @@ class WP_Widget_Disable_Admin {
 
 		return array_merge(
 			array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
+				'settings' => '<a href="' . admin_url( 'themes.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
 			),
 			$links
 		);
 
 	}
 
-	public function disable_sidebar_widgets() {
+	public function set_default_sidebar_widgets() {
 
 		$this->sidebars_widgets = $GLOBALS['wp_widget_factory']->widgets;
+
+	}
+
+	public function disable_sidebar_widgets() {
 
 		$widgets = (array) get_option( $this->sidebar_widgets_option );
 
@@ -279,6 +268,37 @@ class WP_Widget_Disable_Admin {
 
 			foreach ( $widgets as $widget_class => $value ) {
 				unregister_widget( $widget_class );
+			}
+
+		}
+
+	}
+
+	public function set_default_dashboard_widgets() {
+
+		global $wp_meta_boxes;
+
+		if ( is_array( $wp_meta_boxes['dashboard'] ) ) {
+
+			update_option( $this->dashboard_widgets_default_option, $wp_meta_boxes['dashboard'] );
+
+		}
+
+	}
+
+	public function disable_dashboard_widgets() {
+
+		global $wp_meta_boxes;
+
+		$widgets = (array) get_option( $this->dashboard_widgets_option );
+
+		if ( ! empty( $widgets ) ) {
+
+			foreach ($widgets as $widget_id => $meta_box ) {
+
+				//$meta_box = explode( ',', $meta_box );
+				remove_meta_box( $id = $widget_id, $screen = 'dashboard', $context = $meta_box );
+
 			}
 
 		}
