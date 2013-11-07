@@ -1,6 +1,5 @@
 === WP Widget Disable ===
 Contributors: neverything
-Donate link: http://example.com/
 Tags: widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets,
 Requires at least: 3.5.1
 Tested up to: 3.7.1
