@@ -260,7 +260,7 @@ class WP_Widget_Disable_Admin {
 
 		if ( is_array( $wp_meta_boxes['dashboard'] ) ) {
 
-			update_option( apply_filters( 'rplus_wp_widget_disable_default_dashboard_filter', $this->dashboard_widgets_default_option, $wp_meta_boxes['dashboard'] ) );
+			update_option( $this->dashboard_widgets_default_option, apply_filters( 'rplus_wp_widget_disable_default_dashboard_filter', $wp_meta_boxes['dashboard'] ) );
 
 		}
 
