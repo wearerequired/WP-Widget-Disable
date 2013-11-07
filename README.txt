@@ -63,7 +63,9 @@ Here is how you install WP Widget Disable.
 == Changelog ==
 
 = 1.0.1 =
-* Added proper textdomains to strings instead of $this->plugin_slug
+* Added proper textdomains to strings instead of $this->plugin_slug.
+* Added README.md for better readability.
+* Fixed an issue that prevented text domain from being loaded.
 
 = 1.0.0 =
 * Initial release of the working plugin.

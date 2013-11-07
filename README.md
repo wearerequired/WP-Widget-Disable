@@ -1,4 +1,4 @@
-### WP Widget Disable
+# WP Widget Disable
 Contributors: neverything
 Tags: widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets,
 Requires at least: 3.5.1
@@ -9,9 +9,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Disable WordPress and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under Appearance -> Disable Widgets and select the Widgets you'd like to hide.
 
-## Description
+# Description
 
-# What WP Widget Disable does?
+## What WP Widget Disable does?
 
 This simple plugin allows you to disable any Sidebar and Dashboard Widget for the current WordPress site you are on. It provides a simple user interface available to users with `edit_theme_options` capabilities (usually Administrator role) available under Appearance -> Disable Widgets. After saving the settings, it removes the Sidebar and Dashboard Widgets selected.
 
@@ -34,18 +34,18 @@ If you would like to contribute to this plugin, report an isse or anything like 
 
 Developed by [required+](http://required.ch/ "Team of experienced web professionals from Switzerland & Germany")
 
-## Installation
+# Installation
 
 Here is how you install WP Widget Disable.
 
-# Using The WordPress Dashboard
+## Using The WordPress Dashboard
 
 1. Navigate to the 'Add New' in the plugins dashboard
 2. Search for 'WP Widget Disable'
 3. Click 'Install Now'
 4. Activate the plugin on the Plugin dashboard
 
-# Uploading in WordPress Dashboard
+## Uploading in WordPress Dashboard
 
 1. Navigate to the 'Add New' in the plugins dashboard
 2. Navigate to the 'Upload' area
@@ -53,18 +53,20 @@ Here is how you install WP Widget Disable.
 4. Click 'Install Now'
 5. Activate the plugin in the Plugin dashboard
 
-# Using FTP
+## Using FTP
 
 1. Download `rplus-wp-widget-disable.zip`
 2. Extract the `rplus-wp-widget-disable` directory to your computer
 3. Upload the `rplus-wp-widget-disable` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
 
-## Changelog
+# Changelog
 
-# 1.0.1
-* Added proper textdomains to strings instead of $this->plugin_slug
+## 1.0.1
+* Added proper textdomains to strings instead of $this->plugin_slug.
+* Added README.md for better readability.
+* Fixed an issue that prevented text domain from being loaded.
 
-# 1.0.0
+## 1.0.0
 * Initial release of the working plugin.
 * German (de_DE) translations added.
