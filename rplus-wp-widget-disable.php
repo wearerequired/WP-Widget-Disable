@@ -14,7 +14,7 @@
  * @wordpress-plugin
  * Plugin Name:       WP Widget Disable
  * Plugin URI:        http://wp.required.ch/plugins/wp-widget-disable/
- * Description:       Disable WordPress and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under <strong>Settings -> Disable Widgets</strong> and select the Widgets you'd like to hide.
+ * Description:       Disable WordPress and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under <strong>Apperance -> Disable Widgets</strong> and select the Widgets you'd like to hide.
  * Version:           1.0.0
  * Author:            required+ (Silvan Hagen)
  * Author URI:        http://required.ch

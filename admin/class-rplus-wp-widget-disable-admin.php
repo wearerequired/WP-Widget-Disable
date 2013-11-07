@@ -40,11 +40,51 @@ class WP_Widget_Disable_Admin {
 	protected $plugin_screen_hook_suffix = null;
 
 
-	private $sidebar_widgets_option 			= 'rplus_wp_widget_disable_sidebar_option';
-	private $dashboard_widgets_option 			= 'rplus_wp_widget_disable_dashboard_option';
-	private $dashboard_widgets_default_option 	= 'rplus_wp_widget_disable_dashboard_default_option';
+	/**
+	 * Sidebar Widgets option key.
+	 *
+	 * Stores all the disabled sidebar widgets as
+	 * an array.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @var 	string
+	 */
+	private $sidebar_widgets_option = 'rplus_wp_widget_disable_sidebar_option';
 
-	protected $sidebar_widgets;
+	/**
+	 * Available Sidebar Widgets.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @var 	array
+	 */
+	protected $sidebar_widgets = array();
+
+	/**
+	 * Dashboard Widgets option key.
+	 *
+	 * Stores all the disabled sidebar widgets as
+	 * an array.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @var 	string
+	 */
+	private $dashboard_widgets_option = 'rplus_wp_widget_disable_dashboard_option';
+
+	/**
+	 * Available Dashboard Widgets.
+	 *
+	 * Stores all the available dashboard widgets
+	 * as an array. Because WordPress needs a round-
+	 * trip to the dashboard to get them all.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @var 	string
+	 */
+	private $dashboard_widgets_default_option = 'rplus_wp_widget_disable_dashboard_default_option';
 
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
@@ -76,6 +116,8 @@ class WP_Widget_Disable_Admin {
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( dirname( __FILE__ ) ) . $this->plugin_slug . '.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
+
+		add_filter( 'admin_footer_text', array( $this, 'add_admin_footer' ) );
 
 	}
 
@@ -114,119 +156,7 @@ class WP_Widget_Disable_Admin {
 			array( $this, 'display_plugin_admin_page' )
 		);
 
-	}
-
-	public function register_sidebar_settings() {
-
-		register_setting(
-        	$this->sidebar_widgets_option,
-			$this->sidebar_widgets_option
-        );
-
-        add_settings_section(
-            'widget_disable_widget_section', // ID
-            __( 'Disable Sidebar Widgets', $this->plugin_slug ), // Title
-            array( $this, 'render_sidebar_description' ), // Callback
-            $this->sidebar_widgets_option // Page
-        );
-
-        add_settings_field(
-        	'sidebar_widgets',
-        	__( 'Sidebar Widgets', $this->plugin_slug ),
-        	array( $this, 'render_sidebar_checkboxes' ),
-        	$this->sidebar_widgets_option,
-        	'widget_disable_widget_section'
-        );
-
-	}
-
-	public function render_sidebar_description() {
-
-		echo '<p>' . __( 'Check the boxes with the <strong>Sidebar Widgets</strong> you would like to disable for this site. Please note that a widget could still be called using code.', $this->plugin_slug ) . '</p>';
-
-	}
-
-	public function render_sidebar_checkboxes() {
-
-        $widgets = $this->sidebars_widgets;
-
-        if ( ! $widgets ) {
-
-        	_e( 'Oops, it looks like something is already maniging the Widgets for you, because we can\'t get them for you', $this->plugin_slug );
-
-        }
-
-        $options = (array) get_option( $this->sidebar_widgets_option );
-
-        foreach ( $widgets as $widget_class => $widget_object ) : ?>
-        	<input type="checkbox" id="<?php echo esc_attr( $widget_class ); ?>" name="<?php echo $this->sidebar_widgets_option; ?>[<?php echo $widget_class; ?>]" value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[$widget_class] : false ), false ); ?>/>
-			&nbsp;
-			<label for="<?php echo esc_attr( $widget_class ); ?>"><?php echo esc_html( $widget_object->name ); ?> (<code>class <?php echo esc_html( $widget_class ); ?></code>)</label>
-			<br>
-
-        <?php endforeach;
-
-	}
-
-	public function register_dashboard_settings() {
-
-        register_setting(
-        	$this->dashboard_widgets_option,
-			$this->dashboard_widgets_option
-        );
-
-        add_settings_section(
-            'widget_disable_dashboard_section', // ID
-            __( 'Disable Dashboard Widgets', $this->plugin_slug ), // Title
-            array( $this, 'render_dashboard_description' ), // Callback
-            $this->dashboard_widgets_option // Page
-        );
-
-        add_settings_field(
-        	'dashboard_widgets',
-        	__( 'Dashboard Widgets', $this->plugin_slug ),
-        	array( $this, 'render_dashboard_checkboxes' ),
-        	$this->dashboard_widgets_option,
-        	'widget_disable_dashboard_section'
-        );
-
-	}
-
-	public function render_dashboard_description() {
-
-		echo '<p>' . __( 'Check the boxes with the <strong>Dashboard Widgets</strong> you would like to disable for this site.', $this->plugin_slug ) . '</p>';
-
-	}
-
-	public function render_dashboard_checkboxes() {
-
-		$default_widgets = get_option( $this->dashboard_widgets_default_option );
-
-		if ( ! $default_widgets ) {
-
-			echo '<p>';
-			printf( __( 'We know it\'s inconvenient, but please travel to the %s first to make the list of dashboard widgets available to this plugin.', $this->plugin_slug ), '<a href="' . get_admin_url() . '">' . __( 'Dashboard', $this->plugin_slug ) . '</a>' );
-			echo '</p>';
-
-		} else {
-
-			$options = (array) get_option( $this->dashboard_widgets_option );
-
-			foreach ( $default_widgets as $context => $data ) {
-				foreach ( $data as $priority => $data ) {
-					foreach( $data as $widget => $data ) {
-						$widget_name = strip_tags( preg_replace( '/( |)<span.*span>/im', '', $data['title'] ) ); ?>
-						<input type="checkbox" id="<?php echo esc_attr( $widget ); ?>" name="<?php echo $this->dashboard_widgets_option; ?>[<?php echo $widget; ?>]" value="<?php echo $context; ?>"<?php echo checked( $widget, ( array_key_exists( $widget, $options ) ? $widget : false ), false ); ?>/>
-						&nbsp;
-						<label for="<?php echo esc_attr( $widget ); ?>"><?php echo esc_html( $widget_name ); ?> (<code>ID <?php echo esc_html( $widget ); ?></code>)</label>
-						<br><?php
-					}
-				}
-			}
-
-		}
-
-	}
+	} // add_plugin_admin_menu
 
 	/**
 	 * Render the settings page for this plugin.
@@ -236,7 +166,8 @@ class WP_Widget_Disable_Admin {
 	public function display_plugin_admin_page() {
 
 		include_once( 'views/admin.php' );
-	}
+
+	} // display_plugin_admin_page
 
 	/**
 	 * Add settings action link to the plugins page.
@@ -252,14 +183,55 @@ class WP_Widget_Disable_Admin {
 			$links
 		);
 
-	}
+	} // add_action_links
 
+	/**
+	 * Add admin footer text to plugins page.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @param 	string 	$text 	Default admin footer text.
+	 */
+	public function add_admin_footer( $text ) {
+
+		$screen = get_current_screen();
+
+		if ( 'appearance_page_' . $this->plugin_slug === $screen->base ) {
+
+			$text = 'WP Widget Disable ' . sprintf( __( 'is brought to you by %s, we &hearts; WordPress.', $this->plugin_slug ), '<a href="http://required.ch">required+</a>' );
+
+		}
+
+		return $text;
+
+	} // add_admin_footer
+
+	/**
+	 * Set default sidebar widgets.
+	 *
+	 * Set an array with all the available sidebar widgets
+	 * if we can get them.
+	 *
+	 * @since 	1.0.0
+	 */
 	public function set_default_sidebar_widgets() {
 
-		$this->sidebars_widgets = $GLOBALS['wp_widget_factory']->widgets;
+		if ( ! empty( $GLOBALS['wp_widget_factory'] ) ) {
 
-	}
+			$this->sidebars_widgets = apply_filters( 'rplus_wp_widget_disable_default_sidebar_filter', $GLOBALS['wp_widget_factory']->widgets );
 
+		}
+
+	} // set_default_sidebar_widgets
+
+	/**
+	 * Disable Sidebar Widgets.
+	 *
+	 * Gets the list of disabled sidebar widgets and disables
+	 * them for you in WordPress.
+	 *
+	 * @since 	1.0.0
+	 */
 	public function disable_sidebar_widgets() {
 
 		$widgets = (array) get_option( $this->sidebar_widgets_option );
@@ -272,20 +244,36 @@ class WP_Widget_Disable_Admin {
 
 		}
 
-	}
+	} // disable_sidebar_widgets
 
+	/**
+	 * Set default dashboard widgets.
+	 *
+	 * Set an option with all the available dashboard
+	 * widgets.
+	 *
+	 * @since 	1.0.0
+	 */
 	public function set_default_dashboard_widgets() {
 
 		global $wp_meta_boxes;
 
 		if ( is_array( $wp_meta_boxes['dashboard'] ) ) {
 
-			update_option( $this->dashboard_widgets_default_option, $wp_meta_boxes['dashboard'] );
+			update_option( apply_filters( 'rplus_wp_widget_disable_default_dashboard_filter', $this->dashboard_widgets_default_option, $wp_meta_boxes['dashboard'] ) );
 
 		}
 
-	}
+	} // set_default_dashboard_widgets
 
+	/**
+	 * Disable dashboard widgets.
+	 *
+	 * Gets the list of disabled dashboard widgets and
+	 * disables them for you in WordPress.
+	 *
+	 * @since 	1.0.0
+	 */
 	public function disable_dashboard_widgets() {
 
 		global $wp_meta_boxes;
@@ -303,6 +291,263 @@ class WP_Widget_Disable_Admin {
 
 		}
 
-	}
+	} // disable_dashboard_widgets
+
+	/**
+	 * Sanitize sidebar widgets user input.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @param  	array 	$input
+	 *
+	 * @uses 	add_settings_error( $setting, $code, $message, $type );
+	 *        	Display custom saving messages
+	 *
+	 * @return 	array   $output
+	 */
+	public function sanitize_sidebar_widgets( $input ) {
+
+		// Create our array for storing the validated options
+        $output = array();
+
+        if ( empty( $input ) ) {
+
+        	$message = __( 'All Sidebar Widgets are enabled again.', $this->plugin_slug );
+
+        } else {
+
+        	// Loop through each of the incoming options
+        	foreach( $input as $key => $value ) {
+
+        	        // Check to see if the current option has a value. If so, process it.
+        	        if( isset( $input[$key] ) ) {
+
+        	                // Strip all HTML and PHP tags and properly handle quoted strings
+        	                $output[$key] = strip_tags( stripslashes( $input[ $key ] ) );
+
+        	        } // end if
+
+        	} // end foreach
+
+        	$message = sprintf( _n( 'Settings saved. Disabled %s Sidebar Widget for you.', 'Settings saved. Disabled %s Sidebar Widgets for you.', count( $output ), $this->plugin_slug ), count( $output ) );
+
+        }
+
+        add_settings_error(
+       		$this->plugin_slug,
+       		esc_attr( 'settings_updated' ),
+       		$message,
+       		'updated'
+       	);
+
+		return apply_filters( 'rplus_wp_widget_disable_validate_sidebar_widgets', $output, $input );
+
+	} // sanitize_sidebar_widgets
+
+	/**
+	 * Sanitize dashboard widgets user input.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @param  	array 	$input
+	 *
+	 * @uses 	add_settings_error( $setting, $code, $message, $type );
+	 *        	Display custom saving messages
+	 *
+	 * @return 	array   $output
+	 */
+	public function sanitize_dashboard_widgets( $input ) {
+
+		// Create our array for storing the validated options
+        $output = array();
+
+        if ( empty( $input ) ) {
+
+        	$message = __( 'All Dashboard Widgets are enabled again.', $this->plugin_slug );
+
+        } else {
+
+        	// Loop through each of the incoming options
+        	foreach( $input as $key => $value ) {
+
+        	        // Check to see if the current option has a value. If so, process it.
+        	        if( isset( $input[$key] ) ) {
+
+        	                // Strip all HTML and PHP tags and properly handle quoted strings
+        	                $output[$key] = strip_tags( stripslashes( $input[ $key ] ) );
+
+        	        } // end if
+
+        	} // end foreach
+
+        	$message = sprintf( _n( 'Settings saved. Disabled %s Dashboard Widget for you.', 'Settings saved. Disabled %s Dashboard Widgets for you.', count( $output ), $this->plugin_slug ), count( $output ) );
+
+        }
+
+        add_settings_error(
+       		$this->plugin_slug,
+       		esc_attr( 'settings_updated' ),
+       		$message,
+       		'updated'
+       	);
+
+		return apply_filters( 'rplus_wp_widget_disable_validate_dashboard_widgets', $output, $input );
+
+	} // sanitize_dashboard_widgets
+
+	/**
+	 * Register sidebar widgets settings.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @uses 	Settings API
+	 */
+	public function register_sidebar_settings() {
+
+		register_setting(
+        	$this->sidebar_widgets_option,
+			$this->sidebar_widgets_option,
+			array( $this, 'sanitize_sidebar_widgets' )
+        );
+
+        add_settings_section(
+            'widget_disable_widget_section', // ID
+            __( 'Disable Sidebar Widgets', $this->plugin_slug ), // Title
+            array( $this, 'render_sidebar_description' ), // Callback
+            $this->sidebar_widgets_option // Page
+        );
+
+        add_settings_field(
+        	'sidebar_widgets',
+        	__( 'Sidebar Widgets', $this->plugin_slug ),
+        	array( $this, 'render_sidebar_checkboxes' ),
+        	$this->sidebar_widgets_option,
+        	'widget_disable_widget_section'
+        );
+
+	} // register_sidebar_settings
+
+	/**
+	 * Render setting description.
+	 *
+	 * @since 	1.0.0
+	 */
+	public function render_sidebar_description() {
+
+		echo '<p>' . __( 'Check the boxes with the <strong>Sidebar Widgets</strong> you would like to disable for this site. Please note that a widget could still be called using code.', $this->plugin_slug ) . '</p>';
+
+	} // render_sidebar_description
+
+	/**
+	 * Render setting fields
+	 *
+	 * @since 	1.0.0
+	 */
+	public function render_sidebar_checkboxes() {
+
+        $widgets = $this->sidebars_widgets;
+
+        if ( ! $widgets ) {
+
+        	_e( 'Oops, it looks like something is already maniging the Sidebar Widgets for you, because we can\'t get them for you.', $this->plugin_slug );
+
+        }
+
+        $options = (array) get_option( $this->sidebar_widgets_option );
+
+        foreach ( $widgets as $widget_class => $widget_object ) { ?>
+
+        	<input type="checkbox" id="<?php echo esc_attr( $widget_class ); ?>" name="<?php echo $this->sidebar_widgets_option; ?>[<?php echo $widget_class; ?>]" value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[$widget_class] : false ), false ); ?>/>
+			&nbsp;
+			<label for="<?php echo esc_attr( $widget_class ); ?>"><?php echo esc_html( $widget_object->name ); ?> (<code>class <?php echo esc_html( $widget_class ); ?></code>)</label>
+			<br><?php
+
+		} // ( $widgets as $widget_class => $widget_object )
+
+	} // render_sidebar_checkboxes
+
+	/**
+	 * Register dashboard widgets settings.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @uses 	Settings API
+	 */
+	public function register_dashboard_settings() {
+
+        register_setting(
+        	$this->dashboard_widgets_option,
+			$this->dashboard_widgets_option,
+			array( $this, 'sanitize_dashboard_widgets' )
+        );
+
+        add_settings_section(
+            'widget_disable_dashboard_section', // ID
+            __( 'Disable Dashboard Widgets', $this->plugin_slug ), // Title
+            array( $this, 'render_dashboard_description' ), // Callback
+            $this->dashboard_widgets_option // Page
+        );
+
+        add_settings_field(
+        	'dashboard_widgets',
+        	__( 'Dashboard Widgets', $this->plugin_slug ),
+        	array( $this, 'render_dashboard_checkboxes' ),
+        	$this->dashboard_widgets_option,
+        	'widget_disable_dashboard_section'
+        );
+
+	} // register_dashboard_settings
+
+	/**
+	 * Render setting description.
+	 *
+	 * @since 	1.0.0
+	 */
+	public function render_dashboard_description() {
+
+		echo '<p>' . __( 'Check the boxes with the <strong>Dashboard Widgets</strong> you would like to disable for this site.', $this->plugin_slug ) . '</p>';
+
+	} // render_dashboard_description
+
+	/**
+	 * Render setting fields
+	 *
+	 * @since 	1.0.0
+	 */
+	public function render_dashboard_checkboxes() {
+
+		$default_widgets = get_option( $this->dashboard_widgets_default_option );
+
+		if ( ! $default_widgets ) {
+
+			echo '<p>';
+			printf( __( 'We know it\'s inconvenient, but please travel to the %s first to make the list of dashboard widgets available to this plugin.', $this->plugin_slug ), '<a href="' . get_admin_url() . '">' . __( 'Dashboard', $this->plugin_slug ) . '</a>' );
+			echo '</p>';
+
+		} else {
+
+			$options = (array) get_option( $this->dashboard_widgets_option );
+
+			foreach ( $default_widgets as $context => $data ) {
+
+				foreach ( $data as $priority => $data ) {
+
+					foreach ( $data as $widget => $data ) {
+
+						$widget_name = strip_tags( preg_replace( '/( |)<span.*span>/im', '', $data['title'] ) ); ?>
+						<input type="checkbox" id="<?php echo esc_attr( $widget ); ?>" name="<?php echo $this->dashboard_widgets_option; ?>[<?php echo $widget; ?>]" value="<?php echo $context; ?>"<?php echo checked( $widget, ( array_key_exists( $widget, $options ) ? $widget : false ), false ); ?>/>
+						&nbsp;
+						<label for="<?php echo esc_attr( $widget ); ?>"><?php echo esc_html( $widget_name ); ?> (<code>ID <?php echo esc_html( $widget ); ?></code>)</label>
+						<br><?php
+
+					} // ( $data as $widget => $data )
+
+				} // ( $data as $priority => $data )
+
+			} // ( $default_widgets as $context => $data )
+
+		}
+
+	} // render_dashboard_checkboxes
 
 }

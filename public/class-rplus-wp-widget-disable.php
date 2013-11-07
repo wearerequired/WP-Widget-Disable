@@ -33,11 +33,6 @@ class WP_Widget_Disable {
 	const VERSION = '1.0.0';
 
 	/**
-	 * TODO - Rename "plugin-name" to the name your your plugin
-	 *
-	 * Unique identifier for your plugin.
-	 *
-	 *
 	 * The variable name is used as the text domain when internationalizing strings
 	 * of text. Its value should match the Text Domain file header in the main
 	 * plugin file.
@@ -78,10 +73,12 @@ class WP_Widget_Disable {
 	 *
 	 * @since    1.0.0
 	 *
-	 *@return    Plugin slug variable.
+	 * @return   Plugin slug variable.
 	 */
 	public function get_plugin_slug() {
+
 		return $this->plugin_slug;
+
 	}
 
 	/**
@@ -224,7 +221,7 @@ class WP_Widget_Disable {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		// TODO: Define activation functionality here
+		// We don't need that!
 	}
 
 	/**
@@ -233,7 +230,7 @@ class WP_Widget_Disable {
 	 * @since    1.0.0
 	 */
 	private static function single_deactivate() {
-		// TODO: Define deactivation functionality here
+		// We don't need that!
 	}
 
 	/**
