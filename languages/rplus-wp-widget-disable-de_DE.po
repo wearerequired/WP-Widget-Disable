@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Widget Disable v1.0.0\n"
+"Project-Id-Version: WP Widget Disable v1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-07 13:20:50+0000\n"
+"PO-Revision-Date: 2013-11-07 16:06:23+0000\n"
 "Last-Translator: acf_admin <silvan@required.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -127,12 +127,6 @@ msgstr "WP Widget Disable"
 msgid "http://wp.required.ch/plugins/wp-widget-disable/"
 msgstr "http://wp.required.ch/plugins/wp-widget-disable/"
 
-#. translators: plugin header field 'Description'
-#: rplus-wp-widget-disable.php:0
-#@ rplus-wp-widget-disable
-msgid "Disable WordPress and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under <strong>Settings -> Disable Widgets</strong> and select the Widgets you'd like to hide."
-msgstr "Deaktiviere WordPress und Dashboard Widgets über eine einfache Benutzeroberfläche. Verwende die Checkboxen unter <strong>Darstellung -> Widgets deaktivieren</strong> um Widgets zu entfernen."
-
 #. translators: plugin header field 'Author'
 #: rplus-wp-widget-disable.php:0
 #@ rplus-wp-widget-disable
@@ -145,9 +139,15 @@ msgstr "required+ (Silvan Hagen)"
 msgid "http://required.ch"
 msgstr "http://required.ch"
 
+#. translators: plugin header field 'Description'
+#: rplus-wp-widget-disable.php:0
+#@ rplus-wp-widget-disable
+msgid "Disable WordPress and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under <strong>Appearance -> Disable Widgets</strong> and select the Widgets you'd like to hide."
+msgstr "Deaktiviere WordPress und Dashboard Widgets über eine einfache Oberfläche im WordPress Admin. Verwende die Checkboxen unter <strong>Design -> Widgets deaktivieren</strong> um Widgets zu deaktivieren."
+
 #. translators: plugin header field 'Version'
 #: rplus-wp-widget-disable.php:0
 #@ rplus-wp-widget-disable
-msgid "1.0.0"
-msgstr "1.0.0"
+msgid "1.0.1"
+msgstr "1.0.1"
 
