@@ -27,8 +27,8 @@
     ?>
 
     <h2 class="nav-tab-wrapper">
-        <a href="?page=<?php echo esc_attr( $this->plugin_slug ); ?>&amp;tab=<?php echo esc_attr( $this->sidebar_widgets_option ); ?>" class="nav-tab <?php echo $active_tab == $this->sidebar_widgets_option ? 'nav-tab-active' : ''; ?>"><?php _e( 'Sidebar Widgets', $this->plugin_slug ); ?></a>
-        <a href="?page=<?php echo esc_attr( $this->plugin_slug ); ?>&amp;tab=<?php echo esc_attr( $this->dashboard_widgets_option ); ?>" class="nav-tab <?php echo $active_tab == $this->dashboard_widgets_option ? 'nav-tab-active' : ''; ?>"><?php _e( 'Dashboard Widgets', $this->plugin_slug ); ?></a>
+        <a href="?page=<?php echo esc_attr( $this->plugin_slug ); ?>&amp;tab=<?php echo esc_attr( $this->sidebar_widgets_option ); ?>" class="nav-tab <?php echo $active_tab == $this->sidebar_widgets_option ? 'nav-tab-active' : ''; ?>"><?php _e( 'Sidebar Widgets', 'rplus-wp-widget-disable' ); ?></a>
+        <a href="?page=<?php echo esc_attr( $this->plugin_slug ); ?>&amp;tab=<?php echo esc_attr( $this->dashboard_widgets_option ); ?>" class="nav-tab <?php echo $active_tab == $this->dashboard_widgets_option ? 'nav-tab-active' : ''; ?>"><?php _e( 'Dashboard Widgets', 'rplus-wp-widget-disable' ); ?></a>
     </h2>
 
 	<form method="post" action="options.php">

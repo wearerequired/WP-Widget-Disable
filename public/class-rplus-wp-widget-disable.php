@@ -30,7 +30,7 @@ class WP_Widget_Disable {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 
 	/**
 	 * The variable name is used as the text domain when internationalizing strings

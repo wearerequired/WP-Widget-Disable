@@ -149,8 +149,8 @@ class WP_Widget_Disable_Admin {
 		 * Add a settings page for this plugin to the Theme menu.
 		 */
 		$this->plugin_screen_hook_suffix = add_theme_page(
-			__( 'Disable Sidebar and Dashboard Widgets', $this->plugin_slug ),
-			__( 'Disable Widgets', $this->plugin_slug ),
+			__( 'Disable Sidebar and Dashboard Widgets', 'rplus-wp-widget-disable' ),
+			__( 'Disable Widgets', 'rplus-wp-widget-disable' ),
 			apply_filters( 'rplus_wp_widget_disable_capability', 'edit_theme_options' ),
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
@@ -178,7 +178,7 @@ class WP_Widget_Disable_Admin {
 
 		return array_merge(
 			array(
-				'settings' => '<a href="' . admin_url( 'themes.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
+				'settings' => '<a href="' . admin_url( 'themes.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', 'rplus-wp-widget-disable' ) . '</a>'
 			),
 			$links
 		);
@@ -198,7 +198,7 @@ class WP_Widget_Disable_Admin {
 
 		if ( 'appearance_page_' . $this->plugin_slug === $screen->base ) {
 
-			$text = 'WP Widget Disable ' . sprintf( __( 'is brought to you by %s, we &hearts; WordPress.', $this->plugin_slug ), '<a href="http://required.ch">required+</a>' );
+			$text = 'WP Widget Disable ' . sprintf( __( 'is brought to you by %s, we &hearts; WordPress.', 'rplus-wp-widget-disable' ), '<a href="http://required.ch">required+</a>' );
 
 		}
 
@@ -312,7 +312,7 @@ class WP_Widget_Disable_Admin {
 
         if ( empty( $input ) ) {
 
-        	$message = __( 'All Sidebar Widgets are enabled again.', $this->plugin_slug );
+        	$message = __( 'All Sidebar Widgets are enabled again.', 'rplus-wp-widget-disable' );
 
         } else {
 
@@ -329,7 +329,7 @@ class WP_Widget_Disable_Admin {
 
         	} // end foreach
 
-        	$message = sprintf( _n( 'Settings saved. Disabled %s Sidebar Widget for you.', 'Settings saved. Disabled %s Sidebar Widgets for you.', count( $output ), $this->plugin_slug ), count( $output ) );
+        	$message = sprintf( _n( 'Settings saved. Disabled %s Sidebar Widget for you.', 'Settings saved. Disabled %s Sidebar Widgets for you.', count( $output ), 'rplus-wp-widget-disable' ), count( $output ) );
 
         }
 
@@ -363,7 +363,7 @@ class WP_Widget_Disable_Admin {
 
         if ( empty( $input ) ) {
 
-        	$message = __( 'All Dashboard Widgets are enabled again.', $this->plugin_slug );
+        	$message = __( 'All Dashboard Widgets are enabled again.', 'rplus-wp-widget-disable' );
 
         } else {
 
@@ -380,7 +380,7 @@ class WP_Widget_Disable_Admin {
 
         	} // end foreach
 
-        	$message = sprintf( _n( 'Settings saved. Disabled %s Dashboard Widget for you.', 'Settings saved. Disabled %s Dashboard Widgets for you.', count( $output ), $this->plugin_slug ), count( $output ) );
+        	$message = sprintf( _n( 'Settings saved. Disabled %s Dashboard Widget for you.', 'Settings saved. Disabled %s Dashboard Widgets for you.', count( $output ), 'rplus-wp-widget-disable' ), count( $output ) );
 
         }
 
@@ -412,14 +412,14 @@ class WP_Widget_Disable_Admin {
 
         add_settings_section(
             'widget_disable_widget_section', // ID
-            __( 'Disable Sidebar Widgets', $this->plugin_slug ), // Title
+            __( 'Disable Sidebar Widgets', 'rplus-wp-widget-disable' ), // Title
             array( $this, 'render_sidebar_description' ), // Callback
             $this->sidebar_widgets_option // Page
         );
 
         add_settings_field(
         	'sidebar_widgets',
-        	__( 'Sidebar Widgets', $this->plugin_slug ),
+        	__( 'Sidebar Widgets', 'rplus-wp-widget-disable' ),
         	array( $this, 'render_sidebar_checkboxes' ),
         	$this->sidebar_widgets_option,
         	'widget_disable_widget_section'
@@ -434,7 +434,7 @@ class WP_Widget_Disable_Admin {
 	 */
 	public function render_sidebar_description() {
 
-		echo '<p>' . __( 'Check the boxes with the <strong>Sidebar Widgets</strong> you would like to disable for this site. Please note that a widget could still be called using code.', $this->plugin_slug ) . '</p>';
+		echo '<p>' . __( 'Check the boxes with the <strong>Sidebar Widgets</strong> you would like to disable for this site. Please note that a widget could still be called using code.', 'rplus-wp-widget-disable' ) . '</p>';
 
 	} // render_sidebar_description
 
@@ -449,7 +449,7 @@ class WP_Widget_Disable_Admin {
 
         if ( ! $widgets ) {
 
-        	_e( 'Oops, it looks like something is already maniging the Sidebar Widgets for you, because we can\'t get them for you.', $this->plugin_slug );
+        	_e( 'Oops, it looks like something is already maniging the Sidebar Widgets for you, because we can\'t get them for you.', 'rplus-wp-widget-disable' );
 
         }
 
@@ -483,14 +483,14 @@ class WP_Widget_Disable_Admin {
 
         add_settings_section(
             'widget_disable_dashboard_section', // ID
-            __( 'Disable Dashboard Widgets', $this->plugin_slug ), // Title
+            __( 'Disable Dashboard Widgets', 'rplus-wp-widget-disable' ), // Title
             array( $this, 'render_dashboard_description' ), // Callback
             $this->dashboard_widgets_option // Page
         );
 
         add_settings_field(
         	'dashboard_widgets',
-        	__( 'Dashboard Widgets', $this->plugin_slug ),
+        	__( 'Dashboard Widgets', 'rplus-wp-widget-disable' ),
         	array( $this, 'render_dashboard_checkboxes' ),
         	$this->dashboard_widgets_option,
         	'widget_disable_dashboard_section'
@@ -505,7 +505,7 @@ class WP_Widget_Disable_Admin {
 	 */
 	public function render_dashboard_description() {
 
-		echo '<p>' . __( 'Check the boxes with the <strong>Dashboard Widgets</strong> you would like to disable for this site.', $this->plugin_slug ) . '</p>';
+		echo '<p>' . __( 'Check the boxes with the <strong>Dashboard Widgets</strong> you would like to disable for this site.', 'rplus-wp-widget-disable' ) . '</p>';
 
 	} // render_dashboard_description
 
@@ -521,7 +521,7 @@ class WP_Widget_Disable_Admin {
 		if ( ! $default_widgets ) {
 
 			echo '<p>';
-			printf( __( 'We know it\'s inconvenient, but please travel to the %s first to make the list of dashboard widgets available to this plugin.', $this->plugin_slug ), '<a href="' . get_admin_url() . '">' . __( 'Dashboard', $this->plugin_slug ) . '</a>' );
+			printf( __( 'We know it\'s inconvenient, but please travel to the %s first to make the list of dashboard widgets available to this plugin.', 'rplus-wp-widget-disable' ), '<a href="' . get_admin_url() . '">' . __( 'Dashboard', 'rplus-wp-widget-disable' ) . '</a>' );
 			echo '</p>';
 
 		} else {
