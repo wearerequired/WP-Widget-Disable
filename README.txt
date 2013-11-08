@@ -7,7 +7,7 @@ Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Disable WordPress and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under Appearance -> Disable Widgets and select the Widgets you'd like to hide.
+Disable WordPress and Dashboard Widgets with an easy to use interface.
 
 == Description ==
 
@@ -30,7 +30,7 @@ Let's have a look at the filters we provide:
 
 = Contribute? =
 
-If you would like to contribute to this plugin, report an isse or anything like that, please note that we develop this plugin on [Github](https://github.com/wearerequired/wp-widget-disable-plugin).
+If you would like to contribute to this plugin, report an isse or anything like that, please note that we develop this plugin on [Github](https://github.com/wearerequired/WP-Widget-Disable).
 
 Developed by [required+](http://required.ch/ "Team of experienced web professionals from Switzerland & Germany")
 
