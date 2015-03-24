@@ -360,6 +360,13 @@ class WP_Widget_Disable_Admin {
 
 		$options = (array) get_option( $this->sidebar_widgets_option );
 
+		?>
+		<p>
+			<input type="checkbox" id="wp_widget_disable_select_all" />
+			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
+		</p>
+		<?php
+
 		foreach ( $widgets as $widget_class => $widget_object ) { ?>
 			<p>
 			<input type="checkbox" id="<?php echo esc_attr( $widget_class ); ?>" name="<?php echo $this->sidebar_widgets_option; ?>[<?php echo $widget_class; ?>]" value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[ $widget_class ] : false ), false ); ?>/>
@@ -427,6 +434,13 @@ class WP_Widget_Disable_Admin {
 		}
 
 		$options = (array) get_option( $this->dashboard_widgets_option );
+
+		?>
+		<p>
+			<input type="checkbox" id="wp_widget_disable_select_all" />
+			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
+		</p>
+		<?php
 
 		foreach ( $wp_meta_boxes['dashboard'] as $context => $data ) {
 			foreach ( $data as $priority => $data ) {

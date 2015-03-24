@@ -29,6 +29,17 @@
 		<a href="?page=<?php echo esc_attr( 'wp-widget-disable' ); ?>&amp;tab=<?php echo esc_attr( $this->dashboard_widgets_option ); ?>" class="nav-tab <?php echo $active_tab === $this->dashboard_widgets_option ? 'nav-tab-active' : ''; ?>"><?php _e( 'Dashboard Widgets', 'wp-widget-disable' ); ?></a>
 	</h2>
 
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			$('#wp_widget_disable_select_all').click(function () {
+				var isChecked = $(this).get(0).checked;
+				$(this).parents('td').find('input').each(function () {
+					$(this).get(0).checked = isChecked;
+				});
+			});
+		});
+	</script>
+
 	<form method="post" action="options.php">
 		<?php
 		settings_fields( $active_tab );
