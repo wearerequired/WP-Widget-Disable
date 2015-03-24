@@ -1,11 +1,11 @@
-# Copyright (C) 2013 required gmbh (Silvan Hagen)
-# This file is distributed under the same license as the rplus-wp-widget-disable package.
+# Copyright (C) 2015 required gmbh (Silvan Hagen)
+# This file is distributed under the same license as the wp-widget-disable package.
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Widget Disable 1.0.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/plugins/wp-widget-disable\n"
-"POT-Creation-Date: 2013-05-10 11:23:19+00:00\n"
-"PO-Revision-Date: 2013-05-10 10:37-0500\n"
+"POT-Creation-Date: 2015-05-10 11:23:19+00:00\n"
+"PO-Revision-Date: 2015-05-10 10:37-0500\n"
 "Last-Translator: Silvan Hagen <silvan@required.ch>\n"
 "Language-Team: LANGUAGE <translations@example.com >\n"
 "MIME-Version: 1.0\n"
