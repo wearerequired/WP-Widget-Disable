@@ -1,0 +1,21 @@
+{
+  "name": "wp-widget-disable",
+  "version": "1.0.1",
+  "description": "Disable Sidebar and Dashboard Widgets with an easy to use interface.",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wearerequired/wp-widget-disable.git"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-wp-i18n": "*",
+    "grunt-wp-readme-to-markdown": "*",
+    "load-grunt-config": "*",
+    "time-grunt": "*"
+  },
+  "dependencies": {
+    "time-grunt": "*"
+  }
+}

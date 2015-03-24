@@ -174,7 +174,7 @@ class WP_Widget_Disable_Admin {
 		$screen = get_current_screen();
 
 		if ( 'appearance_page_wp-widget-disable' === $screen->base || 'wp-widget-disable' === $screen->base ) {
-			$text = 'WP Widget Disable ' . sprintf( __( 'is brought to you by %s. We &hearts; WordPress.', 'wp-widget-disable' ), '<a href="http://required.ch">required+</a>' );
+			$text = sprintf( __( '%s is brought to you by %s. We &hearts; WordPress.', 'wp-widget-disable' ), 'WP Widget Disable', '<a href="http://required.ch">required+</a>' );
 		}
 
 		return $text;
