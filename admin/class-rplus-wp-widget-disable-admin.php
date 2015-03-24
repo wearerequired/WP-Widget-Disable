@@ -74,19 +74,6 @@ class WP_Widget_Disable_Admin {
 	private $dashboard_widgets_option = 'rplus_wp_widget_disable_dashboard_option';
 
 	/**
-	 * Available Dashboard Widgets.
-	 *
-	 * Stores all the available dashboard widgets
-	 * as an array. Because WordPress needs a round-
-	 * trip to the dashboard to get them all.
-	 *
-	 * @since 	1.0.0
-	 *
-	 * @var 	string
-	 */
-	private $dashboard_widgets_default_option = 'rplus_wp_widget_disable_dashboard_default_option';
-
-	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
 	 *
@@ -110,7 +97,6 @@ class WP_Widget_Disable_Admin {
 		add_action( 'widgets_init', array( $this, 'disable_sidebar_widgets' ), 100 );
 
 		// Get and disable the dashboard widgets.
-		add_action( 'wp_dashboard_setup', array( $this, 'set_default_dashboard_widgets' ), 100 );
 		add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
 
 		// Add an action link pointing to the options page.
@@ -245,26 +231,6 @@ class WP_Widget_Disable_Admin {
 		}
 
 	} // disable_sidebar_widgets
-
-	/**
-	 * Set default dashboard widgets.
-	 *
-	 * Set an option with all the available dashboard
-	 * widgets.
-	 *
-	 * @since 	1.0.0
-	 */
-	public function set_default_dashboard_widgets() {
-
-		global $wp_meta_boxes;
-
-		if ( is_array( $wp_meta_boxes['dashboard'] ) ) {
-
-			update_option( $this->dashboard_widgets_default_option, apply_filters( 'rplus_wp_widget_disable_default_dashboard_filter', $wp_meta_boxes['dashboard'] ) );
-
-		}
-
-	} // set_default_dashboard_widgets
 
 	/**
 	 * Disable dashboard widgets.
@@ -516,37 +482,38 @@ class WP_Widget_Disable_Admin {
 	 */
 	public function render_dashboard_checkboxes() {
 
-		$default_widgets = get_option( $this->dashboard_widgets_default_option );
+		global $wp_meta_boxes;
 
-		if ( ! $default_widgets ) {
-
-			echo '<p>';
-			printf( __( 'We know it\'s inconvenient, but please travel to the %s first to make the list of dashboard widgets available to this plugin.', 'rplus-wp-widget-disable' ), '<a href="' . get_admin_url() . '">' . __( 'Dashboard', 'rplus-wp-widget-disable' ) . '</a>' );
-			echo '</p>';
-
-		} else {
-
-			$options = (array) get_option( $this->dashboard_widgets_option );
-
-			foreach ( $default_widgets as $context => $data ) {
-
-				foreach ( $data as $priority => $data ) {
-
-					foreach ( $data as $widget => $data ) {
-
-						$widget_name = strip_tags( preg_replace( '/( |)<span.*span>/im', '', $data['title'] ) ); ?>
-						<input type="checkbox" id="<?php echo esc_attr( $widget ); ?>" name="<?php echo $this->dashboard_widgets_option; ?>[<?php echo $widget; ?>]" value="<?php echo $context; ?>"<?php echo checked( $widget, ( array_key_exists( $widget, $options ) ? $widget : false ), false ); ?>/>
-						&nbsp;
-						<label for="<?php echo esc_attr( $widget ); ?>"><?php echo esc_html( $widget_name ); ?> (<code>ID <?php echo esc_html( $widget ); ?></code>)</label>
-						<br><?php
-
-					} // ( $data as $widget => $data )
-
-				} // ( $data as $priority => $data )
-
-			} // ( $default_widgets as $context => $data )
-
+		if ( ! is_array( $wp_meta_boxes['dashboard'] ) ) {
+			require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
+			set_current_screen( 'dashboard' );
+			wp_dashboard_setup();
+			set_current_screen( $this->plugin_slug );
 		}
+
+		if ( isset( $wp_meta_boxes['dashboard'][0] ) ) {
+			unset( $wp_meta_boxes['dashboard'][0] );
+		}
+
+		$options = (array) get_option( $this->dashboard_widgets_option );
+
+		foreach ( $wp_meta_boxes['dashboard'] as $context => $data ) {
+
+			foreach ( $data as $priority => $data ) {
+
+				foreach ( $data as $widget => $data ) {
+
+					$widget_name = strip_tags( preg_replace( '/( |)<span class="hide-if-js">(.)*span>/im', '', $data['title'] ) ); ?>
+					<input type="checkbox" id="<?php echo esc_attr( $widget ); ?>" name="<?php echo $this->dashboard_widgets_option; ?>[<?php echo $widget; ?>]" value="<?php echo $context; ?>"<?php echo checked( $widget, ( array_key_exists( $widget, $options ) ? $widget : false ), false ); ?>/>
+					&nbsp;
+					<label for="<?php echo esc_attr( $widget ); ?>"><?php echo esc_html( $widget_name ); ?> (<code>ID <?php echo esc_html( $widget ); ?></code>)</label>
+					<br><?php
+
+				} // ( $data as $widget => $data )
+
+			} // ( $data as $priority => $data )
+
+		} // ( $default_widgets as $context => $data )
 
 	} // render_dashboard_checkboxes
 
