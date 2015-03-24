@@ -361,10 +361,10 @@ class WP_Widget_Disable_Admin {
 		$options = (array) get_option( $this->sidebar_widgets_option );
 
 		foreach ( $widgets as $widget_class => $widget_object ) { ?>
+			<p>
 			<input type="checkbox" id="<?php echo esc_attr( $widget_class ); ?>" name="<?php echo $this->sidebar_widgets_option; ?>[<?php echo $widget_class; ?>]" value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[ $widget_class ] : false ), false ); ?>/>
-			&nbsp;
 			<label for="<?php echo esc_attr( $widget_class ); ?>"><?php echo esc_html( $widget_object->name ); ?> (<code>class <?php echo esc_html( $widget_class ); ?></code>)</label>
-			<br><?php
+			</p><?php
 		}
 	}
 
@@ -432,10 +432,10 @@ class WP_Widget_Disable_Admin {
 			foreach ( $data as $priority => $data ) {
 				foreach ( $data as $widget => $data ) {
 					$widget_name = strip_tags( preg_replace( '/( |)<span class="hide-if-js">(.)*span>/im', '', $data['title'] ) ); ?>
+					<p>
 					<input type="checkbox" id="<?php echo esc_attr( $widget ); ?>" name="<?php echo $this->dashboard_widgets_option; ?>[<?php echo $widget; ?>]" value="<?php echo $context; ?>"<?php echo checked( $widget, ( array_key_exists( $widget, $options ) ? $widget : false ), false ); ?>/>
-					&nbsp;
 					<label for="<?php echo esc_attr( $widget ); ?>"><?php echo esc_html( $widget_name ); ?> (<code>ID <?php echo esc_html( $widget ); ?></code>)</label>
-					<br><?php
+					</p><?php
 				}
 			}
 		}
