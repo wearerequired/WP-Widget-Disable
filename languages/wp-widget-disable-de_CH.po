@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Widget Disable 1.0.1\n"
 "Report-Msgid-Bugs-To: http://required.ch\n"
-"POT-Creation-Date: 2015-03-24 21:22:15+00:00\n"
-"PO-Revision-Date: 2015-03-24 22:22+0100\n"
+"POT-Creation-Date: 2015-03-25 09:09:52+00:00\n"
+"PO-Revision-Date: 2015-03-25 10:10+0100\n"
 "Last-Translator: Pascal Birchler <pascal@required.ch>\n"
 "Language-Team: required+\n"
 "Language: de_CH\n"
@@ -84,15 +84,20 @@ msgstr ""
 "Hoppla, es sieht so aus als ob die Sidebar Widgets bereits für die verwaltet "
 "werden, wir können leider keine finden."
 
-#: admin/class-wp-widget-disable-admin.php:385
+#: admin/class-wp-widget-disable-admin.php:366
+#: admin/class-wp-widget-disable-admin.php:441
+msgid "Select all"
+msgstr "Alle auswählen"
+
+#: admin/class-wp-widget-disable-admin.php:392
 msgid "Disable Dashboard Widgets"
 msgstr "Dashboard Widgets deaktivieren"
 
-#: admin/class-wp-widget-disable-admin.php:392 admin/views/admin.php:29
+#: admin/class-wp-widget-disable-admin.php:399 admin/views/admin.php:29
 msgid "Dashboard Widgets"
 msgstr "Dashboard Widgets"
 
-#: admin/class-wp-widget-disable-admin.php:405
+#: admin/class-wp-widget-disable-admin.php:412
 msgid ""
 "Check the boxes with the <strong>Dashboard Widgets</strong> you would like "
 "to disable for this site."
