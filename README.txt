@@ -4,7 +4,7 @@ Donate link: http://required.ch/
 Tags: widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
 Requires at least: 3.5.1
 Tested up to: 4.2
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,9 @@ No Screenshots yet.
 
 == Changelog ==
 
+= 1.1.2 =
+* Fixed: Removed obsolote hooks that caused an error on plugin (de)activation.
+
 = 1.1.1 =
 * New: Repdigit version number.
 * Fixed: Added correct changelog.
@@ -85,6 +88,9 @@ No Screenshots yet.
 * German (de_DE) translations added.
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+Removed obsolte code that caused an error on plugin activation.
 
 = 1.1.1 =
 Small changes in this version, only some changelog & translation cleaning.
