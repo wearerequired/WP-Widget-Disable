@@ -1,9 +1,9 @@
 {
   "name": "wearerequired/wp-widget-disable",
   "description": "Disable Sidebar and Dashboard Widgets with an easy to use interface.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "wordpress-plugin",
-  "license": "GPL-3.0",
+  "license": "GPL-2.0+",
   "authors": [
     {
       "name": "Silvan Hagen",
