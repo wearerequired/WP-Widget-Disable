@@ -15,7 +15,7 @@
  * Plugin Name:       WP Widget Disable
  * Plugin URI:        https://github.com/wearerequired/WP-Widget-Disable
  * Description:       Disable WordPress and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under <strong>Appearance -> Disable Widgets</strong> and select the Widgets you'd like to hide.
- * Version:           1.1.1
+ * Version:           1.1.2
  * Author:            required+
  * Author URI:        http://required.ch
  * Text Domain:       wp-widget-disable
@@ -32,13 +32,6 @@ defined ( 'ABSPATH' ) or die;
  * Public-Facing Functionality
  *----------------------------------------------------------------------------*/
 require_once( plugin_dir_path( __FILE__ ) . '/public/class-wp-widget-disable.php' );
-
-/*
- * Register hooks that are fired when the plugin is activated or deactivated.
- * When the plugin is deleted, the uninstall.php file is loaded.
- */
-register_activation_hook( __FILE__, array( 'WP_Widget_Disable', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'WP_Widget_Disable', 'deactivate' ) );
 
 add_action( 'plugins_loaded', array( 'WP_Widget_Disable', 'get_instance' ) );
 
