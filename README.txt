@@ -4,7 +4,7 @@ Donate link: http://required.ch/
 Tags: widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
 Requires at least: 3.5.1
 Tested up to: 4.2
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,18 @@ No Screenshots yet.
 
 == Changelog ==
 
+= 1.1.1 =
+* New: Repdigit version number.
+* Fixed: Added correct changelog.
+* Fixed: Properly translate "Select all" option.
+
+= 1.1.0 =
+* New: Get Dashboard Widgets without roundtrip to the dashboard first.
+* New: "Select all" option to disable all widgets in one go.
+* New: Added German (Switzerland) translation.
+* Enhancement: Code cleanup! We're doing more with less code now.
+* Fixed: Lots of bugs and typos.
+
 = 1.0.1 =
 * Added proper textdomains to strings instead of $this->plugin_slug.
 * Added README.md for better readability.
@@ -73,6 +85,12 @@ No Screenshots yet.
 * German (de_DE) translations added.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Small changes in this version, only some changelog & translation cleaning.
+
+= 1.1.0 =
+More features with less code! Get Dashboard Widgets without roundtrip to the dashboard first and disable all widgets in one go.
 
 = 1.0.1 =
 I18n improvements
