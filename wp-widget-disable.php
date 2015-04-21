@@ -1,44 +1,50 @@
 <?php
 /**
- * WP Widget Disable
- *
- * A plugin that allows you to disable WordPress and Dashboard Widgets in an easy to use fashion.
- * Simply go to the admin page under Settings.
- *
- * @package   WP_Widget_Disable
- * @author    Silvan Hagen <silvan@required.ch>
- * @license   GPL-2.0+
- * @link      http://wp.required.ch/plugins/wp-widget-disable/
- * @copyright 2015 required gmbh
- *
- * @wordpress-plugin
- * Plugin Name:       WP Widget Disable
- * Plugin URI:        https://github.com/wearerequired/WP-Widget-Disable
- * Description:       Disable WordPress and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under <strong>Appearance -> Disable Widgets</strong> and select the Widgets you'd like to hide.
- * Version:           1.1.2
- * Author:            required+
- * Author URI:        http://required.ch
- * Text Domain:       wp-widget-disable
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Domain Path:       /languages
- * GitHub Plugin URI: https://github.com/wearerequired/wp-widget-disable-plugin
+ * Plugin Name: WP Widget Disable
+ * Plugin URI:  http://required.ch
+ * Description: Disable Sidebar and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under <strong>Appearance -> Disable Widgets</strong> and select the Widgets you'd like to hide.
+ * Version:     1.1.2
+ * Author:      required+
+ * Author URI:  http://required.ch
+ * License:     GPLv2+
+ * Text Domain: wp-widget-disable
+ * Domain Path: /languages
  */
 
-// If this file is called directly, abort.
-defined ( 'ABSPATH' ) or die;
+/**
+ * Copyright (c) 2015 required+ (email : support@required.ch)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2 or, at
+ * your discretion, any later version, as published by the Free
+ * Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
-/*----------------------------------------------------------------------------*
- * Public-Facing Functionality
- *----------------------------------------------------------------------------*/
-require_once( plugin_dir_path( __FILE__ ) . '/public/class-wp-widget-disable.php' );
+defined( 'WPINC' ) or die;
 
-add_action( 'plugins_loaded', array( 'WP_Widget_Disable', 'get_instance' ) );
+include( dirname( __FILE__ ) . '/lib/requirements-check.php' );
 
-/*----------------------------------------------------------------------------*
- * Dashboard and Administrative Functionality
- *----------------------------------------------------------------------------*/
-if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . '/admin/class-wp-widget-disable-admin.php' );
-	add_action( 'plugins_loaded', array( 'WP_Widget_Disable_Admin', 'get_instance' ) );
+$wp_widget_disable_requirements_check = new WP_Widget_Disable_Requirements_Check( array(
+	'title' => 'WP Widget Disable',
+	'php'   => '5.2',
+	'wp'    => '3.5.1',
+	'file'  => __FILE__,
+) );
+
+if ( $wp_widget_disable_requirements_check->passes() ) {
+	// Pull in the plugin classes and initialize
+	include( dirname( __FILE__ ) . '/lib/wp-stack-plugin.php' );
+	include( dirname( __FILE__ ) . '/classes/plugin.php' );
+	WP_Widget_Disable_Plugin::start( __FILE__ );
 }
+
+unset( $wp_widget_disable_requirements_check );

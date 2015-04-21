@@ -19,11 +19,9 @@ $options = array(
 
 // For Single site
 if ( ! is_multisite() ) {
-
 	foreach ( $options as $option ) {
 		delete_option( $option );
 	}
-
 } // For Multisite
 else {
 	global $wpdb;
