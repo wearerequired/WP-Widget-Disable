@@ -40,7 +40,10 @@ Developed by [required+](http://required.ch/ „Team of experienced web professi
 
 ## Screenshots ##
 
-1. The plugin’s user interface
+1. Disable the sidebar widgets you don’t need.
+2. Even disable unused dashboard widgets.
+3. The simplified widgets overview.
+4. The stripped-down dashboard.
 
 ## Changelog ##
 
