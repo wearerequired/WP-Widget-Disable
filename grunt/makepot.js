@@ -3,7 +3,7 @@ module.exports = {
 		options: {
 			cwd            : '',
 			domainPath     : '/languages',
-			exclude        : [],
+			exclude        : ['release/.*'],
 			include        : [],
 			mainFile       : 'wp-widget-disable.php',
 			potComments    : '',
