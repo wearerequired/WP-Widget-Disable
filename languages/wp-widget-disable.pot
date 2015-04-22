@@ -64,7 +64,7 @@ msgstr[1] ""
 msgid "Disable Sidebar Widgets"
 msgstr ""
 
-#: classes/plugin.php:290 views/admin.php:28
+#: classes/plugin.php:290 views/admin.php:32
 msgid "Sidebar Widgets"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgstr ""
 msgid "Disable Dashboard Widgets"
 msgstr ""
 
-#: classes/plugin.php:350 views/admin.php:29
+#: classes/plugin.php:350 views/admin.php:36
 msgid "Dashboard Widgets"
 msgstr ""
 

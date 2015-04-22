@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WP Widget Disable 1.1.2\n"
 "Report-Msgid-Bugs-To: http://required.ch\n"
 "POT-Creation-Date: 2015-04-17 11:48:39+00:00\n"
-"PO-Revision-Date: 2015-04-21 17:00+0100\n"
+"PO-Revision-Date: 2015-04-22 21:04+0100\n"
 "Last-Translator: Pascal Birchler <pascal@required.ch>\n"
 "Language-Team: required+ <support@required.ch>\n"
 "Language: de_CH\n"
@@ -62,7 +62,7 @@ msgstr[1] "Einstellungen gespeichert. %s Dashboard Widgets deaktiviert."
 msgid "Disable Sidebar Widgets"
 msgstr "Sidebar-Widgets deaktivieren"
 
-#: classes/plugin.php:290 views/admin.php:28
+#: classes/plugin.php:290 views/admin.php:32
 msgid "Sidebar Widgets"
 msgstr "Sidebar-Widgets"
 
@@ -92,7 +92,7 @@ msgstr "Alle auswählen"
 msgid "Disable Dashboard Widgets"
 msgstr "Dashboard-Widgets deaktivieren"
 
-#: classes/plugin.php:350 views/admin.php:29
+#: classes/plugin.php:350 views/admin.php:36
 msgid "Dashboard Widgets"
 msgstr "Dashboard-Widgets"
 
