@@ -1,5 +1,5 @@
 # WP Widget Disable #
-Contributors:      wearerequired  
+Contributors:      wearerequired, neverything, swissspidy  
 Donate link:       http://required.ch  
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets  
 Requires at least: 3.5.1  
@@ -11,7 +11,7 @@ License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Disable sidebar and dashboard widgets with an easy to use interface.
 
 ## Description ##
-This simple plugin allows you to disable any Sidebar and Dashboard Widget for the current WordPress site you are on. It provides a simple user interface available to users with `edit_theme_options` capabilities (usually Administrator role) available under Appearance -> Disable Widgets.
+This simple plugin allows you to disable any sidebar and dashboard widget for the current WordPress site you are on. It provides a simple user interface available to users with `edit_theme_options` capabilities (usually Administrator role) available under Appearance -> Disable Widgets.
 After saving the settings, it removes the Sidebar and Dashboard Widgets selected.
 
 **Developer? Get to know the hooks**
@@ -38,20 +38,14 @@ Developed by [required+](http://required.ch/ „Team of experienced web professi
 2. Activate WP Widget Disable through the Plugins menu in WordPress.
 3. Go to Appearance -> Disable Widgets to manage sidebar and dashboard widgets.
 
-## Frequently Asked Questions ##
-
-### Question ###
-
-Answer
-
 ## Screenshots ##
 
-1. Description of first screenshot
+1. The plugin’s user interface
 
 ## Changelog ##
 
 ### 1.1.2 ###
-* Fixed: Removed obsolote hooks that caused an error on plugin (de)activation.
+* Fixed: Removed obsolete hooks that caused an error on plugin (de)activation.
 
 ### 1.1.1 ###
 * New: Repdigit version number.
