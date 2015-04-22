@@ -38,6 +38,10 @@ Developed by [required+](http://required.ch/ „Team of experienced web professi
 2. Activate WP Widget Disable through the Plugins menu in WordPress.
 3. Go to Appearance -> Disable Widgets to manage sidebar and dashboard widgets.
 
+## Frequently Asked Questions ##
+
+None so far. But you can ask as any time on [twitter](https://twitter.com/wearerequired)!
+
 ## Screenshots ##
 
 1. Disable the sidebar widgets you don’t need.
@@ -46,6 +50,11 @@ Developed by [required+](http://required.ch/ „Team of experienced web professi
 4. The stripped-down dashboard.
 
 ## Changelog ##
+
+### 1.2.0 ###
+* Fixed: Make the settings tabs a bit more robust and secure.
+* Complete rewrite of the plugin using our `grunt-wp-plugin` boilerplate.
+* Preparation for deployment on WordPress.org
 
 ### 1.1.2 ###
 * Fixed: Removed obsolete hooks that caused an error on plugin (de)activation.
@@ -73,8 +82,11 @@ Developed by [required+](http://required.ch/ „Team of experienced web professi
 
 ## Upgrade Notice ##
 
+### 1.2.0 ###
+Complete revamp of the plugin to make it more shiny and secure!
+
 ### 1.1.2 ###
-Removed obsolte code that caused an error on plugin activation.
+Removed obsolete code that caused an error on plugin activation.
 
 ### 1.1.1 ###
 Small changes in this version, only some changelog & translation cleaning.
