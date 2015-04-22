@@ -3,7 +3,7 @@
  * Plugin Name: WP Widget Disable
  * Plugin URI:  http://required.ch
  * Description: Disable Sidebar and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under <strong>Appearance -> Disable Widgets</strong> and select the Widgets you'd like to hide.
- * Version:     1.1.2
+ * Version:     1.2.0
  * Author:      required+
  * Author URI:  http://required.ch
  * License:     GPLv2+
