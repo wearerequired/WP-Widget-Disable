@@ -16,8 +16,6 @@ After saving the settings, it removes the Sidebar and Dashboard Widgets selected
 
 **Developer? Get to know the hooks**
 
-First of all, this plugin is strucuted on the shoulders of the fantastic [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/) by [Tom McFarlin](http://profiles.wordpress.org/tommcfarlin/), you might could use this too for your next plugin.
-
 Let’s have a look at the filters we provide:
 
 * `rplus_wp_widget_disable_capability` change the min. capability to change the settings, defaults to `edit_theme_options`.
@@ -28,7 +26,7 @@ Let’s have a look at the filters we provide:
 
 If you would like to contribute to this plugin, report an isse or anything like that, please note that we develop this plugin on [GitHub](https://github.com/wearerequired/WP-Widget-Disable).
 
-Developed by [required+](http://required.ch/ „Team of experienced web professionals from Switzerland & Germany“)
+Developed by [required+](http://required.ch/ "Team of experienced web professionals from Switzerland & Germany")
 
 ## Installation ##
 
@@ -37,6 +35,10 @@ Developed by [required+](http://required.ch/ „Team of experienced web professi
 1. Upload the entire `/wp-widget-disable` directory to the `/wp-content/plugins/` directory.
 2. Activate WP Widget Disable through the Plugins menu in WordPress.
 3. Go to Appearance -> Disable Widgets to manage sidebar and dashboard widgets.
+
+## Frequently Asked Questions ##
+
+None so far. But you can ask as any time on [twitter](https://twitter.com/wearerequired)!
 
 ## Screenshots ##
 
@@ -47,17 +49,22 @@ Developed by [required+](http://required.ch/ „Team of experienced web professi
 
 ## Changelog ##
 
+### 1.2.0 ###
+* Fixed: Make the settings tabs a bit more robust and secure.
+* Complete rewrite of the plugin using our `grunt-wp-plugin` boilerplate.
+* Preparation for deployment on WordPress.org
+
 ### 1.1.2 ###
 * Fixed: Removed obsolete hooks that caused an error on plugin (de)activation.
 
 ### 1.1.1 ###
 * New: Repdigit version number.
 * Fixed: Added correct changelog.
-* Fixed: Properly translate „Select all“ option.
+* Fixed: Properly translate "Select all" option.
 
 ### 1.1.0 ###
 * New: Get Dashboard Widgets without roundtrip to the dashboard first.
-* New: „Select all“ option to disable all widgets in one go.
+* New: "Select all" option to disable all widgets in one go.
 * New: Added German (Switzerland) translation.
 * Enhancement: Code cleanup! We’re doing more with less code now.
 * Fixed: Lots of bugs and typos.
@@ -73,8 +80,11 @@ Developed by [required+](http://required.ch/ „Team of experienced web professi
 
 ## Upgrade Notice ##
 
+### 1.2.0 ###
+Complete revamp of the plugin to make it more shiny and secure!
+
 ### 1.1.2 ###
-Removed obsolte code that caused an error on plugin activation.
+Removed obsolete code that caused an error on plugin activation.
 
 ### 1.1.1 ###
 Small changes in this version, only some changelog & translation cleaning.
