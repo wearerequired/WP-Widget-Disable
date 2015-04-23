@@ -16,8 +16,6 @@ After saving the settings, it removes the Sidebar and Dashboard Widgets selected
 
 **Developer? Get to know the hooks**
 
-First of all, this plugin is strucuted on the shoulders of the fantastic [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/) by [Tom McFarlin](http://profiles.wordpress.org/tommcfarlin/), you might could use this too for your next plugin.
-
 Let’s have a look at the filters we provide:
 
 * `rplus_wp_widget_disable_capability` change the min. capability to change the settings, defaults to `edit_theme_options`.
