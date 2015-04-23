@@ -1,21 +1,31 @@
 {
   "name": "wp-widget-disable",
-  "version": "1.1.1",
-  "description": "Disable Sidebar and Dashboard Widgets with an easy to use interface.",
-  "private": true,
+  "title": "WP Widget Disable",
+  "description": "Disable sidebar and dashboard widgets with an easy to use interface.",
+  "version": "1.2.0",
+  "homepage": "http://required.ch",
+  "author": {
+    "name": "required+",
+    "email": "support@required.ch",
+    "url": "http://required.ch"
+  },
   "repository": {
     "type": "git",
-    "url": "git@github.com:wearerequired/wp-widget-disable.git"
+    "url": "https://github.com/wearerequired/WP-Widget-Disable"
   },
   "devDependencies": {
-    "grunt": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-wp-i18n": "*",
-    "grunt-wp-readme-to-markdown": "*",
-    "load-grunt-config": "*",
-    "time-grunt": "*"
+    "grunt": "~0.4.5",
+    "grunt-checktextdomain": "~1.0.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-compress": "~0.13.0",
+    "grunt-contrib-copy": "~0.7.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-phpunit": "~0.3.6",
+    "grunt-text-replace": "~0.4.0",
+    "grunt-wp-i18n": "~0.5.1",
+    "grunt-wp-deploy": "~1.0.3",
+    "load-grunt-config": "~0.16.0",
+    "time-grunt": "~1.1.0"
   },
-  "dependencies": {
-    "time-grunt": "*"
-  }
+  "keywords": []
 }

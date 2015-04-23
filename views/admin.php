@@ -18,15 +18,22 @@
 	<?php settings_errors(); ?>
 
 	<?php
-	$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : $this->sidebar_widgets_option;
-	if ( isset( $_GET['tab'] ) ) {
-		$active_tab = esc_html( $_GET['tab'] );
-	} // end if
+	$active_tab = $this->sidebar_widgets_option;
+
+	if ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) {
+		$active_tab = $this->dashboard_widgets_option;
+	}
 	?>
 
 	<h2 class="nav-tab-wrapper">
-		<a href="?page=<?php echo esc_attr( 'wp-widget-disable' ); ?>&amp;tab=<?php echo esc_attr( $this->sidebar_widgets_option ); ?>" class="nav-tab <?php echo $active_tab === $this->sidebar_widgets_option ? 'nav-tab-active' : ''; ?>"><?php _e( 'Sidebar Widgets', 'wp-widget-disable' ); ?></a>
-		<a href="?page=<?php echo esc_attr( 'wp-widget-disable' ); ?>&amp;tab=<?php echo esc_attr( $this->dashboard_widgets_option ); ?>" class="nav-tab <?php echo $active_tab === $this->dashboard_widgets_option ? 'nav-tab-active' : ''; ?>"><?php _e( 'Dashboard Widgets', 'wp-widget-disable' ); ?></a>
+		<a href="<?php echo esc_url( add_query_arg( array(
+			'page' => 'wp-widget-disable',
+			'tab'  => 'sidebar'
+		) ) ); ?>" class="nav-tab <?php echo $this->sidebar_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>"><?php _e( 'Sidebar Widgets', 'wp-widget-disable' ); ?></a>
+		<a href="<?php echo esc_url( add_query_arg( array(
+			'page' => 'wp-widget-disable',
+			'tab'  => 'dashboard'
+		) ) ); ?>" class="nav-tab <?php echo $this->dashboard_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>"><?php _e( 'Dashboard Widgets', 'wp-widget-disable' ); ?></a>
 	</h2>
 
 	<script type="text/javascript">

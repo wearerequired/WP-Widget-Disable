@@ -1,44 +1,17 @@
 <?php
-/**
- * WP Widget Disable.
- *
- * @package   WP_Widget_Disable_Admin
- * @author    Silvan Hagen <silvan@required.ch>
- * @license   GPL-2.0+
- * @link      http://wp.required.ch/plugins/wp-widget-disable
- * @copyright 2015 required gmbh
- */
+defined( 'WPINC' ) or die;
 
-/**
- * Plugin class. This class should ideally be used to work with the
- * administrative side of the WordPress site.
- *
- * If you're interested in introducing public-facing
- * functionality, then refer to `class-plugin-name.php`
- *
- * @package WP_Widget_Disable_Admin
- * @author  Silvan Hagen <silvan@required.ch>
- */
-class WP_Widget_Disable_Admin {
+class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 
 	/**
-	 * Instance of this class.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var WP_Widget_Disable_Admin
+	 * @var self
 	 */
-	protected static $instance = null;
+	protected static $instance;
 
 	/**
-	 * Slug of the plugin screen.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
+	 * Plugin version.
 	 */
-	protected $plugin_screen_hook_suffix = null;
-
+	const VERSION = '1.2.0';
 
 	/**
 	 * Sidebar Widgets option key.
@@ -50,7 +23,7 @@ class WP_Widget_Disable_Admin {
 	 *
 	 * @var string
 	 */
-	private $sidebar_widgets_option = 'rplus_wp_widget_disable_sidebar_option';
+	protected $sidebar_widgets_option = 'rplus_wp_widget_disable_sidebar_option';
 
 	/**
 	 * Available Sidebar Widgets.
@@ -71,58 +44,53 @@ class WP_Widget_Disable_Admin {
 	 *
 	 * @var string
 	 */
-	private $dashboard_widgets_option = 'rplus_wp_widget_disable_dashboard_option';
+	protected $dashboard_widgets_option = 'rplus_wp_widget_disable_dashboard_option';
 
 	/**
-	 * Initialize the plugin by loading admin scripts & styles and adding a
-	 * settings page and menu.
-	 *
-	 * @since 1.0.0
+	 * Constructs the object, hooks in to `plugins_loaded`.
 	 */
-	private function __construct() {
+	protected function __construct() {
+		$this->hook( 'plugins_loaded', 'add_hooks' );
+	}
+
+	/**
+	 * Adds hooks.
+	 */
+	public function add_hooks() {
+		$this->hook( 'init' );
+
 		// Add the options page and menu item.
-		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
-		add_action( 'admin_init', array( $this, 'register_sidebar_settings' ) );
-		add_action( 'admin_init', array( $this, 'register_dashboard_settings' ) );
+		$this->hook( 'admin_menu' );
+		$this->hook( 'admin_init', 'register_sidebar_settings' );
+		$this->hook( 'admin_init', 'register_dashboard_settings' );
 
 		// Get and disable the sidebar widgets.
-		add_action( 'widgets_init', array( $this, 'set_default_sidebar_widgets' ), 100 );
-		add_action( 'widgets_init', array( $this, 'disable_sidebar_widgets' ), 100 );
+		$this->hook( 'widgets_init', 'set_default_sidebar_widgets', 100 );
+		$this->hook( 'widgets_init', 'disable_sidebar_widgets', 100 );
 
 		// Get and disable the dashboard widgets.
-		add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
+		$this->hook( 'wp_dashboard_setup', 'disable_dashboard_widgets', 100 );
 
 		// Add an action link pointing to the options page.
-		$plugin_basename = plugin_basename( plugin_dir_path( dirname( __FILE__ ) ) . 'wp-widget-disable.php' );
-		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
-
-		add_filter( 'admin_footer_text', array( $this, 'add_admin_footer' ) );
+		$plugin_basename = plugin_basename( $this->get_path() . 'wp-widget-disable.php' );
+		$this->hook( 'plugin_action_links_' . $plugin_basename, 'plugin_action_links' );
+		$this->hook( 'admin_footer_text' );
 	}
 
 	/**
-	 * Return an instance of this class.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return WP_Widget_Disable_Admin A single instance of this class.
+	 * Initializes the plugin, registers textdomain, etc.
 	 */
-	public static function get_instance() {
-		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
+	public function init() {
+		$this->load_textdomain( 'wp-widget-disable', '/languages' );
 	}
 
 	/**
-	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
+	 * Register the administration menu for this plugin.
 	 *
 	 * @since 1.0.0
 	 */
-	public function add_plugin_admin_menu() {
-		// Add a settings page for this plugin to the Appearances menu.
-		$this->plugin_screen_hook_suffix = add_theme_page(
+	public function admin_menu() {
+		add_theme_page(
 			__( 'Disable Sidebar and Dashboard Widgets', 'wp-widget-disable' ),
 			__( 'Disable Widgets', 'wp-widget-disable' ),
 			apply_filters( 'rplus_wp_widget_disable_capability', 'edit_theme_options' ),
@@ -137,8 +105,7 @@ class WP_Widget_Disable_Admin {
 	 * @since 1.0.0
 	 */
 	public function display_plugin_admin_page() {
-		include_once( 'views/admin.php' );
-
+		$this->include_file( 'views/admin.php' );
 	}
 
 	/**
@@ -150,16 +117,17 @@ class WP_Widget_Disable_Admin {
 	 *
 	 * @return array
 	 */
-	public function add_action_links( $links ) {
-
+	public function plugin_action_links( array $links ) {
 		return array_merge(
 			array(
-				'settings' => '<a href="' . admin_url( 'themes.php?page=wp-widget-disable' ) . '">' . __( 'Settings', 'wp-widget-disable' ) . '</a>'
+				'settings' => sprintf(
+					'<a href="%s">%s</a>',
+					admin_url( 'themes.php?page=wp-widget-disable' ),
+					__( 'Settings', 'wp-widget-disable' ) )
 			),
 			$links
 		);
-
-	} // add_action_links
+	}
 
 	/**
 	 * Add admin footer text to plugins page.
@@ -170,7 +138,7 @@ class WP_Widget_Disable_Admin {
 	 *
 	 * @return string
 	 */
-	public function add_admin_footer( $text ) {
+	public function admin_footer_text( $text ) {
 		$screen = get_current_screen();
 
 		if ( 'appearance_page_wp-widget-disable' === $screen->base || 'wp-widget-disable' === $screen->base ) {
@@ -190,7 +158,7 @@ class WP_Widget_Disable_Admin {
 	 */
 	public function set_default_sidebar_widgets() {
 		if ( ! empty( $GLOBALS['wp_widget_factory'] ) ) {
-			$this->sidebars_widgets = apply_filters( 'rplus_wp_widget_disable_default_sidebar_filter', $GLOBALS['wp_widget_factory']->widgets );
+			$this->sidebar_widgets = apply_filters( 'rplus_wp_widget_disable_default_sidebar_filter', $GLOBALS['wp_widget_factory']->widgets );
 		}
 	}
 
@@ -203,8 +171,7 @@ class WP_Widget_Disable_Admin {
 	 * @since 1.0.0
 	 */
 	public function disable_sidebar_widgets() {
-		$widgets = (array) get_option( $this->sidebar_widgets_option );
-
+		$widgets = (array) get_option( $this->sidebar_widgets_option, array() );
 		if ( ! empty( $widgets ) ) {
 			foreach ( $widgets as $widget_class => $value ) {
 				unregister_widget( $widget_class );
@@ -222,11 +189,9 @@ class WP_Widget_Disable_Admin {
 	 */
 	public function disable_dashboard_widgets() {
 		$widgets = (array) get_option( $this->dashboard_widgets_option );
-
 		if ( ! $widgets ) {
 			return;
 		}
-
 		foreach ( $widgets as $widget_id => $meta_box ) {
 			//$meta_box = explode( ',', $meta_box );
 			remove_meta_box( $id = $widget_id, $screen = 'dashboard', $context = $meta_box );
@@ -245,7 +210,6 @@ class WP_Widget_Disable_Admin {
 	public function sanitize_sidebar_widgets( $input ) {
 		// Create our array for storing the validated options
 		$output = array();
-
 		if ( empty( $input ) ) {
 			$message = __( 'All Sidebar Widgets are enabled again.', 'wp-widget-disable' );
 		} else {
@@ -257,10 +221,8 @@ class WP_Widget_Disable_Admin {
 					$output[ $key ] = strip_tags( stripslashes( $input[ $key ] ) );
 				}
 			}
-
 			$message = sprintf( _n( 'Settings saved. Disabled %s Sidebar Widget for you.', 'Settings saved. Disabled %s Sidebar Widgets for you.', count( $output ), 'wp-widget-disable' ), count( $output ) );
 		}
-
 		add_settings_error(
 			'wp-widget-disable',
 			esc_attr( 'settings_updated' ),
@@ -283,7 +245,6 @@ class WP_Widget_Disable_Admin {
 	public function sanitize_dashboard_widgets( $input ) {
 		// Create our array for storing the validated options
 		$output = array();
-
 		if ( empty( $input ) ) {
 			$message = __( 'All Dashboard Widgets are enabled again.', 'wp-widget-disable' );
 		} else {
@@ -295,10 +256,8 @@ class WP_Widget_Disable_Admin {
 					$output[ $key ] = strip_tags( stripslashes( $input[ $key ] ) );
 				}
 			}
-
 			$message = sprintf( _n( 'Settings saved. Disabled %s Dashboard Widget for you.', 'Settings saved. Disabled %s Dashboard Widgets for you.', count( $output ), 'wp-widget-disable' ), count( $output ) );
 		}
-
 		add_settings_error(
 			'wp-widget-disable',
 			esc_attr( 'settings_updated' ),
@@ -320,14 +279,12 @@ class WP_Widget_Disable_Admin {
 			$this->sidebar_widgets_option,
 			array( $this, 'sanitize_sidebar_widgets' )
 		);
-
 		add_settings_section(
 			'widget_disable_widget_section', // ID
 			__( 'Disable Sidebar Widgets', 'wp-widget-disable' ), // Title
 			array( $this, 'render_sidebar_description' ), // Callback
 			$this->sidebar_widgets_option // Page
 		);
-
 		add_settings_field(
 			'sidebar_widgets',
 			__( 'Sidebar Widgets', 'wp-widget-disable' ),
@@ -352,21 +309,17 @@ class WP_Widget_Disable_Admin {
 	 * @since 1.0.0
 	 */
 	public function render_sidebar_checkboxes() {
-		$widgets = $this->sidebars_widgets;
-
+		$widgets = $this->sidebar_widgets;
 		if ( ! $widgets ) {
-			_e( 'Oops, it looks like something is already maniging the Sidebar Widgets for you, because we can\'t get them for you.', 'wp-widget-disable' );
+			_e( 'Oops, we could not retrieve the Sidebar Widgets! Maybe there is another plugin already managing theme?', 'wp-widget-disable' );
 		}
-
 		$options = (array) get_option( $this->sidebar_widgets_option );
-
 		?>
 		<p>
 			<input type="checkbox" id="wp_widget_disable_select_all" />
 			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
 		</p>
 		<?php
-
 		foreach ( $widgets as $widget_class => $widget_object ) { ?>
 			<p>
 			<input type="checkbox" id="<?php echo esc_attr( $widget_class ); ?>" name="<?php echo $this->sidebar_widgets_option; ?>[<?php echo $widget_class; ?>]" value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[ $widget_class ] : false ), false ); ?>/>
@@ -386,14 +339,12 @@ class WP_Widget_Disable_Admin {
 			$this->dashboard_widgets_option,
 			array( $this, 'sanitize_dashboard_widgets' )
 		);
-
 		add_settings_section(
 			'widget_disable_dashboard_section', // ID
 			__( 'Disable Dashboard Widgets', 'wp-widget-disable' ), // Title
 			array( $this, 'render_dashboard_description' ), // Callback
 			$this->dashboard_widgets_option // Page
 		);
-
 		add_settings_field(
 			'dashboard_widgets',
 			__( 'Dashboard Widgets', 'wp-widget-disable' ),
@@ -410,7 +361,7 @@ class WP_Widget_Disable_Admin {
 	 */
 	public function render_dashboard_description() {
 		echo '<p>' . __( 'Check the boxes with the <strong>Dashboard Widgets</strong> you would like to disable for this site.', 'wp-widget-disable' ) . '</p>';
-	} // render_dashboard_description
+	}
 
 	/**
 	 * Render setting fields
@@ -419,7 +370,6 @@ class WP_Widget_Disable_Admin {
 	 */
 	public function render_dashboard_checkboxes() {
 		global $wp_meta_boxes;
-
 		if ( ! is_array( $wp_meta_boxes['dashboard'] ) ) {
 			require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
 			set_current_screen( 'dashboard' );
@@ -428,20 +378,16 @@ class WP_Widget_Disable_Admin {
 			add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
 			set_current_screen( 'wp-widget-disable' );
 		}
-
 		if ( isset( $wp_meta_boxes['dashboard'][0] ) ) {
 			unset( $wp_meta_boxes['dashboard'][0] );
 		}
-
 		$options = (array) get_option( $this->dashboard_widgets_option );
-
 		?>
 		<p>
 			<input type="checkbox" id="wp_widget_disable_select_all" />
 			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
 		</p>
 		<?php
-
 		foreach ( $wp_meta_boxes['dashboard'] as $context => $data ) {
 			foreach ( $data as $priority => $data ) {
 				foreach ( $data as $widget => $data ) {
