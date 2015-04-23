@@ -28,7 +28,7 @@ Let’s have a look at the filters we provide:
 
 If you would like to contribute to this plugin, report an isse or anything like that, please note that we develop this plugin on [GitHub](https://github.com/wearerequired/WP-Widget-Disable).
 
-Developed by [required+](http://required.ch/ „Team of experienced web professionals from Switzerland & Germany“)
+Developed by [required+](http://required.ch/ "Team of experienced web professionals from Switzerland & Germany")
 
 ## Installation ##
 
@@ -62,11 +62,11 @@ None so far. But you can ask as any time on [twitter](https://twitter.com/wearer
 ### 1.1.1 ###
 * New: Repdigit version number.
 * Fixed: Added correct changelog.
-* Fixed: Properly translate „Select all“ option.
+* Fixed: Properly translate "Select all" option.
 
 ### 1.1.0 ###
 * New: Get Dashboard Widgets without roundtrip to the dashboard first.
-* New: „Select all“ option to disable all widgets in one go.
+* New: "Select all" option to disable all widgets in one go.
 * New: Added German (Switzerland) translation.
 * Enhancement: Code cleanup! We’re doing more with less code now.
 * Fixed: Lots of bugs and typos.
