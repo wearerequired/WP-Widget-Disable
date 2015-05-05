@@ -1,0 +1,129 @@
+# Copyright (C) 2015 required+
+# This file is distributed under the GPLv2+.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Widget Disable 1.2.0\n"
+"Report-Msgid-Bugs-To: http://required.ch\n"
+"POT-Creation-Date: 2015-04-17 11:48:39+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-04-29 13:06+0300\n"
+"Last-Translator: required+\n"
+"Language-Team: dymskiy.ru <andrey@dymskiy.ru>\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
+"esc_html_x:1,2c\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: classes/plugin.php:94
+msgid "Disable Sidebar and Dashboard Widgets"
+msgstr "Панель отключения Виджетов"
+
+#: classes/plugin.php:95
+msgid "Disable Widgets"
+msgstr "Убрать Виджеты"
+
+#: classes/plugin.php:126
+msgid "Settings"
+msgstr "Настройки"
+
+#: classes/plugin.php:145
+msgid "%s is brought to you by %s. We &hearts; WordPress."
+msgstr "%s создан для вас %s. Мы &hearts; WordPress."
+
+#: classes/plugin.php:214
+msgid "All Sidebar Widgets are enabled again."
+msgstr "Все Виджеты Сайдбаров опять включены."
+
+#: classes/plugin.php:224
+msgid "Settings saved. Disabled %s Sidebar Widget for you."
+msgid_plural "Settings saved. Disabled %s Sidebar Widgets for you."
+msgstr[0] "Виджет отключен."
+msgstr[1] "Виджеты отключены."
+msgstr[2] "Виджеты отключены."
+
+#: classes/plugin.php:249
+msgid "All Dashboard Widgets are enabled again."
+msgstr "Все Виджеты Панели управления опять активны."
+
+#: classes/plugin.php:259
+msgid "Settings saved. Disabled %s Dashboard Widget for you."
+msgid_plural "Settings saved. Disabled %s Dashboard Widgets for you."
+msgstr[0] "Виджет отключен."
+msgstr[1] "Виджеты отключены."
+msgstr[2] "Виджеты отключены."
+
+#: classes/plugin.php:284
+msgid "Disable Sidebar Widgets"
+msgstr " "
+
+#: classes/plugin.php:290 views/admin.php:32
+msgid "Sidebar Widgets"
+msgstr "Виджеты Сайдбаров"
+
+#: classes/plugin.php:303
+msgid ""
+"Check the boxes with the <strong>Sidebar Widgets</strong> you would like to "
+"disable for this site. Please note that a widget could still be called using "
+"code."
+msgstr ""
+"Отметьте Виджеты для отключения. Помните, что они по-прежнему могут быть "
+"вызваны в коде."
+
+#: classes/plugin.php:314
+msgid ""
+"Oops, we could not retrieve the Sidebar Widgets! Maybe there is another "
+"plugin already managing theme?"
+msgstr ""
+"Ой, Виджеты Сайдбаров недоступны! Возможно мешает другой плагин управления "
+"Виджетами."
+
+#: classes/plugin.php:320 classes/plugin.php:388
+msgid "Select all"
+msgstr "Выбрать все"
+
+#: classes/plugin.php:344
+msgid "Disable Dashboard Widgets"
+msgstr "Отключение Виджетов  Панели управления"
+
+#: classes/plugin.php:350 views/admin.php:36
+msgid "Dashboard Widgets"
+msgstr "Виджеты Панели управления"
+
+#: classes/plugin.php:363
+msgid ""
+"Check the boxes with the <strong>Dashboard Widgets</strong> you would like "
+"to disable for this site."
+msgstr ""
+"Отметьте <strong>Виджеты Панели управления</strong>, которые хотите "
+"отключить."
+
+#. Plugin Name of the plugin/theme
+msgid "WP Widget Disable"
+msgstr "Отключение Виджетов"
+
+#. Author URI of the plugin/theme
+msgid "http://required.ch"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Disable Sidebar and Dashboard Widgets with an easy to use interface. Simply "
+"use the checkboxes provided under <strong>Appearance -> Disable Widgets</"
+"strong> and select the Widgets you'd like to hide."
+msgstr ""
+"Позволяет отключить (спрятать) Виджеты Сайдбаров и Панели управления. "
+"Интерфейс отключения находится в <strong>Внешний вид -> Убрать Виджеты</"
+"strong> "
+
+#. Author of the plugin/theme
+msgid "required+"
+msgstr ""
