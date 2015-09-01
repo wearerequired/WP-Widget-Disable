@@ -41,7 +41,7 @@ $wp_widget_disable_requirements_check = new WP_Widget_Disable_Requirements_Check
 ) );
 
 if ( $wp_widget_disable_requirements_check->passes() ) {
-	// Pull in the plugin classes and initialize
+	// Pull in the plugin classes and initialize.
 	include( dirname( __FILE__ ) . '/lib/wp-stack-plugin.php' );
 	include( dirname( __FILE__ ) . '/classes/plugin.php' );
 	WP_Widget_Disable_Plugin::start( __FILE__ );
