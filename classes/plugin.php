@@ -322,8 +322,11 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 		<?php
 		foreach ( $widgets as $widget_class => $widget_object ) { ?>
 			<p>
-			<input type="checkbox" id="<?php echo esc_attr( $widget_class ); ?>" name="<?php echo $this->sidebar_widgets_option; ?>[<?php echo $widget_class; ?>]" value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[ $widget_class ] : false ), false ); ?>/>
-			<label for="<?php echo esc_attr( $widget_class ); ?>"><?php echo esc_html( $widget_object->name ); ?> (<code>class <?php echo esc_html( $widget_class ); ?></code>)</label>
+			<input type="checkbox" id="<?php echo esc_attr( $widget_class ); ?>"
+			       name="<?php echo esc_attr( $this->sidebar_widgets_option ); ?>[<?php echo esc_attr( $widget_class ); ?>]"
+			       value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[ $widget_class ] : false ), false ); ?>/>
+			<label for="<?php echo esc_attr( $widget_class ); ?>">
+				<?php printf( __( '%1$s (%2$s)', 'wp-widget-disable' ), esc_html( $widget_object->name ), '<code>' . esc_html( $widget_class ) . '</code>' ); ?>
 			</p><?php
 		}
 	}
@@ -388,13 +391,16 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
 		</p>
 		<?php
-		foreach ( $wp_meta_boxes['dashboard'] as $context => $data ) {
-			foreach ( $data as $priority => $data ) {
-				foreach ( $data as $widget => $data ) {
-					$widget_name = strip_tags( preg_replace( '/( |)<span class="hide-if-js">(.)*span>/im', '', $data['title'] ) ); ?>
+		foreach ( $wp_meta_boxes['dashboard'] as $context => $priority ) {
+			foreach ( $priority as $data ) {
+				foreach ( $data as $id => $widget ) {
+					$widget_name = strip_tags( preg_replace( '/( |)<span class="hide-if-js">(.)*span>/im', '', $widget['title'] ) ); ?>
 					<p>
-					<input type="checkbox" id="<?php echo esc_attr( $widget ); ?>" name="<?php echo $this->dashboard_widgets_option; ?>[<?php echo $widget; ?>]" value="<?php echo $context; ?>"<?php echo checked( $widget, ( array_key_exists( $widget, $options ) ? $widget : false ), false ); ?>/>
-					<label for="<?php echo esc_attr( $widget ); ?>"><?php echo esc_html( $widget_name ); ?> (<code>ID <?php echo esc_html( $widget ); ?></code>)</label>
+					<input type="checkbox" id="<?php echo esc_attr( $id ); ?>"
+					       name="<?php echo esc_attr( $this->dashboard_widgets_option ); ?>[<?php echo esc_attr( $id ); ?>]"
+					       value="<?php echo esc_attr( $context ); ?>"<?php checked( $id, ( array_key_exists( $id, $options ) ? $id : false ) ); ?>/>
+					<label for="<?php echo esc_attr( $id ); ?>">
+						<?php printf( __( '%1$s (%2$s)', 'wp-widget-disable' ), esc_html( $widget_name ), '<code>' . esc_html( $id ) . '</code>' ); ?>
 					</p><?php
 				}
 			}
