@@ -49,6 +49,10 @@ None so far. But you can ask as any time on [twitter](https://twitter.com/wearer
 
 ## Changelog ##
 
+### 1.3.0 ###
+* New: The widget list items are now translatable.
+* Enhancement: Code cleanup, ensuring WordPress 4.3 compatibility.
+
 ### 1.2.0 ###
 * Fixed: Make the settings tabs a bit more robust and secure.
 * Complete rewrite of the plugin using our `grunt-wp-plugin` boilerplate.
@@ -79,6 +83,9 @@ None so far. But you can ask as any time on [twitter](https://twitter.com/wearer
 * German (de_DE) translations added.
 
 ## Upgrade Notice ##
+
+### 1.3.0 ###
+Minor code cleanup. Works great with WordPress 4.3!
 
 ### 1.2.0 ###
 Complete revamp of the plugin to make it more shiny and secure!
