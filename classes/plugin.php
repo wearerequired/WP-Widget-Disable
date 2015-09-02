@@ -11,7 +11,7 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 	/**
 	 * Plugin version.
 	 */
-	const VERSION = '1.2.0';
+	const VERSION = '1.3.0';
 
 	/**
 	 * Sidebar Widgets option key.
@@ -123,7 +123,8 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 				'settings' => sprintf(
 					'<a href="%s">%s</a>',
 					admin_url( 'themes.php?page=wp-widget-disable' ),
-					__( 'Settings', 'wp-widget-disable' ) )
+					__( 'Settings', 'wp-widget-disable' )
+				),
 			),
 			$links
 		);
@@ -173,7 +174,7 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 	public function disable_sidebar_widgets() {
 		$widgets = (array) get_option( $this->sidebar_widgets_option, array() );
 		if ( ! empty( $widgets ) ) {
-			foreach ( $widgets as $widget_class => $value ) {
+			foreach ( array_keys( $widgets ) as $widget_class ) {
 				unregister_widget( $widget_class );
 			}
 		}
@@ -193,8 +194,7 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 			return;
 		}
 		foreach ( $widgets as $widget_id => $meta_box ) {
-			//$meta_box = explode( ',', $meta_box );
-			remove_meta_box( $id = $widget_id, $screen = 'dashboard', $context = $meta_box );
+			remove_meta_box( $widget_id, 'dashboard', $meta_box );
 		}
 	}
 
@@ -203,21 +203,21 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $input
+	 * @param array $input Sidebar widgets to disable.
 	 *
 	 * @return array
 	 */
 	public function sanitize_sidebar_widgets( $input ) {
-		// Create our array for storing the validated options
+		// Create our array for storing the validated options.
 		$output = array();
 		if ( empty( $input ) ) {
 			$message = __( 'All Sidebar Widgets are enabled again.', 'wp-widget-disable' );
 		} else {
-			// Loop through each of the incoming options
-			foreach ( $input as $key => $value ) {
+			// Loop through each of the incoming options.
+			foreach ( array_keys( $input ) as $key ) {
 				// Check to see if the current option has a value. If so, process it.
 				if ( isset( $input[ $key ] ) ) {
-					// Strip all HTML and PHP tags and properly handle quoted strings
+					// Strip all HTML and PHP tags and properly handle quoted strings.
 					$output[ $key ] = strip_tags( stripslashes( $input[ $key ] ) );
 				}
 			}
@@ -238,21 +238,21 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $input
+	 * @param array $input Dashboards widgets to disable.
 	 *
 	 * @return array
 	 */
 	public function sanitize_dashboard_widgets( $input ) {
-		// Create our array for storing the validated options
+		// Create our array for storing the validated options.
 		$output = array();
 		if ( empty( $input ) ) {
 			$message = __( 'All Dashboard Widgets are enabled again.', 'wp-widget-disable' );
 		} else {
-			// Loop through each of the incoming options
-			foreach ( $input as $key => $value ) {
+			// Loop through each of the incoming options.
+			foreach ( array_keys( $input ) as $key ) {
 				// Check to see if the current option has a value. If so, process it.
 				if ( isset( $input[ $key ] ) ) {
-					// Strip all HTML and PHP tags and properly handle quoted strings
+					// Strip all HTML and PHP tags and properly handle quoted strings.
 					$output[ $key ] = strip_tags( stripslashes( $input[ $key ] ) );
 				}
 			}
@@ -280,10 +280,10 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 			array( $this, 'sanitize_sidebar_widgets' )
 		);
 		add_settings_section(
-			'widget_disable_widget_section', // ID
-			__( 'Disable Sidebar Widgets', 'wp-widget-disable' ), // Title
-			array( $this, 'render_sidebar_description' ), // Callback
-			$this->sidebar_widgets_option // Page
+			'widget_disable_widget_section',
+			__( 'Disable Sidebar Widgets', 'wp-widget-disable' ),
+			array( $this, 'render_sidebar_description' ),
+			$this->sidebar_widgets_option
 		);
 		add_settings_field(
 			'sidebar_widgets',
@@ -316,14 +316,17 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 		$options = (array) get_option( $this->sidebar_widgets_option );
 		?>
 		<p>
-			<input type="checkbox" id="wp_widget_disable_select_all" />
+			<input type="checkbox" id="wp_widget_disable_select_all"/>
 			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
 		</p>
 		<?php
 		foreach ( $widgets as $widget_class => $widget_object ) { ?>
 			<p>
-			<input type="checkbox" id="<?php echo esc_attr( $widget_class ); ?>" name="<?php echo $this->sidebar_widgets_option; ?>[<?php echo $widget_class; ?>]" value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[ $widget_class ] : false ), false ); ?>/>
-			<label for="<?php echo esc_attr( $widget_class ); ?>"><?php echo esc_html( $widget_object->name ); ?> (<code>class <?php echo esc_html( $widget_class ); ?></code>)</label>
+			<input type="checkbox" id="<?php echo esc_attr( $widget_class ); ?>"
+			       name="<?php echo esc_attr( $this->sidebar_widgets_option ); ?>[<?php echo esc_attr( $widget_class ); ?>]"
+			       value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[ $widget_class ] : false ), false ); ?>/>
+			<label for="<?php echo esc_attr( $widget_class ); ?>">
+				<?php printf( __( '%1$s (%2$s)', 'wp-widget-disable' ), esc_html( $widget_object->name ), '<code>' . esc_html( $widget_class ) . '</code>' ); ?>
 			</p><?php
 		}
 	}
@@ -340,10 +343,10 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 			array( $this, 'sanitize_dashboard_widgets' )
 		);
 		add_settings_section(
-			'widget_disable_dashboard_section', // ID
-			__( 'Disable Dashboard Widgets', 'wp-widget-disable' ), // Title
-			array( $this, 'render_dashboard_description' ), // Callback
-			$this->dashboard_widgets_option // Page
+			'widget_disable_dashboard_section',
+			__( 'Disable Dashboard Widgets', 'wp-widget-disable' ),
+			array( $this, 'render_dashboard_description' ),
+			$this->dashboard_widgets_option
 		);
 		add_settings_field(
 			'dashboard_widgets',
@@ -384,17 +387,20 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 		$options = (array) get_option( $this->dashboard_widgets_option );
 		?>
 		<p>
-			<input type="checkbox" id="wp_widget_disable_select_all" />
+			<input type="checkbox" id="wp_widget_disable_select_all"/>
 			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
 		</p>
 		<?php
-		foreach ( $wp_meta_boxes['dashboard'] as $context => $data ) {
-			foreach ( $data as $priority => $data ) {
-				foreach ( $data as $widget => $data ) {
-					$widget_name = strip_tags( preg_replace( '/( |)<span class="hide-if-js">(.)*span>/im', '', $data['title'] ) ); ?>
+		foreach ( $wp_meta_boxes['dashboard'] as $context => $priority ) {
+			foreach ( $priority as $data ) {
+				foreach ( $data as $id => $widget ) {
+					$widget_name = strip_tags( preg_replace( '/( |)<span class="hide-if-js">(.)*span>/im', '', $widget['title'] ) ); ?>
 					<p>
-					<input type="checkbox" id="<?php echo esc_attr( $widget ); ?>" name="<?php echo $this->dashboard_widgets_option; ?>[<?php echo $widget; ?>]" value="<?php echo $context; ?>"<?php echo checked( $widget, ( array_key_exists( $widget, $options ) ? $widget : false ), false ); ?>/>
-					<label for="<?php echo esc_attr( $widget ); ?>"><?php echo esc_html( $widget_name ); ?> (<code>ID <?php echo esc_html( $widget ); ?></code>)</label>
+					<input type="checkbox" id="<?php echo esc_attr( $id ); ?>"
+					       name="<?php echo esc_attr( $this->dashboard_widgets_option ); ?>[<?php echo esc_attr( $id ); ?>]"
+					       value="<?php echo esc_attr( $context ); ?>"<?php checked( $id, ( array_key_exists( $id, $options ) ? $id : false ) ); ?>/>
+					<label for="<?php echo esc_attr( $id ); ?>">
+						<?php printf( __( '%1$s (%2$s)', 'wp-widget-disable' ), esc_html( $widget_name ), '<code>' . esc_html( $id ) . '</code>' ); ?>
 					</p><?php
 				}
 			}

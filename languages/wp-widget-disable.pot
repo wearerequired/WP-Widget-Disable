@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Widget Disable 1.2.0\n"
+"Project-Id-Version: WP Widget Disable 1.3.0\n"
 "Report-Msgid-Bugs-To: http://required.ch\n"
 "POT-Creation-Date: 2015-04-17 11:48:39+00:00\n"
 "MIME-Version: 1.0\n"
@@ -11,7 +11,7 @@ msgstr ""
 "PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: required+\n"
 "Language-Team: required+ <support@required.ch>\n"
-"X-Generator: grunt-wp-i18n 0.5.1\n"
+"X-Generator: grunt-wp-i18n 0.5.3\n"
 "X-Poedit-KeywordsList: "
 "__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
 "attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: classes/plugin.php:145
+#: classes/plugin.php:146
 msgid "%s is brought to you by %s. We &hearts; WordPress."
 msgstr ""
 
@@ -81,19 +81,23 @@ msgid ""
 "plugin already managing theme?"
 msgstr ""
 
-#: classes/plugin.php:320 classes/plugin.php:388
+#: classes/plugin.php:320 classes/plugin.php:391
 msgid "Select all"
 msgstr ""
 
-#: classes/plugin.php:344
+#: classes/plugin.php:329 classes/plugin.php:403
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#: classes/plugin.php:347
 msgid "Disable Dashboard Widgets"
 msgstr ""
 
-#: classes/plugin.php:350 views/admin.php:36
+#: classes/plugin.php:353 views/admin.php:36
 msgid "Dashboard Widgets"
 msgstr ""
 
-#: classes/plugin.php:363
+#: classes/plugin.php:366
 msgid ""
 "Check the boxes with the <strong>Dashboard Widgets</strong> you would like "
 "to disable for this site."
@@ -103,8 +107,8 @@ msgstr ""
 msgid "WP Widget Disable"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "http://required.ch"
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/wearerequired/WP-Widget-Disable/"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -116,4 +120,8 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "required+"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://required.ch"
 msgstr ""
