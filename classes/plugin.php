@@ -331,6 +331,7 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 			       value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[ $widget_class ] : false ), false ); ?>/>
 			<label for="<?php echo esc_attr( $widget_class ); ?>">
 				<?php printf( __( '%1$s (%2$s)', 'wp-widget-disable' ), esc_html( $widget_object->name ), '<code>' . esc_html( $widget_class ) . '</code>' ); ?>
+			</label>
 			</p><?php
 		}
 	}
@@ -415,6 +416,7 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 					       value="<?php echo esc_attr( $context ); ?>"<?php checked( $id, ( array_key_exists( $id, $options ) ? $id : false ) ); ?>/>
 					<label for="<?php echo esc_attr( $id ); ?>">
 						<?php printf( __( '%1$s (%2$s)', 'wp-widget-disable' ), esc_html( $widget_name ), '<code>' . esc_html( $id ) . '</code>' ); ?>
+					</label>
 					</p><?php
 				}
 			}
