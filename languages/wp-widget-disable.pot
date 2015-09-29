@@ -40,67 +40,71 @@ msgstr ""
 msgid "%s is brought to you by %s. We &hearts; WordPress."
 msgstr ""
 
-#: classes/plugin.php:214
+#: classes/plugin.php:218
 msgid "All Sidebar Widgets are enabled again."
 msgstr ""
 
-#: classes/plugin.php:224
+#: classes/plugin.php:228
 msgid "Settings saved. Disabled %s Sidebar Widget for you."
 msgid_plural "Settings saved. Disabled %s Sidebar Widgets for you."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/plugin.php:249
+#: classes/plugin.php:253
 msgid "All Dashboard Widgets are enabled again."
 msgstr ""
 
-#: classes/plugin.php:259
+#: classes/plugin.php:263
 msgid "Settings saved. Disabled %s Dashboard Widget for you."
 msgid_plural "Settings saved. Disabled %s Dashboard Widgets for you."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/plugin.php:284
+#: classes/plugin.php:288
 msgid "Disable Sidebar Widgets"
 msgstr ""
 
-#: classes/plugin.php:290 views/admin.php:32
+#: classes/plugin.php:294 views/admin.php:32
 msgid "Sidebar Widgets"
 msgstr ""
 
-#: classes/plugin.php:303
+#: classes/plugin.php:307
 msgid ""
 "Check the boxes with the <strong>Sidebar Widgets</strong> you would like to "
 "disable for this site. Please note that a widget could still be called "
 "using code."
 msgstr ""
 
-#: classes/plugin.php:314
+#: classes/plugin.php:318
 msgid ""
 "Oops, we could not retrieve the Sidebar Widgets! Maybe there is another "
 "plugin already managing theme?"
 msgstr ""
 
-#: classes/plugin.php:320 classes/plugin.php:391
+#: classes/plugin.php:324 classes/plugin.php:396
 msgid "Select all"
 msgstr ""
 
-#: classes/plugin.php:329 classes/plugin.php:403
+#: classes/plugin.php:333 classes/plugin.php:418
 msgid "%1$s (%2$s)"
 msgstr ""
 
-#: classes/plugin.php:347
+#: classes/plugin.php:352
 msgid "Disable Dashboard Widgets"
 msgstr ""
 
-#: classes/plugin.php:353 views/admin.php:36
+#: classes/plugin.php:358 views/admin.php:36
 msgid "Dashboard Widgets"
 msgstr ""
 
-#: classes/plugin.php:366
+#: classes/plugin.php:371
 msgid ""
 "Check the boxes with the <strong>Dashboard Widgets</strong> you would like "
 "to disable for this site."
+msgstr ""
+
+#: classes/plugin.php:405
+msgid "Welcome panel (%s)"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
