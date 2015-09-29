@@ -194,7 +194,11 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 			return;
 		}
 		foreach ( $widgets as $widget_id => $meta_box ) {
-			remove_meta_box( $widget_id, 'dashboard', $meta_box );
+			if ( 'dashboard_welcome_panel' === $widget_id ) {
+				remove_action( 'welcome_panel', 'wp_welcome_panel' );
+			} else {
+				remove_meta_box( $widget_id, 'dashboard', $meta_box );
+			}
 		}
 	}
 
@@ -389,6 +393,16 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 		<p>
 			<input type="checkbox" id="wp_widget_disable_select_all"/>
 			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
+		</p>
+		<p>
+			<input type="checkbox" id="dashboard_welcome_panel"
+			       name="rplus_wp_widget_disable_dashboard_option[dashboard_welcome_panel]"
+			       value="normal"
+				<?php checked( 'dashboard_welcome_panel', ( array_key_exists( 'dashboard_welcome_panel', $options ) ? 'dashboard_welcome_panel' : false ) ); ?>>
+			<label for="dashboard_welcome_panel">
+			<label for="dashboard_welcome_panel">
+				<?php printf( __( 'Welcome panel (%s)', 'wp-widget-disable' ), '<code>welcome_panel</code>' ); ?>
+			</label>
 		</p>
 		<?php
 		foreach ( $wp_meta_boxes['dashboard'] as $context => $priority ) {
