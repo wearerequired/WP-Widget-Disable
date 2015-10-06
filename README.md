@@ -4,7 +4,7 @@ Donate link:       http://required.ch
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets  
 Requires at least: 3.5.1  
 Tested up to:      4.3  
-Stable tag:        1.1.2  
+Stable tag:        1.4.0  
 License:           GPLv2 or later  
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -49,6 +49,10 @@ None so far. But you can ask as any time on [twitter](https://twitter.com/wearer
 
 ## Changelog ##
 
+### 1.4.0 ###
+* New: Allows removal of the welcome panel in the dashboard.
+* Fixed: Added some missing closing tags in the HTML.
+
 ### 1.3.0 ###
 * New: The widget list items are now translatable.
 * Enhancement: Code cleanup, ensuring WordPress 4.3 compatibility.
@@ -83,6 +87,9 @@ None so far. But you can ask as any time on [twitter](https://twitter.com/wearer
 * German (de_DE) translations added.
 
 ## Upgrade Notice ##
+
+### 1.4.0 ###
+Now let’s you disable the welcome panel in the dashboard.
 
 ### 1.3.0 ###
 Minor code cleanup. Works great with WordPress 4.3!

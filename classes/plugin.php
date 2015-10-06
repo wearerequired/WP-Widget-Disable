@@ -11,7 +11,7 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 	/**
 	 * Plugin version.
 	 */
-	const VERSION = '1.3.0';
+	const VERSION = '1.4.0';
 
 	/**
 	 * Sidebar Widgets option key.
@@ -194,7 +194,11 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 			return;
 		}
 		foreach ( $widgets as $widget_id => $meta_box ) {
-			remove_meta_box( $widget_id, 'dashboard', $meta_box );
+			if ( 'dashboard_welcome_panel' === $widget_id ) {
+				remove_action( 'welcome_panel', 'wp_welcome_panel' );
+			} else {
+				remove_meta_box( $widget_id, 'dashboard', $meta_box );
+			}
 		}
 	}
 
@@ -327,6 +331,7 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 			       value="disabled"<?php echo checked( 'disabled', ( array_key_exists( $widget_class, $options ) ? $options[ $widget_class ] : false ), false ); ?>/>
 			<label for="<?php echo esc_attr( $widget_class ); ?>">
 				<?php printf( __( '%1$s (%2$s)', 'wp-widget-disable' ), esc_html( $widget_object->name ), '<code>' . esc_html( $widget_class ) . '</code>' ); ?>
+			</label>
 			</p><?php
 		}
 	}
@@ -390,6 +395,16 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 			<input type="checkbox" id="wp_widget_disable_select_all"/>
 			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
 		</p>
+		<p>
+			<input type="checkbox" id="dashboard_welcome_panel"
+			       name="rplus_wp_widget_disable_dashboard_option[dashboard_welcome_panel]"
+			       value="normal"
+				<?php checked( 'dashboard_welcome_panel', ( array_key_exists( 'dashboard_welcome_panel', $options ) ? 'dashboard_welcome_panel' : false ) ); ?>>
+			<label for="dashboard_welcome_panel">
+			<label for="dashboard_welcome_panel">
+				<?php printf( __( 'Welcome panel (%s)', 'wp-widget-disable' ), '<code>welcome_panel</code>' ); ?>
+			</label>
+		</p>
 		<?php
 		foreach ( $wp_meta_boxes['dashboard'] as $context => $priority ) {
 			foreach ( $priority as $data ) {
@@ -401,6 +416,7 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 					       value="<?php echo esc_attr( $context ); ?>"<?php checked( $id, ( array_key_exists( $id, $options ) ? $id : false ) ); ?>/>
 					<label for="<?php echo esc_attr( $id ); ?>">
 						<?php printf( __( '%1$s (%2$s)', 'wp-widget-disable' ), esc_html( $widget_name ), '<code>' . esc_html( $id ) . '</code>' ); ?>
+					</label>
 					</p><?php
 				}
 			}
