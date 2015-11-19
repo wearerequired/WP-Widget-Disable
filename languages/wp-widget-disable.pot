@@ -24,88 +24,98 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: classes/class-wp-widget-disable.php:107
+#: classes/class-wp-widget-disable.php:104
 msgid "Disable Sidebar and Dashboard Widgets"
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:108
+#: classes/class-wp-widget-disable.php:105
 msgid "Disable Widgets"
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:139
+#: classes/class-wp-widget-disable.php:132
 msgid "Settings"
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:159
-msgid "%s is brought to you by %s. We &hearts; WordPress."
+#: classes/class-wp-widget-disable.php:153
+#. translators: %s: required+
+msgid "WP Widget Disable is brought to you by %s. We &hearts; WordPress."
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:231
-msgid "All Sidebar Widgets are enabled again."
+#: classes/class-wp-widget-disable.php:230
+msgid "All sidebar widgets are enabled again."
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:241
-msgid "Settings saved. Disabled %s Sidebar Widget for you."
-msgid_plural "Settings saved. Disabled %s Sidebar Widgets for you."
+#: classes/class-wp-widget-disable.php:242
+msgid "Settings saved. One sidebar widget disabled."
+msgstr ""
+
+#: classes/class-wp-widget-disable.php:246
+#. translators: %d: number of disabled widgets
+msgid "Settings saved. %d sidebar widget disabled."
+msgid_plural "Settings saved. %d sidebar widgets disabled."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/class-wp-widget-disable.php:266
-msgid "All Dashboard Widgets are enabled again."
+#: classes/class-wp-widget-disable.php:279
+msgid "All dashboard widgets are enabled again."
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:276
-msgid "Settings saved. Disabled %s Dashboard Widget for you."
-msgid_plural "Settings saved. Disabled %s Dashboard Widgets for you."
+#: classes/class-wp-widget-disable.php:291
+msgid "Settings saved. One dashboard widget disabled."
+msgstr ""
+
+#: classes/class-wp-widget-disable.php:295
+#. translators: %d: number of disabled widgets
+msgid "Settings saved. %d dashboard widget disabled."
+msgid_plural "Settings saved. %d dashboard widgets disabled."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/class-wp-widget-disable.php:301
+#: classes/class-wp-widget-disable.php:329
 msgid "Disable Sidebar Widgets"
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:307 views/admin.php:32
+#: classes/class-wp-widget-disable.php:332
+msgid ""
+"Choose the sidebar widgets you would like to disable. Note that developers "
+"can still display widgets using PHP."
+msgstr ""
+
+#: classes/class-wp-widget-disable.php:340 views/admin.php:32
 msgid "Sidebar Widgets"
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:320
-msgid ""
-"Check the boxes with the <strong>Sidebar Widgets</strong> you would like to "
-"disable for this site. Please note that a widget could still be called "
-"using code."
-msgstr ""
-
-#: classes/class-wp-widget-disable.php:331
-msgid ""
-"Oops, we could not retrieve the Sidebar Widgets! Maybe there is another "
-"plugin already managing theme?"
-msgstr ""
-
-#: classes/class-wp-widget-disable.php:337
-#: classes/class-wp-widget-disable.php:409
-msgid "Select all"
-msgstr ""
-
-#: classes/class-wp-widget-disable.php:346
-#: classes/class-wp-widget-disable.php:431
-msgid "%1$s (%2$s)"
-msgstr ""
-
-#: classes/class-wp-widget-disable.php:365
+#: classes/class-wp-widget-disable.php:354
 msgid "Disable Dashboard Widgets"
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:371 views/admin.php:36
+#: classes/class-wp-widget-disable.php:357
+msgid "Choose the dashboard widgets you would like to disable."
+msgstr ""
+
+#: classes/class-wp-widget-disable.php:365 views/admin.php:36
 msgid "Dashboard Widgets"
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:384
+#: classes/class-wp-widget-disable.php:380
 msgid ""
-"Check the boxes with the <strong>Dashboard Widgets</strong> you would like "
-"to disable for this site."
+"Oops, we could not retrieve the sidebar widgets! Maybe there is another "
+"plugin already managing them?"
 msgstr ""
 
-#: classes/class-wp-widget-disable.php:418
+#: classes/class-wp-widget-disable.php:386
+#: classes/class-wp-widget-disable.php:427
+msgid "Select all"
+msgstr ""
+
+#: classes/class-wp-widget-disable.php:397
+#: classes/class-wp-widget-disable.php:453
+#. translators: 1: widget name, 2: widget class
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#: classes/class-wp-widget-disable.php:438
+#. translators: %s: welcome_panel
 msgid "Welcome panel (%s)"
 msgstr ""
 
