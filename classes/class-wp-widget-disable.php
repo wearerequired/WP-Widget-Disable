@@ -55,8 +55,7 @@ class WP_Widget_Disable {
 
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-		add_action( 'admin_init', array( $this, 'register_sidebar_settings' ) );
-		add_action( 'admin_init', array( $this, 'register_dashboard_settings' ) );
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
 		// Get and disable the sidebar widgets.
 		add_action( 'widgets_init', array( $this, 'set_default_sidebar_widgets' ), 100 );
@@ -286,28 +285,51 @@ class WP_Widget_Disable {
 	}
 
 	/**
-	 * Register sidebar widgets settings.
+	 * Register the settings.
 	 *
 	 * @since 1.0.0
 	 */
-	public function register_sidebar_settings() {
+	public function register_settings() {
 		register_setting(
 			$this->sidebar_widgets_option,
 			$this->sidebar_widgets_option,
 			array( $this, 'sanitize_sidebar_widgets' )
 		);
+
 		add_settings_section(
 			'widget_disable_widget_section',
 			__( 'Disable Sidebar Widgets', 'wp-widget-disable' ),
 			array( $this, 'render_sidebar_description' ),
 			$this->sidebar_widgets_option
 		);
+
 		add_settings_field(
 			'sidebar_widgets',
 			__( 'Sidebar Widgets', 'wp-widget-disable' ),
 			array( $this, 'render_sidebar_checkboxes' ),
 			$this->sidebar_widgets_option,
 			'widget_disable_widget_section'
+		);
+
+		register_setting(
+			$this->dashboard_widgets_option,
+			$this->dashboard_widgets_option,
+			array( $this, 'sanitize_dashboard_widgets' )
+		);
+
+		add_settings_section(
+			'widget_disable_dashboard_section',
+			__( 'Disable Dashboard Widgets', 'wp-widget-disable' ),
+			array( $this, 'render_dashboard_description' ),
+			$this->dashboard_widgets_option
+		);
+
+		add_settings_field(
+			'dashboard_widgets',
+			__( 'Dashboard Widgets', 'wp-widget-disable' ),
+			array( $this, 'render_dashboard_checkboxes' ),
+			$this->dashboard_widgets_option,
+			'widget_disable_dashboard_section'
 		);
 	}
 
@@ -347,32 +369,6 @@ class WP_Widget_Disable {
 			</label>
 			</p><?php
 		}
-	}
-
-	/**
-	 * Register dashboard widgets settings.
-	 *
-	 * @since 1.0.0
-	 */
-	public function register_dashboard_settings() {
-		register_setting(
-			$this->dashboard_widgets_option,
-			$this->dashboard_widgets_option,
-			array( $this, 'sanitize_dashboard_widgets' )
-		);
-		add_settings_section(
-			'widget_disable_dashboard_section',
-			__( 'Disable Dashboard Widgets', 'wp-widget-disable' ),
-			array( $this, 'render_dashboard_description' ),
-			$this->dashboard_widgets_option
-		);
-		add_settings_field(
-			'dashboard_widgets',
-			__( 'Dashboard Widgets', 'wp-widget-disable' ),
-			array( $this, 'render_dashboard_checkboxes' ),
-			$this->dashboard_widgets_option,
-			'widget_disable_dashboard_section'
-		);
 	}
 
 	/**
