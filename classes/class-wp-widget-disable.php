@@ -157,22 +157,61 @@ class WP_Widget_Disable {
 	}
 
 	/**
-	 * Set default sidebar widgets.
+	 * Set the default sidebar widgets.
 	 *
-	 * Set an array with all the available sidebar widgets
-	 * if we can get them.
-	 *
-	 * @since 1.0.0
+	 * @return array Sidebar widgets.
 	 */
 	public function set_default_sidebar_widgets() {
+		$widgets = array();
+
 		if ( ! empty( $GLOBALS['wp_widget_factory'] ) ) {
-			/**
-			 * Filters the available sidebar widgets.
-			 *
-			 * @param array $widgets The globally available sidebar widgets.
-			 */
-			$this->sidebar_widgets = apply_filters( 'wp_widget_disable_default_sidebar_widgets', $GLOBALS['wp_widget_factory']->widgets );
+			$widgets = $GLOBALS['wp_widget_factory']->widgets;
 		}
+
+		/**
+		 * Filters the available sidebar widgets.
+		 *
+		 * @param array $widgets The globally available sidebar widgets.
+		 */
+		$this->sidebar_widgets = apply_filters( 'wp_widget_disable_default_sidebar_widgets', $widgets );
+	}
+
+	/**
+	 * Get the default dashboard widgets.
+	 *
+	 * @return array Sidebar widgets.
+	 */
+	protected function get_default_dashboard_widgets() {
+		global $wp_meta_boxes;
+
+		if ( ! is_array( $wp_meta_boxes['dashboard'] ) ) {
+			require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
+
+			set_current_screen( 'dashboard' );
+
+			remove_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
+			wp_dashboard_setup();
+			add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
+
+			set_current_screen( 'wp-widget-disable' );
+		}
+
+		if ( isset( $wp_meta_boxes['dashboard'][0] ) ) {
+			unset( $wp_meta_boxes['dashboard'][0] );
+		}
+
+		$widgets = array();
+
+		if ( isset( $wp_meta_boxes['dashboard'] ) ) {
+			$widgets = $wp_meta_boxes['dashboard'];
+		}
+
+		/**
+		 * Filters the available dashboard widgets.
+		 *
+		 * @param array $widgets The globally available dashboard widgets.
+		 */
+		return apply_filters( 'wp_widget_disable_default_dashboard_widgets', $widgets );
 	}
 
 	/**
@@ -309,7 +348,7 @@ class WP_Widget_Disable {
 			'updated'
 		);
 
-		return apply_filters( 'rplus_wp_widget_disable_validate_dashboard_widgets', $output, $input );
+		return $output;
 	}
 
 	/**
@@ -376,9 +415,15 @@ class WP_Widget_Disable {
 	 */
 	public function render_sidebar_checkboxes() {
 		$widgets = $this->sidebar_widgets;
+
 		if ( ! $widgets ) {
-			_e( 'Oops, we could not retrieve the sidebar widgets! Maybe there is another plugin already managing them?', 'wp-widget-disable' );
+			printf(
+				'<p>%s</p>',
+				__( 'Oops, we could not retrieve the sidebar widgets! Maybe there is another plugin already managing them?', 'wp-widget-disable' )
+			);
+			return;
 		}
+
 		$options = (array) get_option( $this->sidebar_widgets_option );
 		?>
 		<p>
@@ -408,18 +453,16 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 */
 	public function render_dashboard_checkboxes() {
-		global $wp_meta_boxes;
-		if ( ! is_array( $wp_meta_boxes['dashboard'] ) ) {
-			require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
-			set_current_screen( 'dashboard' );
-			remove_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
-			wp_dashboard_setup();
-			add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
-			set_current_screen( 'wp-widget-disable' );
+		$widgets = $this->get_default_dashboard_widgets();
+
+		if ( ! $widgets ) {
+			printf(
+				'<p>%s</p>',
+				__( 'Oops, we could not retrieve the dashboard widgets! Maybe there is another plugin already managing them?', 'wp-widget-disable' )
+			);
+			return;
 		}
-		if ( isset( $wp_meta_boxes['dashboard'][0] ) ) {
-			unset( $wp_meta_boxes['dashboard'][0] );
-		}
+
 		$options = (array) get_option( $this->dashboard_widgets_option );
 		?>
 		<p>
@@ -440,7 +483,7 @@ class WP_Widget_Disable {
 			</label>
 		</p>
 		<?php
-		foreach ( $wp_meta_boxes['dashboard'] as $context => $priority ) {
+		foreach ( $widgets as $context => $priority ) {
 			foreach ( $priority as $data ) {
 				foreach ( $data as $id => $widget ) {
 					printf(
