@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Widget Disable 1.4.0\n"
+"Project-Id-Version: WP Widget Disable 1.5.0\n"
 "Report-Msgid-Bugs-To: http://required.ch\n"
 "POT-Creation-Date: 2015-04-17 11:48:39+00:00\n"
 "MIME-Version: 1.0\n"
