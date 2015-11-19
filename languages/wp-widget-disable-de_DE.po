@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WP Widget Disable 1.1.2\n"
 "Report-Msgid-Bugs-To: http://required.ch\n"
 "POT-Creation-Date: 2015-11-19 12:30+0100\n"
-"PO-Revision-Date: 2015-11-19 12:32+0100\n"
+"PO-Revision-Date: 2015-11-19 12:40+0100\n"
 "Last-Translator: Pascal Birchler <pascal@required.ch>\n"
 "Language-Team: required+ <support@required.ch>\n"
 "Language: de_DE\n"
@@ -45,7 +45,7 @@ msgstr "Alle Sidebar Widgets sind wieder aktiviert."
 
 #: classes/class-wp-widget-disable.php:242
 msgid "Settings saved. One sidebar widget disabled."
-msgstr "Einstellungen gespeichert. %s Sidebar-Widget deaktiviert."
+msgstr "Einstellungen gespeichert. Ein Sidebar-Widget deaktiviert."
 
 #. translators: %d: number of disabled widgets
 #: classes/class-wp-widget-disable.php:246
@@ -60,7 +60,7 @@ msgstr "Alle Dashboard Widgets sind wieder aktiviert."
 
 #: classes/class-wp-widget-disable.php:291
 msgid "Settings saved. One dashboard widget disabled."
-msgstr "Einstellungen gespeichert. %d Dashboard-Widget deaktiviert."
+msgstr "Einstellungen gespeichert. Ein Dashboard-Widget deaktiviert."
 
 #. translators: %d: number of disabled widgets
 #: classes/class-wp-widget-disable.php:295
