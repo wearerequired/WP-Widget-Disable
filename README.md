@@ -12,16 +12,14 @@ Disable sidebar and dashboard widgets with an easy to use interface.
 
 ## Description ##
 This simple plugin allows you to disable any sidebar and dashboard widget for the current WordPress site you are on. It provides a simple user interface available to users with `edit_theme_options` capabilities (usually Administrator role) available under Appearance -> Disable Widgets.
-After saving the settings, it removes the Sidebar and Dashboard Widgets selected.
+After saving the settings, the sidebar and dashboard widgets are removed from and the user can’t see those widgets anymore.
 
 **Developer? Get to know the hooks**
 
-Let’s have a look at the filters we provide:
+Have a look at the filters we provide:
 
-* `rplus_wp_widget_disable_capability`: Change the required capability for disabling widgets. Defaults to `edit_theme_options`.
-* `rplus_wp_widget_disable_default_sidebar_filter`: Lets you change the list of all sidebar widgets before we store them, so you could basically exclude sidebar widgets from being disabled by the plugin.
-* `rplus_wp_widget_disable_default_dashboard_filter`: Lets you change the list of all dashboard widgets before we store them, so you could basically exclude dashboard widgets from being disabled by the plugin.
-
+* `wp_widget_disable_default_sidebar_widgets` - Allows you to exclude certain sidebar widgets from being disabled.
+* `wp_widget_disable_default_dashboard_widgets` - Allows you to exclude certain dashboard widgets from being disabled.
 **Contributions**
 
 If you would like to contribute to this plugin, report an isse or anything like that, please note that we develop this plugin on [GitHub](https://github.com/wearerequired/WP-Widget-Disable).
@@ -38,7 +36,7 @@ Developed by [required+](http://required.ch/ "Team of experienced web profession
 
 ## Frequently Asked Questions ##
 
-None so far. But you can ask as any time on [twitter](https://twitter.com/wearerequired)!
+None so far. But you can ask us any time on [twitter](https://twitter.com/wearerequired)!
 
 ## Screenshots ##
 
@@ -48,6 +46,9 @@ None so far. But you can ask as any time on [twitter](https://twitter.com/wearer
 4. The stripped-down dashboard.
 
 ## Changelog ##
+
+### 1.5.1 ###
+* Enhancement: Re-added two filters.
 
 ### 1.5.0 ###
 * Enhancement: Translation improvements.
@@ -91,6 +92,9 @@ None so far. But you can ask as any time on [twitter](https://twitter.com/wearer
 * German (de_DE) translations added.
 
 ## Upgrade Notice ##
+
+### 1.5.1 ###
+Small update under the hood to bring back two filters.
 
 ### 1.5.0 ###
 Being 100% compatible with WordPress 4.4, this update includes some smaller enhancements under the hood.
