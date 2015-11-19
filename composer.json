@@ -13,5 +13,15 @@
 	}
   ],
   "require": {
+    "php": ">=5.3"
+  },
+  "require-dev": {
+    "phpmd/phpmd": "@stable",
+    "phpunit/phpunit": "@stable",
+    "wp-coding-standards/wpcs": "dev-develop"
+  },
+  "scripts": {
+    "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs",
+    "post-update-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs"
   }
 }

@@ -8,7 +8,7 @@ module.exports = {
 		}]
 	},
 	plugin    : {
-		src         : ['classes/plugin.php'],
+		src         : ['classes/class-wp-widget-disable.php'],
 		overwrite   : true,
 		replacements: [
 			{

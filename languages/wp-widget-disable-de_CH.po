@@ -4,113 +4,130 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Widget Disable 1.1.2\n"
 "Report-Msgid-Bugs-To: http://required.ch\n"
-"POT-Creation-Date: 2015-04-17 11:48:39+00:00\n"
-"PO-Revision-Date: 2015-04-22 21:04+0100\n"
+"POT-Creation-Date: 2015-11-19 12:30+0100\n"
+"PO-Revision-Date: 2015-11-19 12:32+0100\n"
 "Last-Translator: Pascal Birchler <pascal@required.ch>\n"
 "Language-Team: required+ <support@required.ch>\n"
 "Language: de_CH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.4\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
 "_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
 "esc_html_x:1,2c\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-Basepath: ../\n"
+"X-Poedit-Basepath: ..\n"
 "X-Textdomain-Support: yes\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: classes/plugin.php:94
+#: classes/class-wp-widget-disable.php:104
 msgid "Disable Sidebar and Dashboard Widgets"
 msgstr "Deaktiviere Sidebar- und Dashboard-Widgets"
 
-#: classes/plugin.php:95
+#: classes/class-wp-widget-disable.php:105
 msgid "Disable Widgets"
 msgstr "Widgets deaktivieren"
 
-#: classes/plugin.php:126
+#: classes/class-wp-widget-disable.php:132
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: classes/plugin.php:145
-msgid "%s is brought to you by %s. We &hearts; WordPress."
-msgstr "%s wurde entwickelt von %s. Wir &hearts; WordPress."
+#. translators: %s: required+
+#: classes/class-wp-widget-disable.php:153
+msgid "WP Widget Disable is brought to you by %s. We &hearts; WordPress."
+msgstr "WP Widget Disable wurde entwickelt von %s. Wir &hearts; WordPress."
 
-#: classes/plugin.php:214
-msgid "All Sidebar Widgets are enabled again."
+#: classes/class-wp-widget-disable.php:230
+msgid "All sidebar widgets are enabled again."
 msgstr "Alle Sidebar Widgets sind wieder aktiviert."
 
-#: classes/plugin.php:224
-msgid "Settings saved. Disabled %s Sidebar Widget for you."
-msgid_plural "Settings saved. Disabled %s Sidebar Widgets for you."
-msgstr[0] "Einstellungen gespeichert. %s Sidebar Widget deaktiviert."
+#: classes/class-wp-widget-disable.php:242
+msgid "Settings saved. One sidebar widget disabled."
+msgstr "Einstellungen gespeichert. %s Sidebar-Widget deaktiviert."
+
+#. translators: %d: number of disabled widgets
+#: classes/class-wp-widget-disable.php:246
+msgid "Settings saved. %d sidebar widget disabled."
+msgid_plural "Settings saved. %d sidebar widgets disabled."
+msgstr[0] "Einstellungen gespeichert. %d Sidebar-Widget deaktiviert."
 msgstr[1] "Einstellungen gespeichert. %s Sidebar Widgets deaktiviert."
 
-#: classes/plugin.php:249
-msgid "All Dashboard Widgets are enabled again."
+#: classes/class-wp-widget-disable.php:279
+msgid "All dashboard widgets are enabled again."
 msgstr "Alle Dashboard Widgets sind wieder aktiviert."
 
-#: classes/plugin.php:259
-msgid "Settings saved. Disabled %s Dashboard Widget for you."
-msgid_plural "Settings saved. Disabled %s Dashboard Widgets for you."
-msgstr[0] "Einstellungen gespeichert. %s Dashboard Widget deaktiviert."
-msgstr[1] "Einstellungen gespeichert. %s Dashboard Widgets deaktiviert."
+#: classes/class-wp-widget-disable.php:291
+msgid "Settings saved. One dashboard widget disabled."
+msgstr "Einstellungen gespeichert. %d Dashboard-Widget deaktiviert."
 
-#: classes/plugin.php:284
+#. translators: %d: number of disabled widgets
+#: classes/class-wp-widget-disable.php:295
+msgid "Settings saved. %d dashboard widget disabled."
+msgid_plural "Settings saved. %d dashboard widgets disabled."
+msgstr[0] "Einstellungen gespeichert. %d Dashboard-Widget deaktiviert."
+msgstr[1] "Einstellungen gespeichert. %d Dashboard-Widgets deaktiviert."
+
+#: classes/class-wp-widget-disable.php:329
 msgid "Disable Sidebar Widgets"
 msgstr "Sidebar-Widgets deaktivieren"
 
-#: classes/plugin.php:290 views/admin.php:32
+#: classes/class-wp-widget-disable.php:332
+msgid ""
+"Choose the sidebar widgets you would like to disable. Note that developers "
+"can still display widgets using PHP."
+msgstr ""
+"Wähle die Sidebar-Widgets aus, welche du deaktivieren möchtest. Beachte, "
+"dass Entwickler weiterhin Widgets mittels PHP anzeigen können."
+
+#: classes/class-wp-widget-disable.php:340 views/admin.php:32
 msgid "Sidebar Widgets"
 msgstr "Sidebar-Widgets"
 
-#: classes/plugin.php:303
-msgid ""
-"Check the boxes with the <strong>Sidebar Widgets</strong> you would like to "
-"disable for this site. Please note that a widget could still be called using "
-"code."
-msgstr ""
-"Wähle die Checkboxen der <strong>Sidebar-Widgets</strong>, welche du "
-"deaktivieren möchtest. Bitte beachte, dass ein Widget immer noch via Code "
-"instanziert werden kann."
+#: classes/class-wp-widget-disable.php:354
+msgid "Disable Dashboard Widgets"
+msgstr "Dashboard-Widgets deaktivieren"
 
-#: classes/plugin.php:314
+#: classes/class-wp-widget-disable.php:357
+msgid "Choose the dashboard widgets you would like to disable."
+msgstr "Wähle die Dashboard-Widgets aus, welche du deaktivieren möchtest."
+
+#: classes/class-wp-widget-disable.php:365 views/admin.php:36
+msgid "Dashboard Widgets"
+msgstr "Dashboard-Widgets"
+
+#: classes/class-wp-widget-disable.php:380
 msgid ""
-"Oops, we could not retrieve the Sidebar Widgets! Maybe there is another "
-"plugin already managing theme?"
+"Oops, we could not retrieve the sidebar widgets! Maybe there is another "
+"plugin already managing them?"
 msgstr ""
 "Hoppla, wir konnten keine Sidebar-Widgets finden! Vielleicht werden diese "
 "bereits durch ein anderes Plugin verwaltet?"
 
-#: classes/plugin.php:320 classes/plugin.php:388
+#: classes/class-wp-widget-disable.php:386
+#: classes/class-wp-widget-disable.php:427
 msgid "Select all"
 msgstr "Alle auswählen"
 
-#: classes/plugin.php:344
-msgid "Disable Dashboard Widgets"
-msgstr "Dashboard-Widgets deaktivieren"
+#. translators: 1: widget name, 2: widget class
+#: classes/class-wp-widget-disable.php:397
+#: classes/class-wp-widget-disable.php:453
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
 
-#: classes/plugin.php:350 views/admin.php:36
-msgid "Dashboard Widgets"
-msgstr "Dashboard-Widgets"
-
-#: classes/plugin.php:363
-msgid ""
-"Check the boxes with the <strong>Dashboard Widgets</strong> you would like "
-"to disable for this site."
-msgstr ""
-"Wähle die Checkboxen der <strong>Dashboard-Widgets</strong>, welche du "
-"deaktivieren möchtest."
+#. translators: %s: welcome_panel
+#: classes/class-wp-widget-disable.php:438
+msgid "Welcome panel (%s)"
+msgstr "Willkommenspanel (%s)"
 
 #. Plugin Name of the plugin/theme
 msgid "WP Widget Disable"
 msgstr "WP Widget Disable"
 
-#. Author URI of the plugin/theme
-msgid "http://required.ch"
-msgstr "http://required.ch"
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/wearerequired/WP-Widget-Disable/"
+msgstr "https://github.com/wearerequired/WP-Widget-Disable/"
 
 #. Description of the plugin/theme
 msgid ""
@@ -125,6 +142,10 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "required+"
 msgstr "required+"
+
+#. Author URI of the plugin/theme
+msgid "http://required.ch"
+msgstr "http://required.ch"
 
 #~ msgid "http://required.ch/"
 #~ msgstr "http://required.ch/"
