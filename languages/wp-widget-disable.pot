@@ -24,86 +24,88 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: classes/plugin.php:94
+#: classes/class-wp-widget-disable.php:107
 msgid "Disable Sidebar and Dashboard Widgets"
 msgstr ""
 
-#: classes/plugin.php:95
+#: classes/class-wp-widget-disable.php:108
 msgid "Disable Widgets"
 msgstr ""
 
-#: classes/plugin.php:126
+#: classes/class-wp-widget-disable.php:139
 msgid "Settings"
 msgstr ""
 
-#: classes/plugin.php:146
+#: classes/class-wp-widget-disable.php:159
 msgid "%s is brought to you by %s. We &hearts; WordPress."
 msgstr ""
 
-#: classes/plugin.php:218
+#: classes/class-wp-widget-disable.php:231
 msgid "All Sidebar Widgets are enabled again."
 msgstr ""
 
-#: classes/plugin.php:228
+#: classes/class-wp-widget-disable.php:241
 msgid "Settings saved. Disabled %s Sidebar Widget for you."
 msgid_plural "Settings saved. Disabled %s Sidebar Widgets for you."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/plugin.php:253
+#: classes/class-wp-widget-disable.php:266
 msgid "All Dashboard Widgets are enabled again."
 msgstr ""
 
-#: classes/plugin.php:263
+#: classes/class-wp-widget-disable.php:276
 msgid "Settings saved. Disabled %s Dashboard Widget for you."
 msgid_plural "Settings saved. Disabled %s Dashboard Widgets for you."
 msgstr[0] ""
 msgstr[1] ""
 
-#: classes/plugin.php:288
+#: classes/class-wp-widget-disable.php:301
 msgid "Disable Sidebar Widgets"
 msgstr ""
 
-#: classes/plugin.php:294 views/admin.php:32
+#: classes/class-wp-widget-disable.php:307 views/admin.php:32
 msgid "Sidebar Widgets"
 msgstr ""
 
-#: classes/plugin.php:307
+#: classes/class-wp-widget-disable.php:320
 msgid ""
 "Check the boxes with the <strong>Sidebar Widgets</strong> you would like to "
 "disable for this site. Please note that a widget could still be called "
 "using code."
 msgstr ""
 
-#: classes/plugin.php:318
+#: classes/class-wp-widget-disable.php:331
 msgid ""
 "Oops, we could not retrieve the Sidebar Widgets! Maybe there is another "
 "plugin already managing theme?"
 msgstr ""
 
-#: classes/plugin.php:324 classes/plugin.php:396
+#: classes/class-wp-widget-disable.php:337
+#: classes/class-wp-widget-disable.php:409
 msgid "Select all"
 msgstr ""
 
-#: classes/plugin.php:333 classes/plugin.php:418
+#: classes/class-wp-widget-disable.php:346
+#: classes/class-wp-widget-disable.php:431
 msgid "%1$s (%2$s)"
 msgstr ""
 
-#: classes/plugin.php:352
+#: classes/class-wp-widget-disable.php:365
 msgid "Disable Dashboard Widgets"
 msgstr ""
 
-#: classes/plugin.php:358 views/admin.php:36
+#: classes/class-wp-widget-disable.php:371 views/admin.php:36
 msgid "Dashboard Widgets"
 msgstr ""
 
-#: classes/plugin.php:371
+#: classes/class-wp-widget-disable.php:384
 msgid ""
 "Check the boxes with the <strong>Dashboard Widgets</strong> you would like "
 "to disable for this site."
 msgstr ""
 
-#: classes/plugin.php:405
+#: classes/class-wp-widget-disable.php:418
 msgid "Welcome panel (%s)"
 msgstr ""
 

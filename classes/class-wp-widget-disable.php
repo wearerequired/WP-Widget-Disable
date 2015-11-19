@@ -1,13 +1,14 @@
 <?php
-defined( 'WPINC' ) or die;
+/**
+ * Holds the main plugin class.
+ *
+ * @package WP_Widget_Disable
+ */
 
-class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
-
-	/**
-	 * @var self
-	 */
-	protected static $instance;
-
+/**
+ * Class WP_Widget_Disable
+ */
+class WP_Widget_Disable {
 	/**
 	 * Plugin version.
 	 */
@@ -47,41 +48,53 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 	protected $dashboard_widgets_option = 'rplus_wp_widget_disable_dashboard_option';
 
 	/**
-	 * Constructs the object, hooks in to `plugins_loaded`.
-	 */
-	protected function __construct() {
-		$this->hook( 'plugins_loaded', 'add_hooks' );
-	}
-
-	/**
 	 * Adds hooks.
 	 */
 	public function add_hooks() {
-		$this->hook( 'init' );
+		add_action( 'init', array( $this, 'load_textdomain' ) );
 
 		// Add the options page and menu item.
-		$this->hook( 'admin_menu' );
-		$this->hook( 'admin_init', 'register_sidebar_settings' );
-		$this->hook( 'admin_init', 'register_dashboard_settings' );
+		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_init', array( $this, 'register_sidebar_settings' ) );
+		add_action( 'admin_init', array( $this, 'register_dashboard_settings' ) );
 
 		// Get and disable the sidebar widgets.
-		$this->hook( 'widgets_init', 'set_default_sidebar_widgets', 100 );
-		$this->hook( 'widgets_init', 'disable_sidebar_widgets', 100 );
+		add_action( 'widgets_init', array( $this, 'set_default_sidebar_widgets' ), 100 );
+		add_action( 'widgets_init', array( $this, 'disable_sidebar_widgets' ), 100 );
 
 		// Get and disable the dashboard widgets.
-		$this->hook( 'wp_dashboard_setup', 'disable_dashboard_widgets', 100 );
+		add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
 
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( $this->get_path() . 'wp-widget-disable.php' );
-		$this->hook( 'plugin_action_links_' . $plugin_basename, 'plugin_action_links' );
-		$this->hook( 'admin_footer_text' );
+		add_action( 'plugin_action_links_' . $plugin_basename, array( $this, 'plugin_action_links' ) );
+
+		add_action( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
+	}
+
+	/**
+	 * Returns the URL to the plugin directory
+	 *
+	 * @return string The URL to the plugin directory.
+	 */
+	public function get_url() {
+		return plugin_dir_url( __DIR__ );
+	}
+
+	/**
+	 * Returns the path to the plugin directory.
+	 *
+	 * @return string The absolute path to the plugin directory.
+	 */
+	public function get_path() {
+		return plugin_dir_path( __DIR__ );
 	}
 
 	/**
 	 * Initializes the plugin, registers textdomain, etc.
 	 */
-	public function init() {
-		$this->load_textdomain( 'wp-widget-disable', '/languages' );
+	public function load_textdomain() {
+		load_plugin_textdomain( 'wp-widget-disable', false, basename( $this->get_path() ) . '/languages' );
 	}
 
 	/**
@@ -105,7 +118,7 @@ class WP_Widget_Disable_Plugin extends WP_Stack_Plugin2 {
 	 * @since 1.0.0
 	 */
 	public function display_plugin_admin_page() {
-		$this->include_file( 'views/admin.php' );
+		include( $this->get_path() . 'views/admin.php' );
 	}
 
 	/**
