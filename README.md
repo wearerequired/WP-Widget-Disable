@@ -4,7 +4,7 @@ Donate link:       http://required.ch
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets  
 Requires at least: 3.5.1  
 Tested up to:      4.5  
-Stable tag:        1.5.0  
+Stable tag:        1.5.1  
 License:           GPLv2 or later  
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -48,7 +48,7 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 ## Changelog ##
 
 ### 1.5.1 ###
-* Enhancement: Re-added two filters.
+* Fixed: Re-added two filters.
 
 ### 1.5.0 ###
 * Enhancement: Translation improvements.
@@ -94,7 +94,7 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 ## Upgrade Notice ##
 
 ### 1.5.1 ###
-Small update under the hood to bring back two filters.
+Small update under the hood to bring back two filters. 100% compatible with WordPress 4.5.
 
 ### 1.5.0 ###
 Being 100% compatible with WordPress 4.4, this update includes some smaller enhancements under the hood.
