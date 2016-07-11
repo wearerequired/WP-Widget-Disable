@@ -105,10 +105,19 @@ class WP_Widget_Disable {
 			__( 'Disable Widgets', 'wp-widget-disable' ),
 			'edit_theme_options',
 			'wp-widget-disable',
-			function () {
-				include( trailingslashit( $this->get_path() ) . 'views/admin.php' );
-			}
+			array( $this, 'settings_page_callback' )
 		);
+	}
+
+	/**
+	 * Prints the content of the settings page.
+	 *
+	 * Not a closure because `$this` in closures is only possible in PHP 5.4 or higher.
+	 *
+	 * @since 1.5.2
+	 */
+	public function settings_page_callback() {
+		include( trailingslashit( $this->get_path() ) . 'views/admin.php' );
 	}
 
 	/**
