@@ -12,7 +12,7 @@ class WP_Widget_Disable {
 	/**
 	 * Plugin version.
 	 */
-	const VERSION = '1.5.1';
+	const VERSION = '1.6.0';
 
 	/**
 	 * Sidebar widgets option key.
@@ -117,7 +117,7 @@ class WP_Widget_Disable {
 	 *
 	 * Not a closure because `$this` in closures is only possible in PHP 5.4 or higher.
 	 *
-	 * @since 1.5.2
+	 * @since 1.6.0
 	 */
 	public function settings_page_callback() {
 		include( trailingslashit( $this->get_path() ) . 'views/admin.php' );
