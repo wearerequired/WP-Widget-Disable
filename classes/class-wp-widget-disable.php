@@ -55,6 +55,9 @@ class WP_Widget_Disable {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
+		// Display settings errors.
+		add_action( 'admin_notices', 'settings_errors' );
+
 		// Get and disable the sidebar widgets.
 		add_action( 'widgets_init', array( $this, 'set_default_sidebar_widgets' ), 100 );
 		add_action( 'widgets_init', array( $this, 'disable_sidebar_widgets' ), 100 );

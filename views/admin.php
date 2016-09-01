@@ -15,7 +15,6 @@
 
 <div class="wrap">
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-	<?php settings_errors(); ?>
 
 	<?php
 	$active_tab = $this->sidebar_widgets_option;
