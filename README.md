@@ -2,7 +2,7 @@
 Contributors:      wearerequired, neverything, swissspidy  
 Donate link:       http://required.ch  
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets  
-Requires at least: 3.5.1  
+Requires at least: 4.0  
 Tested up to:      4.6  
 Stable tag:        1.6.0  
 License:           GPLv2 or later  

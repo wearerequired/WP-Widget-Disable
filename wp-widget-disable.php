@@ -29,20 +29,23 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-include( dirname( __FILE__ ) . '/lib/requirements-check.php' );
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+	require dirname( __FILE__ ) . '/vendor/autoload.php';
+}
 
-$wp_widget_disable_requirements_check = new WP_Widget_Disable_Requirements_Check( array(
+$requirements_check = new WP_Requirements_Check( array(
 	'title' => 'WP Widget Disable',
 	'php'   => '5.3',
 	'wp'    => '4.0',
 	'file'  => __FILE__,
 ) );
 
-if ( $wp_widget_disable_requirements_check->passes() ) {
+if ( $requirements_check->passes() ) {
 	// Pull in the plugin classes and initialize.
 	include( dirname( __FILE__ ) . '/classes/class-wp-widget-disable.php' );
+
 	$wp_widget_disable = new WP_Widget_Disable();
 	add_action( 'plugins_loaded', array( $wp_widget_disable, 'add_hooks' ) );
 }
 
-unset( $wp_widget_disable_requirements_check );
+unset( $requirements_check );

@@ -4,9 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "501d9cdd045e43192ff8ef25f071dfde",
-    "content-hash": "347ab515ea14b9640e1804f7cd68621f",
-    "packages": [],
+    "hash": "b3144ca712a72b567bff9256e00d8990",
+    "content-hash": "379f90913aac380911237e7df2e6b226",
+    "packages": [
+        {
+            "name": "wearerequired/wp-requirements-check",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wearerequired/wp-requirements-check.git",
+                "reference": "0d9f602ed83def11f97c07ee76ad204cc1ba247f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wearerequired/wp-requirements-check/zipball/0d9f602ed83def11f97c07ee76ad204cc1ba247f",
+                "reference": "0d9f602ed83def11f97c07ee76ad204cc1ba247f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "WP_Requirements_Check.php"
+                ]
+            },
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "required",
+                    "email": "support@required.ch",
+                    "homepage": "http://required.ch",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple requirements checking class",
+            "support": {
+                "source": "https://github.com/wearerequired/wp-requirements-check/tree/master",
+                "issues": "https://github.com/wearerequired/wp-requirements-check/issues"
+            },
+            "time": "2016-06-06 18:20:15"
+        }
+    ],
     "packages-dev": [
         {
             "name": "pdepend/pdepend",
@@ -392,7 +431,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "wearerequired/wp-requirements-check": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
