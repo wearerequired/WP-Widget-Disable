@@ -1,6 +1,6 @@
 module.exports = {
 	main: {
-		src : [
+		src:  [
 			'**',
 			'!node_modules/**',
 			'!release/**',
@@ -20,10 +20,10 @@ module.exports = {
 		],
 		dest: 'release/<%= package.version %>/'
 	},
-	svn : {
-		cwd   : 'release/<%= package.version %>/',
+	svn:  {
+		cwd:    'release/<%= package.version %>/',
 		expand: true,
-		src   : '**',
-		dest  : 'release/svn/'
+		src:    '**',
+		dest:   'release/svn/'
 	}
-}
+};

@@ -8,13 +8,13 @@ module.exports = {
 	},
 
 	sass: {
-		files: ['css/src/*.scss'],
-		tasks: ['sass', 'autoprefixer', 'cssmin']
+		files: [ 'css/src/*.scss' ],
+		tasks: [ 'sass', 'autoprefixer', 'cssmin' ]
 	},
 
 	php: {
-		files  : ['**/*.php'],
-		tasks  : ['checktextdomain', 'phpunit'],
+		files:   [ '**/*.php' ],
+		tasks:   [ 'checktextdomain', 'phpunit' ],
 		options: {
 			debounceDelay: 5000
 		}
@@ -22,6 +22,6 @@ module.exports = {
 
 	scripts: {
 		files: 'js/src/**/*.*',
-		tasks: ['jshint', 'concat', 'uglify', 'clean:js']
+		tasks: [ 'jshint', 'concat', 'uglify', 'clean:js' ]
 	}
-}
+};
