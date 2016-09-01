@@ -511,7 +511,7 @@ class WP_Widget_Disable {
 						checked( array_key_exists( $id, $options ), true, false ),
 						sprintf(
 							__( '%1$s (%2$s)', 'wp-widget-disable' ),
-							esc_html( wp_strip_all_tags( $widget['title'] ) ),
+							wp_kses( $widget['title'], array( 'span' => array( 'class' => true ) ) ),
 							'<code>' . esc_html( $id ) . '</code>'
 						)
 					);
