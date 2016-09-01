@@ -15,7 +15,7 @@
     "url":  "https://github.com/wearerequired/WP-Widget-Disable"
   },
   "devDependencies": {
-    "grunt":                  "^0.4.5",
+    "grunt":                  "^1.0.0",
     "grunt-checktextdomain":  "^1.0.0",
     "grunt-contrib-clean":    "^1.0.0",
     "grunt-contrib-compress": "^1.2.0",
