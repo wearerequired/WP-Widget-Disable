@@ -196,13 +196,21 @@ class WP_Widget_Disable {
 		if ( ! is_array( $wp_meta_boxes['dashboard'] ) ) {
 			require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
 
+			$current_screen = get_current_screen();
+
 			set_current_screen( 'dashboard' );
 
 			remove_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
+
 			wp_dashboard_setup();
+
+			if ( is_callable( array( 'Antispam_Bee', 'add_dashboard_chart' ) ) ) {
+				Antispam_Bee::add_dashboard_chart();
+			}
+
 			add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
 
-			set_current_screen( 'wp-widget-disable' );
+			set_current_screen( $current_screen );
 		}
 
 		if ( isset( $wp_meta_boxes['dashboard'][0] ) ) {
