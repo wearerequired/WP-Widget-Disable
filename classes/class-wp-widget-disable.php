@@ -453,7 +453,7 @@ class WP_Widget_Disable {
 		<?php
 		foreach ( $widgets as $id => $widget_object ) {
 			printf(
-				'<p><input type="checkbox" id="%1$s" name="%2$s" value="disabled" %3$s><label for="%1$s">%4$s</label></p>',
+				'<p><input type="checkbox" id="%1$s" name="%2$s" value="disabled" %3$s> <label for="%1$s">%4$s</label></p>',
 				esc_attr( $id ),
 				esc_attr( $this->sidebar_widgets_option ) . '[' . esc_attr( $id ) . ']',
 				checked( array_key_exists( $id, $options ), true, false ),
@@ -506,7 +506,7 @@ class WP_Widget_Disable {
 			foreach ( $priority as $data ) {
 				foreach ( $data as $id => $widget ) {
 					printf(
-						'<p><input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s><label for="%1$s">%5$s</label></p>',
+						'<p><input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s> <label for="%1$s">%5$s</label></p>',
 						esc_attr( $id ),
 						esc_attr( $this->dashboard_widgets_option ) . '[' . esc_attr( $id ) . ']',
 						esc_attr( $context ),
