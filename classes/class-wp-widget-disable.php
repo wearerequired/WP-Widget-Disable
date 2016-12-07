@@ -495,7 +495,6 @@ class WP_Widget_Disable {
 			       value="normal"
 				<?php checked( 'dashboard_welcome_panel', ( array_key_exists( 'dashboard_welcome_panel', $options ) ? 'dashboard_welcome_panel' : false ) ); ?>>
 			<label for="dashboard_welcome_panel">
-			<label for="dashboard_welcome_panel">
 				<?php
 				/* translators: %s: welcome_panel */
 				printf( __( 'Welcome panel (%s)', 'wp-widget-disable' ), '<code>welcome_panel</code>' );
