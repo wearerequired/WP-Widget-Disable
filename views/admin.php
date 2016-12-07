@@ -14,7 +14,7 @@
 ?>
 
 <div class="wrap">
-	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
+	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
 	<?php
 	$active_tab = $this->sidebar_widgets_option;
