@@ -445,12 +445,7 @@ class WP_Widget_Disable {
 		}
 
 		$options = (array) get_option( $this->sidebar_widgets_option );
-		?>
-		<p>
-			<input type="checkbox" id="wp_widget_disable_select_all"/>
-			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
-		</p>
-		<?php
+
 		foreach ( $widgets as $id => $widget_object ) {
 			printf(
 				'<p><input type="checkbox" id="%1$s" name="%2$s" value="disabled" %3$s> <label for="%1$s">%4$s</label></p>',
@@ -465,6 +460,12 @@ class WP_Widget_Disable {
 				)
 			);
 		}
+		?>
+		<p>
+			<button type="button" class="button-link" id="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></button> |
+			<button type="button" class="button-link" id="wp_widget_disable_deselect_all"><?php _e( 'Deselect all', 'wp-widget-disable' ); ?></button>
+		</p>
+		<?php
 	}
 
 	/**
@@ -485,10 +486,6 @@ class WP_Widget_Disable {
 
 		$options = (array) get_option( $this->dashboard_widgets_option );
 		?>
-		<p>
-			<input type="checkbox" id="wp_widget_disable_select_all"/>
-			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
-		</p>
 		<p>
 			<input type="checkbox" id="dashboard_welcome_panel"
 			       name="rplus_wp_widget_disable_dashboard_option[dashboard_welcome_panel]"
@@ -520,5 +517,11 @@ class WP_Widget_Disable {
 				}
 			}
 		}
+		?>
+		<p>
+			<button type="button" class="button-link" id="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></button> |
+			<button type="button" class="button-link" id="wp_widget_disable_deselect_all"><?php _e( 'Deselect all', 'wp-widget-disable' ); ?></button>
+		</p>
+		<?php
 	}
 }
