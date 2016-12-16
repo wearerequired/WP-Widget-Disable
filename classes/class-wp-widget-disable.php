@@ -56,7 +56,7 @@ class WP_Widget_Disable {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
 		// Display settings errors.
-		add_action( 'admin_notices', 'settings_errors' );
+		add_action( 'admin_notices', array( $this, 'settings_errors' ) );
 
 		// Get and disable the sidebar widgets.
 		add_action( 'widgets_init', array( $this, 'set_default_sidebar_widgets' ), 100 );
@@ -121,6 +121,15 @@ class WP_Widget_Disable {
 	 */
 	public function settings_page_callback() {
 		include( trailingslashit( $this->get_path() ) . 'views/admin.php' );
+	}
+
+	/**
+	 * Displays the settings errors on the plugin's settings page.
+	 *
+	 * @since 1.7.0
+	 */
+	public function settings_errors() {
+		settings_errors( 'wp-widget-disable' );
 	}
 
 	/**
