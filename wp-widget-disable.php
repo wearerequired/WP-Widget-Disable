@@ -1,18 +1,15 @@
 <?php
 /**
  * Plugin Name: WP Widget Disable
- * Plugin URI:  https://github.com/wearerequired/WP-Widget-Disable/
+ * Plugin URI:  https://required.com/services/wordpress-plugins/wp-widget-disable/
  * Description: Disable Sidebar and Dashboard Widgets with an easy to use interface. Simply use the checkboxes provided under <strong>Appearance -> Disable Widgets</strong> and select the Widgets you'd like to hide.
  * Version:     1.6.0
- * Author:      required+
- * Author URI:  http://required.ch
+ * Author:      required
+ * Author URI:  https://required.com
  * License:     GPLv2+
  * Text Domain: wp-widget-disable
- * Domain Path: /languages
- */
-
-/**
- * Copyright (c) 2015 required+ (email : support@required.ch)
+ *
+ * Copyright (c) 2015-2017 required (email: support@required.ch)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or, at
