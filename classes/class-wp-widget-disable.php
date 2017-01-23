@@ -162,7 +162,7 @@ class WP_Widget_Disable {
 	/**
 	 * Add admin footer text to plugins page.
 	 *
-	 * @since    1.0.0
+	 * @since 1.0.0
 	 *
 	 * @param  string $text Default admin footer text.
 	 *
@@ -171,8 +171,8 @@ class WP_Widget_Disable {
 	public function admin_footer_text( $text ) {
 		$screen = get_current_screen();
 
-		if ( $this->page_hook === $screen->base || 'wp-widget-disable' === $screen->base ) {
-			/* translators: %s: required+ */
+		if ( $this->page_hook === $screen->base ) {
+			/* translators: %s: required */
 			$text = sprintf( __( 'WP Widget Disable is brought to you by %s. We &hearts; WordPress.', 'wp-widget-disable' ), '<a href="https://required.com">required</a>' );
 		}
 
