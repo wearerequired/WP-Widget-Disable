@@ -46,9 +46,7 @@ class WP_Widget_Disable {
 	protected $dashboard_widgets_option = 'rplus_wp_widget_disable_dashboard_option';
 
 	/**
-	 * Dashboard widgets option key.
-	 *
-	 * Stores all the disabled sidebar widgets as an array.
+	 * Page hook suffix for the settings page.
 	 *
 	 * @since 1.6.1
 	 *
