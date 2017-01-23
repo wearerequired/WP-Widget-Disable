@@ -162,7 +162,7 @@ class WP_Widget_Disable {
 
 		if ( 'appearance_page_wp-widget-disable' === $screen->base || 'wp-widget-disable' === $screen->base ) {
 			/* translators: %s: required+ */
-			$text = sprintf( __( 'WP Widget Disable is brought to you by %s. We &hearts; WordPress.', 'wp-widget-disable' ), '<a href="http://required.ch">required+</a>' );
+			$text = sprintf( __( 'WP Widget Disable is brought to you by %s. We &hearts; WordPress.', 'wp-widget-disable' ), '<a href="https://required.com">required</a>' );
 		}
 
 		return $text;
