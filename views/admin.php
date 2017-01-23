@@ -46,7 +46,7 @@
 		} );
 	</script>
 
-	<form method="post" action="options.php">
+	<form method="post" action="options.php" class="wp-widget-disable-form">
 		<?php
 		settings_fields( $active_tab );
 		do_settings_sections( $active_tab );
