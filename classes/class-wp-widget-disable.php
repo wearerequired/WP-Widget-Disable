@@ -94,7 +94,7 @@ class WP_Widget_Disable {
 	 * Initializes the plugin, registers textdomain, etc.
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'wp-widget-disable', false, basename( $this->get_path() ) . '/languages' );
+		load_plugin_textdomain( 'wp-widget-disable' );
 	}
 
 	/**
