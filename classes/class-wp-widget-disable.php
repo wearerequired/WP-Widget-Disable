@@ -48,7 +48,7 @@ class WP_Widget_Disable {
 	/**
 	 * Page hook suffix for the settings page.
 	 *
-	 * @since 1.6.1
+	 * @since 1.7.0
 	 *
 	 * @var string
 	 */
