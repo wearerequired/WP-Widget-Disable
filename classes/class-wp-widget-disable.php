@@ -46,6 +46,15 @@ class WP_Widget_Disable {
 	protected $dashboard_widgets_option = 'rplus_wp_widget_disable_dashboard_option';
 
 	/**
+	 * Page hook suffix for the settings page.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @var string
+	 */
+	protected $page_hook = '';
+
+	/**
 	 * Adds hooks.
 	 */
 	public function add_hooks() {
@@ -70,6 +79,8 @@ class WP_Widget_Disable {
 		add_action( 'plugin_action_links_' . $plugin_basename, array( $this, 'plugin_action_links' ) );
 
 		add_action( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
+
+		add_action( 'admin_print_styles', array( $this, 'print_admin_styles' ) );
 	}
 
 	/**
@@ -103,7 +114,7 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 */
 	public function admin_menu() {
-		add_theme_page(
+		$this->page_hook = add_theme_page(
 			__( 'Disable Sidebar and Dashboard Widgets', 'wp-widget-disable' ),
 			__( 'Disable Widgets', 'wp-widget-disable' ),
 			'edit_theme_options',
@@ -151,7 +162,7 @@ class WP_Widget_Disable {
 	/**
 	 * Add admin footer text to plugins page.
 	 *
-	 * @since    1.0.0
+	 * @since 1.0.0
 	 *
 	 * @param  string $text Default admin footer text.
 	 *
@@ -160,12 +171,36 @@ class WP_Widget_Disable {
 	public function admin_footer_text( $text ) {
 		$screen = get_current_screen();
 
-		if ( 'appearance_page_wp-widget-disable' === $screen->base || 'wp-widget-disable' === $screen->base ) {
-			/* translators: %s: required+ */
+		if ( $this->page_hook === $screen->base ) {
+			/* translators: %s: required */
 			$text = sprintf( __( 'WP Widget Disable is brought to you by %s. We &hearts; WordPress.', 'wp-widget-disable' ), '<a href="https://required.com">required</a>' );
 		}
 
 		return $text;
+	}
+
+	/**
+	 * Prints additional styles used for the settings form.
+	 *
+	 * @since 1.6.1
+	 */
+	public function print_admin_styles() {
+		$screen = get_current_screen();
+		if ( $this->page_hook !== $screen->base ) {
+			return;
+		}
+
+		?>
+		<style>
+		.wp-widget-disable-form .button-link {
+			color: #0073aa;
+		}
+		.wp-widget-disable-form .button-link:hover,
+		.wp-widget-disable-form .button-link:focus {
+			color: #00a0d2;
+		}
+		</style>
+		<?php
 	}
 
 	/**
@@ -445,12 +480,7 @@ class WP_Widget_Disable {
 		}
 
 		$options = (array) get_option( $this->sidebar_widgets_option );
-		?>
-		<p>
-			<input type="checkbox" id="wp_widget_disable_select_all"/>
-			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
-		</p>
-		<?php
+
 		foreach ( $widgets as $id => $widget_object ) {
 			printf(
 				'<p><input type="checkbox" id="%1$s" name="%2$s" value="disabled" %3$s> <label for="%1$s">%4$s</label></p>',
@@ -465,6 +495,12 @@ class WP_Widget_Disable {
 				)
 			);
 		}
+		?>
+		<p>
+			<button type="button" class="button-link" id="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></button> |
+			<button type="button" class="button-link" id="wp_widget_disable_deselect_all"><?php _e( 'Deselect all', 'wp-widget-disable' ); ?></button>
+		</p>
+		<?php
 	}
 
 	/**
@@ -485,10 +521,6 @@ class WP_Widget_Disable {
 
 		$options = (array) get_option( $this->dashboard_widgets_option );
 		?>
-		<p>
-			<input type="checkbox" id="wp_widget_disable_select_all"/>
-			<label for="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></label>
-		</p>
 		<p>
 			<input type="checkbox" id="dashboard_welcome_panel"
 			       name="rplus_wp_widget_disable_dashboard_option[dashboard_welcome_panel]"
@@ -520,5 +552,11 @@ class WP_Widget_Disable {
 				}
 			}
 		}
+		?>
+		<p>
+			<button type="button" class="button-link" id="wp_widget_disable_select_all"><?php _e( 'Select all', 'wp-widget-disable' ); ?></button> |
+			<button type="button" class="button-link" id="wp_widget_disable_deselect_all"><?php _e( 'Deselect all', 'wp-widget-disable' ); ?></button>
+		</p>
+		<?php
 	}
 }
