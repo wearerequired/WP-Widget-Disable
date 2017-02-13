@@ -3,7 +3,7 @@ Contributors:      wearerequired, neverything, swissspidy
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets  
 Requires at least: 4.0  
 Tested up to:      4.7  
-Stable tag:        1.6.0  
+Stable tag:        1.7.0  
 License:           GPLv2 or later  
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html  
 
