@@ -63,8 +63,13 @@ class WP_Widget_Disable {
 	 * @since 1.6.1
 	 */
 	public function set_default_options() {
-		add_option( $this->sidebar_widgets_option, array() );
-		add_option( $this->dashboard_widgets_option, array() );
+		if ( false === get_option( $this->sidebar_widgets_option, false ) ) {
+			add_option( $this->sidebar_widgets_option, array() );
+		}
+
+		if ( false === get_option( $this->dashboard_widgets_option, false ) ) {
+			add_option( $this->dashboard_widgets_option, array() );
+		}
 	}
 
 	/**
