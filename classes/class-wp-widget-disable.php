@@ -60,7 +60,7 @@ class WP_Widget_Disable {
 	 * @link https://core.trac.wordpress.org/ticket/21989
 	 * @link https://github.com/wearerequired/WP-Widget-Disable/issues/11
 	 *
-	 * @since 1.6.1
+	 * @since 1.7.0
 	 */
 	public function set_default_options() {
 		if ( false === get_option( $this->sidebar_widgets_option, false ) ) {
