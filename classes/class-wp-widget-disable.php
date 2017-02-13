@@ -46,6 +46,19 @@ class WP_Widget_Disable {
 	protected $dashboard_widgets_option = 'rplus_wp_widget_disable_dashboard_option';
 
 	/**
+	 * Saves empty values for the plugin's options upon plugin activation.
+	 *
+	 * @link https://core.trac.wordpress.org/ticket/21989
+	 * @link https://github.com/wearerequired/WP-Widget-Disable/issues/11
+	 *
+	 * @since 1.6.1
+	 */
+	public function set_default_options() {
+		add_option( $this->sidebar_widgets_option, array() );
+		add_option( $this->dashboard_widgets_option, array() );
+	}
+
+	/**
 	 * Adds hooks.
 	 */
 	public function add_hooks() {
