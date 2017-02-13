@@ -55,6 +55,24 @@ class WP_Widget_Disable {
 	protected $page_hook = '';
 
 	/**
+	 * Saves empty values for the plugin's options upon plugin activation.
+	 *
+	 * @link https://core.trac.wordpress.org/ticket/21989
+	 * @link https://github.com/wearerequired/WP-Widget-Disable/issues/11
+	 *
+	 * @since 1.7.0
+	 */
+	public function set_default_options() {
+		if ( false === get_option( $this->sidebar_widgets_option, false ) ) {
+			add_option( $this->sidebar_widgets_option, array() );
+		}
+
+		if ( false === get_option( $this->dashboard_widgets_option, false ) ) {
+			add_option( $this->dashboard_widgets_option, array() );
+		}
+	}
+
+	/**
 	 * Adds hooks.
 	 */
 	public function add_hooks() {
@@ -65,7 +83,7 @@ class WP_Widget_Disable {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
 		// Display settings errors.
-		add_action( 'admin_notices', 'settings_errors' );
+		add_action( 'admin_notices', array( $this, 'settings_errors' ) );
 
 		// Get and disable the sidebar widgets.
 		add_action( 'widgets_init', array( $this, 'set_default_sidebar_widgets' ), 100 );
@@ -132,6 +150,15 @@ class WP_Widget_Disable {
 	 */
 	public function settings_page_callback() {
 		include( trailingslashit( $this->get_path() ) . 'views/admin.php' );
+	}
+
+	/**
+	 * Displays the settings errors on the plugin's settings page.
+	 *
+	 * @since 1.7.0
+	 */
+	public function settings_errors() {
+		settings_errors( 'wp-widget-disable' );
 	}
 
 	/**
@@ -295,7 +322,7 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 */
 	public function disable_dashboard_widgets() {
-		$widgets = (array) get_option( $this->dashboard_widgets_option );
+		$widgets = (array) get_option( $this->dashboard_widgets_option, array() );
 		if ( ! $widgets ) {
 			return;
 		}
@@ -321,7 +348,11 @@ class WP_Widget_Disable {
 		// Create our array for storing the validated options.
 		$output = array();
 		if ( empty( $input ) ) {
-			$message = __( 'All sidebar widgets are enabled again.', 'wp-widget-disable' );
+			if ( empty( get_option( $this->sidebar_widgets_option, array() ) ) ) {
+				$message = __( 'Settings saved.', 'wp-widget-disable' );
+			} else {
+				$message = __( 'All sidebar widgets are enabled again.', 'wp-widget-disable' );
+			}
 		} else {
 			// Loop through each of the incoming options.
 			foreach ( array_keys( $input ) as $key ) {
@@ -370,7 +401,11 @@ class WP_Widget_Disable {
 		// Create our array for storing the validated options.
 		$output = array();
 		if ( empty( $input ) ) {
-			$message = __( 'All dashboard widgets are enabled again.', 'wp-widget-disable' );
+			if ( empty( get_option( $this->dashboard_widgets_option, array() ) ) ) {
+				$message = __( 'Settings saved.', 'wp-widget-disable' );
+			} else {
+				$message = __( 'All dashboard widgets are enabled again.', 'wp-widget-disable' );
+			}
 		} else {
 			// Loop through each of the incoming options.
 			foreach ( array_keys( $input ) as $key ) {
@@ -479,7 +514,7 @@ class WP_Widget_Disable {
 			return;
 		}
 
-		$options = (array) get_option( $this->sidebar_widgets_option );
+		$options = (array) get_option( $this->sidebar_widgets_option, array() );
 
 		foreach ( $widgets as $id => $widget_object ) {
 			printf(
@@ -519,7 +554,7 @@ class WP_Widget_Disable {
 			return;
 		}
 
-		$options = (array) get_option( $this->dashboard_widgets_option );
+		$options = (array) get_option( $this->dashboard_widgets_option, array() );
 		?>
 		<p>
 			<input type="checkbox" id="dashboard_welcome_panel"
