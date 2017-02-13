@@ -1,9 +1,8 @@
 # WP Widget Disable #
-Contributors:      wearerequired, neverything, swissspidy  
-Donate link:       http://required.ch  
+Contributors:      wearerequired, neverything, swissspidy   
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets  
 Requires at least: 4.0  
-Tested up to:      4.6  
+Tested up to:      4.7  
 Stable tag:        1.6.0  
 License:           GPLv2 or later  
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html  
@@ -24,7 +23,7 @@ Have a look at the filters we provide:
 
 If you would like to contribute to this plugin, report an isse or anything like that, please note that we develop this plugin on [GitHub](https://github.com/wearerequired/WP-Widget-Disable).
 
-Developed by [required+](http://required.ch/ "Team of experienced web professionals from Switzerland & Germany")
+Developed by [required](https://required.com/ "Team of experienced web professionals from Switzerland & Germany")
 
 ## Installation
 

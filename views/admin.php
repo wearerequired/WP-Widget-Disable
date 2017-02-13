@@ -36,17 +36,17 @@
 	</h2>
 
 	<script type="text/javascript">
-		jQuery(document).ready(function ($) {
-			$('#wp_widget_disable_select_all').click(function () {
-				var isChecked = $(this).get(0).checked;
-				$(this).parents('td').find('input').each(function () {
-					$(this).get(0).checked = isChecked;
-				});
-			});
-		});
+		jQuery( document ).ready( function( $ ) {
+			$( '#wp_widget_disable_select_all, #wp_widget_disable_deselect_all' ).click( function() {
+				var isChecked = 'wp_widget_disable_select_all' === $( this ).attr( 'id' );
+				$( this ).parents( 'td' ).find( 'input' ).each( function() {
+					$( this ).get( 0 ).checked = isChecked;
+				} );
+			} );
+		} );
 	</script>
 
-	<form method="post" action="options.php">
+	<form method="post" action="options.php" class="wp-widget-disable-form">
 		<?php
 		settings_fields( $active_tab );
 		do_settings_sections( $active_tab );
