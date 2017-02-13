@@ -308,7 +308,11 @@ class WP_Widget_Disable {
 		// Create our array for storing the validated options.
 		$output = array();
 		if ( empty( $input ) ) {
-			$message = __( 'All sidebar widgets are enabled again.', 'wp-widget-disable' );
+			if ( empty( get_option( $this->sidebar_widgets_option, array() ) ) ) {
+				$message = __( 'Settings saved.', 'wp-widget-disable' );
+			} else {
+				$message = __( 'All sidebar widgets are enabled again.', 'wp-widget-disable' );
+			}
 		} else {
 			// Loop through each of the incoming options.
 			foreach ( array_keys( $input ) as $key ) {
@@ -357,7 +361,11 @@ class WP_Widget_Disable {
 		// Create our array for storing the validated options.
 		$output = array();
 		if ( empty( $input ) ) {
-			$message = __( 'All dashboard widgets are enabled again.', 'wp-widget-disable' );
+			if ( empty( get_option( $this->dashboard_widgets_option, array() ) ) ) {
+				$message = __( 'Settings saved.', 'wp-widget-disable' );
+			} else {
+				$message = __( 'All dashboard widgets are enabled again.', 'wp-widget-disable' );
+			}
 		} else {
 			// Loop through each of the incoming options.
 			foreach ( array_keys( $input ) as $key ) {
