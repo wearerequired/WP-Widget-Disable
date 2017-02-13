@@ -269,7 +269,7 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 */
 	public function disable_dashboard_widgets() {
-		$widgets = (array) get_option( $this->dashboard_widgets_option );
+		$widgets = (array) get_option( $this->dashboard_widgets_option, array() );
 		if ( ! $widgets ) {
 			return;
 		}
@@ -453,7 +453,7 @@ class WP_Widget_Disable {
 			return;
 		}
 
-		$options = (array) get_option( $this->sidebar_widgets_option );
+		$options = (array) get_option( $this->sidebar_widgets_option, array() );
 		?>
 		<p>
 			<input type="checkbox" id="wp_widget_disable_select_all"/>
@@ -492,7 +492,7 @@ class WP_Widget_Disable {
 			return;
 		}
 
-		$options = (array) get_option( $this->dashboard_widgets_option );
+		$options = (array) get_option( $this->dashboard_widgets_option, array() );
 		?>
 		<p>
 			<input type="checkbox" id="wp_widget_disable_select_all"/>
