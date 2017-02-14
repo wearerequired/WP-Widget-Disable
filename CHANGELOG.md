@@ -1,6 +1,29 @@
 # Changelog
 
+## 1.7.0
+
+- Fixed: Improved messages when saving settings.
+- Enhancement: Improved compatibility with latest versions of WordPress.
+- Enhancement: Various accessibility improvements on the settings screen.
+
+## 1.6.0
+
+- Fixed: Re-added two filters to modify the available widgets.
+- Fixed: Fixed the title of the Quick Draft widget
+- Enhancement: Added compatibility with Antispam Bee.
+
+## 1.5.0
+
+- Enhancement: Translation improvements.
+- Enhancement: Lots of simplification under the hood.
+
+## 1.4.0
+
+- New: Allows removal of the welcome panel in the dashboard.
+- Fixed: Added some missing closing tags in the HTML.
+
 ## 1.3.0
+
 * New: The widget list items are now translatable.
 * Enhancement: Code cleanup, ensuring WordPress 4.3 compatibility.
 
