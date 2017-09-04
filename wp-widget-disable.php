@@ -39,7 +39,7 @@ $requirements_check = new WP_Requirements_Check( array(
 
 if ( $requirements_check->passes() ) {
 	// Pull in the plugin classes and initialize.
-	include( dirname( __FILE__ ) . '/classes/class-wp-widget-disable.php' );
+	include __DIR__ . '/classes/class-wp-widget-disable.php';
 
 	$wp_widget_disable = new WP_Widget_Disable();
 	add_action( 'plugins_loaded', array( $wp_widget_disable, 'add_hooks' ) );

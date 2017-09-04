@@ -149,7 +149,7 @@ class WP_Widget_Disable {
 	 * @since 1.6.0
 	 */
 	public function settings_page_callback() {
-		include( trailingslashit( $this->get_path() ) . 'views/admin.php' );
+		include trailingslashit( $this->get_path() ) . 'views/admin.php';
 	}
 
 	/**
@@ -232,8 +232,6 @@ class WP_Widget_Disable {
 
 	/**
 	 * Set the default sidebar widgets.
-	 *
-	 * @return array Sidebar widgets.
 	 */
 	public function set_default_sidebar_widgets() {
 		$widgets = array();
@@ -259,7 +257,7 @@ class WP_Widget_Disable {
 		global $wp_meta_boxes;
 
 		if ( ! is_array( $wp_meta_boxes['dashboard'] ) ) {
-			require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
+			require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
 			$current_screen = get_current_screen();
 
