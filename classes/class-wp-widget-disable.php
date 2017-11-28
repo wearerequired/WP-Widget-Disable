@@ -546,6 +546,21 @@ class WP_Widget_Disable {
 	public function render_dashboard_checkboxes() {
 		$widgets = $this->get_default_dashboard_widgets();
 
+		$flat_widgets = array();
+
+		foreach ( $widgets as $context => $priority ) {
+			foreach ( $priority as $data ) {
+				foreach ( $data as $id => $widget ) {
+					$widget['title_stripped'] = wp_strip_all_tags( $widget['title'] );
+					$widget['context']        = $context;
+
+					$flat_widgets[ $id ] = $widget;
+				}
+			}
+		}
+
+		$widgets = wp_list_sort( $flat_widgets, array( 'title_stripped' => 'ASC' ), null, true );
+
 		if ( ! $widgets ) {
 			printf(
 				'<p>%s</p>',
@@ -569,23 +584,19 @@ class WP_Widget_Disable {
 			</label>
 		</p>
 		<?php
-		foreach ( $widgets as $context => $priority ) {
-			foreach ( $priority as $data ) {
-				foreach ( $data as $id => $widget ) {
-					printf(
-						'<p><input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s> <label for="%1$s">%5$s</label></p>',
-						esc_attr( $id ),
-						esc_attr( $this->dashboard_widgets_option ) . '[' . esc_attr( $id ) . ']',
-						esc_attr( $context ),
-						checked( array_key_exists( $id, $options ), true, false ),
-						sprintf(
-							__( '%1$s (%2$s)', 'wp-widget-disable' ),
-							wp_kses( $widget['title'], array( 'span' => array( 'class' => true ) ) ),
-							'<code>' . esc_html( $id ) . '</code>'
-						)
-					);
-				}
-			}
+		foreach ( $widgets as $id => $widget ) {
+			printf(
+				'<p><input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s> <label for="%1$s">%5$s</label></p>',
+				esc_attr( $id ),
+				esc_attr( $this->dashboard_widgets_option ) . '[' . esc_attr( $id ) . ']',
+				esc_attr( $widget['context'] ),
+				checked( array_key_exists( $id, $options ), true, false ),
+				sprintf(
+					__( '%1$s (%2$s)', 'wp-widget-disable' ),
+					wp_kses( $widget['title'], array( 'span' => array( 'class' => true ) ) ),
+					'<code>' . esc_html( $id ) . '</code>'
+				)
+			);
 		}
 		?>
 		<p>
@@ -593,5 +604,11 @@ class WP_Widget_Disable {
 			<button type="button" class="button-link" id="wp_widget_disable_deselect_all"><?php _e( 'Deselect all', 'wp-widget-disable' ); ?></button>
 		</p>
 		<?php
+	}
+
+	protected function flatten_array( $array ) {
+		return array_reduce( $array, function ( $acc, $item ) {
+			return array_merge( $acc, is_array( $item ) ? $this->flatten_array( $item ) : array( $item ) );
+		}, array() );
 	}
 }
