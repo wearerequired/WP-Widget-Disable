@@ -504,6 +504,8 @@ class WP_Widget_Disable {
 	public function render_sidebar_checkboxes() {
 		$widgets = $this->sidebar_widgets;
 
+		$widgets = wp_list_sort( $widgets, array( 'name' => 'ASC' ), null, true );
+
 		if ( ! $widgets ) {
 			printf(
 				'<p>%s</p>',
