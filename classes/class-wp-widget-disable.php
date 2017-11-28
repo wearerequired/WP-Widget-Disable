@@ -504,6 +504,8 @@ class WP_Widget_Disable {
 	public function render_sidebar_checkboxes() {
 		$widgets = $this->sidebar_widgets;
 
+		$widgets = wp_list_sort( $widgets, array( 'name' => 'ASC' ), null, true );
+
 		if ( ! $widgets ) {
 			printf(
 				'<p>%s</p>',
@@ -522,7 +524,7 @@ class WP_Widget_Disable {
 				checked( array_key_exists( $id, $options ), true, false ),
 				sprintf(
 					/* translators: 1: widget name, 2: widget class */
-					__( '%1$s (%2$s)', 'wp-widget-disable' ),
+					_x( '%1$s (%2$s)', 'sidebar widget', 'wp-widget-disable' ),
 					esc_html( $widget_object->name ),
 					'<code>' . esc_html( $id ) . '</code>'
 				)
@@ -543,6 +545,21 @@ class WP_Widget_Disable {
 	 */
 	public function render_dashboard_checkboxes() {
 		$widgets = $this->get_default_dashboard_widgets();
+
+		$flat_widgets = array();
+
+		foreach ( $widgets as $context => $priority ) {
+			foreach ( $priority as $data ) {
+				foreach ( $data as $id => $widget ) {
+					$widget['title_stripped'] = wp_strip_all_tags( $widget['title'] );
+					$widget['context']        = $context;
+
+					$flat_widgets[ $id ] = $widget;
+				}
+			}
+		}
+
+		$widgets = wp_list_sort( $flat_widgets, array( 'title_stripped' => 'ASC' ), null, true );
 
 		if ( ! $widgets ) {
 			printf(
@@ -567,23 +584,20 @@ class WP_Widget_Disable {
 			</label>
 		</p>
 		<?php
-		foreach ( $widgets as $context => $priority ) {
-			foreach ( $priority as $data ) {
-				foreach ( $data as $id => $widget ) {
-					printf(
-						'<p><input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s> <label for="%1$s">%5$s</label></p>',
-						esc_attr( $id ),
-						esc_attr( $this->dashboard_widgets_option ) . '[' . esc_attr( $id ) . ']',
-						esc_attr( $context ),
-						checked( array_key_exists( $id, $options ), true, false ),
-						sprintf(
-							__( '%1$s (%2$s)', 'wp-widget-disable' ),
-							wp_kses( $widget['title'], array( 'span' => array( 'class' => true ) ) ),
-							'<code>' . esc_html( $id ) . '</code>'
-						)
-					);
-				}
-			}
+		foreach ( $widgets as $id => $widget ) {
+			printf(
+				'<p><input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s> <label for="%1$s">%5$s</label></p>',
+				esc_attr( $id ),
+				esc_attr( $this->dashboard_widgets_option ) . '[' . esc_attr( $id ) . ']',
+				esc_attr( $widget['context'] ),
+				checked( array_key_exists( $id, $options ), true, false ),
+				sprintf(
+					/* translators: 1: widget name, 2: widget ID */
+					_x( '%1$s (%2$s)', 'dashboard widget', 'wp-widget-disable' ),
+					wp_kses( $widget['title'], array( 'span' => array( 'class' => true ) ) ),
+					'<code>' . esc_html( $id ) . '</code>'
+				)
+			);
 		}
 		?>
 		<p>
