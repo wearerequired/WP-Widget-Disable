@@ -605,10 +605,4 @@ class WP_Widget_Disable {
 		</p>
 		<?php
 	}
-
-	protected function flatten_array( $array ) {
-		return array_reduce( $array, function ( $acc, $item ) {
-			return array_merge( $acc, is_array( $item ) ? $this->flatten_array( $item ) : array( $item ) );
-		}, array() );
-	}
 }
