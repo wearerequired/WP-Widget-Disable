@@ -524,7 +524,7 @@ class WP_Widget_Disable {
 				checked( array_key_exists( $id, $options ), true, false ),
 				sprintf(
 					/* translators: 1: widget name, 2: widget class */
-					__( '%1$s (%2$s)', 'wp-widget-disable' ),
+					_x( '%1$s (%2$s)', 'sidebar widget', 'wp-widget-disable' ),
 					esc_html( $widget_object->name ),
 					'<code>' . esc_html( $id ) . '</code>'
 				)
@@ -592,7 +592,8 @@ class WP_Widget_Disable {
 				esc_attr( $widget['context'] ),
 				checked( array_key_exists( $id, $options ), true, false ),
 				sprintf(
-					__( '%1$s (%2$s)', 'wp-widget-disable' ),
+					/* translators: 1: widget name, 2: widget ID */
+					_x( '%1$s (%2$s)', 'dashboard widget', 'wp-widget-disable' ),
 					wp_kses( $widget['title'], array( 'span' => array( 'class' => true ) ) ),
 					'<code>' . esc_html( $id ) . '</code>'
 				)
