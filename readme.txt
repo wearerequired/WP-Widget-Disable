@@ -2,7 +2,7 @@
 Contributors:      wearerequired, neverything, swissspidy
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
 Requires at least: 4.0
-Tested up to:      4.8
+Tested up to:      4.9
 Requires PHP:      5.3
 Stable tag:        1.7.0
 License:           GPLv2 or later
