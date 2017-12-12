@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0
+
+* Enhancement: Widgets are now ordered by name on the settings screen.
+
 ## 1.7.0
 
 - Fixed: Improved messages when saving settings.
