@@ -1,12 +1,12 @@
 # WP Widget Disable #
-Contributors:      wearerequired, neverything, swissspidy   
-Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets  
-Requires at least: 4.0  
-Tested up to:      4.8  
-Requires PHP:      5.3  
-Stable tag:        1.7.0  
-License:           GPLv2 or later  
-License URI:       http://www.gnu.org/licenses/gpl-2.0.html  
+Contributors:      wearerequired, neverything, swissspidy
+Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
+Requires at least: 4.0
+Tested up to:      4.8
+Requires PHP:      5.3
+Stable tag:        1.7.0
+License:           GPLv2 or later
+License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
 Disable sidebar and dashboard widgets with an easy to use interface.
 
@@ -48,6 +48,10 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 
 ## Changelog
 
+### 1.8.0
+
+* Enhancement: Widgets are now ordered by name on the settings screen.
+
 ### 1.7.0
 
 * Fixed: Improved messages when saving settings.
@@ -62,6 +66,10 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 For the complete changelog, check out our [GitHub repository](https://github.com/wearerequired/WP-Widget-Disable).
 
 ## Upgrade Notice
+
+### 1.8.0
+
+Being 100% compatible with WordPress 4.9, this update makes lives easier by ordering widgets by name.
 
 ### 1.7.0
 
