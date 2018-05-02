@@ -312,7 +312,7 @@ class WP_Widget_Disable {
 
 		$current_screen = get_current_screen();
 
-		if ( ! is_array( $wp_meta_boxes[ $screen ] ) ) {
+		if ( ! isset( $wp_meta_boxes[ $screen ] ) || ! is_array( $wp_meta_boxes[ $screen ] ) ) {
 			require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
 			set_current_screen( $screen );
@@ -627,6 +627,7 @@ class WP_Widget_Disable {
 						continue;
 					}
 
+					$widget['title']          = isset( $widget['title'] ) ? $widget['title'] : '';
 					$widget['title_stripped'] = wp_strip_all_tags( $widget['title'] );
 					$widget['context']        = $context;
 
@@ -668,6 +669,19 @@ class WP_Widget_Disable {
 			<?php
 		}
 		foreach ( $widgets as $id => $widget ) {
+			if ( empty( $widget['title'] ) ) {
+				printf(
+					'<p><input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s> <label for="%1$s">%5$s</label></p>',
+					esc_attr( $id ),
+					esc_attr( $this->dashboard_widgets_option ) . '[' . esc_attr( $id ) . ']',
+					esc_attr( $widget['context'] ),
+					checked( array_key_exists( $id, $options ), true, false ),
+					'<code>' . esc_html( $id ) . '</code>'
+				);
+
+				continue;
+			}
+
 			printf(
 				'<p><input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s> <label for="%1$s">%5$s</label></p>',
 				esc_attr( $id ),
