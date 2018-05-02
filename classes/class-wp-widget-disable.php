@@ -82,6 +82,10 @@ class WP_Widget_Disable {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
+		// Multisite compatibility
+		add_action( 'network_admin_menu', array( $this, 'admin_menu' ) );
+		add_action(	'network_admin_edit_wp-widget-disable', array( $this, 'save_network_options' ) );
+
 		// Display settings errors.
 		add_action( 'admin_notices', array( $this, 'settings_errors' ) );
 
@@ -91,10 +95,10 @@ class WP_Widget_Disable {
 
 		// Get and disable the dashboard widgets.
 		add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
+		add_action( 'wp_network_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
 
-		// Add an action link pointing to the options page.
-		$plugin_basename = plugin_basename( $this->get_path() . 'wp-widget-disable.php' );
-		add_action( 'plugin_action_links_' . $plugin_basename, array( $this, 'plugin_action_links' ) );
+		// Add an action link pointing to the setting page.
+		add_action( 'plugin_action_links_' . $this->get_basename(), array( $this, 'plugin_action_links' ) );
 
 		add_action( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
 
@@ -120,6 +124,17 @@ class WP_Widget_Disable {
 	}
 
 	/**
+	 * Returns the plugin basename.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return string The plugin basename.
+	 */
+	protected function get_basename() {
+		return plugin_basename( $this->get_path() . 'wp-widget-disable.php' );
+	}
+
+	/**
 	 * Initializes the plugin, registers textdomain, etc.
 	 */
 	public function load_textdomain() {
@@ -132,6 +147,19 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 */
 	public function admin_menu() {
+		if ( is_network_admin() ) {
+			$this->page_hook = add_submenu_page(
+				'settings.php',
+				__( 'Disable Dashboard Widgets', 'wp-widget-disable' ),
+				__( 'Disable Widgets', 'wp-widget-disable' ),
+				'manage_network_options',
+				'wp-widget-disable',
+				array( $this, 'settings_page_callback' )
+			);
+
+			return;
+		}
+
 		$this->page_hook = add_theme_page(
 			__( 'Disable Sidebar and Dashboard Widgets', 'wp-widget-disable' ),
 			__( 'Disable Widgets', 'wp-widget-disable' ),
@@ -159,6 +187,29 @@ class WP_Widget_Disable {
 	 */
 	public function settings_errors() {
 		settings_errors( 'wp-widget-disable' );
+	}
+
+	/**
+	 * Saves network options in the network admin.
+	 *
+	 * @since 1.8.0
+	 */
+	public function save_network_options() {
+		$data = '';
+
+		if ( isset( $_POST[ $this->dashboard_widgets_option ] ) ) {
+			$data = $this->sanitize_dashboard_widgets( $_POST[ $this->dashboard_widgets_option ] );
+		}
+
+		update_site_option( $this->dashboard_widgets_option, $data );
+
+		wp_safe_redirect(
+			add_query_arg(
+				array( 'page' => 'wp-widget-disable' ),
+				network_admin_url( 'settings.php' )
+			)
+		);
+		exit;
 	}
 
 	/**
@@ -256,14 +307,17 @@ class WP_Widget_Disable {
 	protected function get_default_dashboard_widgets() {
 		global $wp_meta_boxes;
 
-		if ( ! is_array( $wp_meta_boxes['dashboard'] ) ) {
+		$screen = is_network_admin() ? 'dashboard-network' : 'dashboard';
+		$action = is_network_admin() ? 'wp_network_dashboard_setup' : 'wp_dashboard_setup';
+
+		$current_screen = get_current_screen();
+
+		if ( ! is_array( $wp_meta_boxes[ $screen ] ) ) {
 			require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
-			$current_screen = get_current_screen();
+			set_current_screen( $screen );
 
-			set_current_screen( 'dashboard' );
-
-			remove_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
+			remove_action( $action, array( $this, 'disable_dashboard_widgets' ), 100 );
 
 			wp_dashboard_setup();
 
@@ -271,20 +325,20 @@ class WP_Widget_Disable {
 				Antispam_Bee::add_dashboard_chart();
 			}
 
-			add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
-
-			set_current_screen( $current_screen );
+			add_action( $action, array( $this, 'disable_dashboard_widgets' ), 100 );
 		}
 
-		if ( isset( $wp_meta_boxes['dashboard'][0] ) ) {
-			unset( $wp_meta_boxes['dashboard'][0] );
+		if ( isset( $wp_meta_boxes[ $screen ][0] ) ) {
+			unset( $wp_meta_boxes[ $screen ][0] );
 		}
 
 		$widgets = array();
 
-		if ( isset( $wp_meta_boxes['dashboard'] ) ) {
-			$widgets = $wp_meta_boxes['dashboard'];
+		if ( isset( $wp_meta_boxes[ $screen ] ) ) {
+			$widgets = $wp_meta_boxes[ $screen ];
 		}
+
+		set_current_screen( $current_screen );
 
 		/**
 		 * Filters the available dashboard widgets.
@@ -321,15 +375,23 @@ class WP_Widget_Disable {
 	 */
 	public function disable_dashboard_widgets() {
 		$widgets = (array) get_option( $this->dashboard_widgets_option, array() );
+
+		if ( is_network_admin() ) {
+			$widgets = (array) get_site_option( $this->dashboard_widgets_option, array() );
+		}
+
 		if ( ! $widgets ) {
 			return;
 		}
+
 		foreach ( $widgets as $widget_id => $meta_box ) {
 			if ( 'dashboard_welcome_panel' === $widget_id ) {
 				remove_action( 'welcome_panel', 'wp_welcome_panel' );
-			} else {
-				remove_meta_box( $widget_id, 'dashboard', $meta_box );
+
+				continue;
 			}
+
+			remove_meta_box( $widget_id, get_current_screen()->base, $meta_box );
 		}
 	}
 
@@ -346,10 +408,12 @@ class WP_Widget_Disable {
 		// Create our array for storing the validated options.
 		$output = array();
 		if ( empty( $input ) ) {
-			if ( empty( get_option( $this->sidebar_widgets_option, array() ) ) ) {
+			$option = get_option( $this->sidebar_widgets_option, array() );
+
+			$message = __( 'All sidebar widgets are enabled again.', 'wp-widget-disable' );
+
+			if ( empty( $option ) ) {
 				$message = __( 'Settings saved.', 'wp-widget-disable' );
-			} else {
-				$message = __( 'All sidebar widgets are enabled again.', 'wp-widget-disable' );
 			}
 		} else {
 			// Loop through each of the incoming options.
@@ -376,6 +440,7 @@ class WP_Widget_Disable {
 				);
 			}
 		}
+
 		add_settings_error(
 			'wp-widget-disable',
 			esc_attr( 'settings_updated' ),
@@ -399,10 +464,16 @@ class WP_Widget_Disable {
 		// Create our array for storing the validated options.
 		$output = array();
 		if ( empty( $input ) ) {
-			if ( empty( get_option( $this->dashboard_widgets_option, array() ) ) ) {
+			$option = get_option( $this->dashboard_widgets_option, array() );
+
+			if ( is_network_admin() ) {
+				$option = get_site_option( $this->dashboard_widgets_option, array() );
+			}
+
+			$message = __( 'All dashboard widgets are enabled again.', 'wp-widget-disable' );
+
+			if ( empty( $option ) ) {
 				$message = __( 'Settings saved.', 'wp-widget-disable' );
-			} else {
-				$message = __( 'All dashboard widgets are enabled again.', 'wp-widget-disable' );
 			}
 		} else {
 			// Loop through each of the incoming options.
@@ -429,6 +500,7 @@ class WP_Widget_Disable {
 				);
 			}
 		}
+
 		add_settings_error(
 			'wp-widget-disable',
 			esc_attr( 'settings_updated' ),
@@ -551,6 +623,10 @@ class WP_Widget_Disable {
 		foreach ( $widgets as $context => $priority ) {
 			foreach ( $priority as $data ) {
 				foreach ( $data as $id => $widget ) {
+					if ( ! $widget ) {
+						continue;
+					}
+
 					$widget['title_stripped'] = wp_strip_all_tags( $widget['title'] );
 					$widget['context']        = $context;
 
@@ -570,20 +646,27 @@ class WP_Widget_Disable {
 		}
 
 		$options = (array) get_option( $this->dashboard_widgets_option, array() );
-		?>
-		<p>
-			<input type="checkbox" id="dashboard_welcome_panel"
-			       name="rplus_wp_widget_disable_dashboard_option[dashboard_welcome_panel]"
-			       value="normal"
-				<?php checked( 'dashboard_welcome_panel', ( array_key_exists( 'dashboard_welcome_panel', $options ) ? 'dashboard_welcome_panel' : false ) ); ?>>
-			<label for="dashboard_welcome_panel">
-				<?php
-				/* translators: %s: welcome_panel */
-				printf( __( 'Welcome panel (%s)', 'wp-widget-disable' ), '<code>welcome_panel</code>' );
-				?>
-			</label>
-		</p>
-		<?php
+
+		if ( is_network_admin() ) {
+			$options = (array) get_site_option( $this->dashboard_widgets_option, array() );
+		}
+
+		if ( ! is_network_admin() ) {
+			?>
+			<p>
+				<input type="checkbox" id="dashboard_welcome_panel"
+				       name="rplus_wp_widget_disable_dashboard_option[dashboard_welcome_panel]"
+				       value="normal"
+					<?php checked( 'dashboard_welcome_panel', ( array_key_exists( 'dashboard_welcome_panel', $options ) ? 'dashboard_welcome_panel' : false ) ); ?>>
+				<label for="dashboard_welcome_panel">
+					<?php
+					/* translators: %s: welcome_panel */
+					printf( __( 'Welcome panel (%s)', 'wp-widget-disable' ), '<code>welcome_panel</code>' );
+					?>
+				</label>
+			</p>
+			<?php
+		}
 		foreach ( $widgets as $id => $widget ) {
 			printf(
 				'<p><input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s> <label for="%1$s">%5$s</label></p>',

@@ -19,9 +19,13 @@
 	<?php
 	$active_tab = $this->sidebar_widgets_option;
 
-	if ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) {
+	if ( ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) || is_network_admin() ) {
 		$active_tab = $this->dashboard_widgets_option;
 	}
+
+	$form_action = is_network_admin() ? network_admin_url( 'edit.php?action=wp-widget-disable' ) : admin_url( 'options.php' );
+
+	if ( ! is_network_admin() ) :
 	?>
 
 	<h2 class="nav-tab-wrapper">
@@ -34,6 +38,7 @@
 			'tab'  => 'dashboard'
 		) ) ); ?>" class="nav-tab <?php echo $this->dashboard_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>"><?php _e( 'Dashboard Widgets', 'wp-widget-disable' ); ?></a>
 	</h2>
+	<?php endif; ?>
 
 	<script type="text/javascript">
 		jQuery( document ).ready( function( $ ) {
@@ -46,7 +51,7 @@
 		} );
 	</script>
 
-	<form method="post" action="options.php" class="wp-widget-disable-form">
+	<form method="post" action="<?php echo esc_url( $form_action ); ?>" class="wp-widget-disable-form">
 		<?php
 		settings_fields( $active_tab );
 		do_settings_sections( $active_tab );
