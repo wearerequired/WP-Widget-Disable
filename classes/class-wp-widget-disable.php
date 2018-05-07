@@ -84,7 +84,7 @@ class WP_Widget_Disable {
 
 		// Multisite compatibility
 		add_action( 'network_admin_menu', array( $this, 'admin_menu' ) );
-		add_action(	'network_admin_edit_wp-widget-disable', array( $this, 'save_network_options' ) );
+		add_action( 'network_admin_edit_wp-widget-disable', array( $this, 'save_network_options' ) );
 
 		// Display settings errors.
 		add_action( 'admin_notices', array( $this, 'settings_errors' ) );
