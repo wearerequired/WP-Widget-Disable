@@ -126,7 +126,7 @@ class WP_Widget_Disable {
 	/**
 	 * Returns the plugin basename.
 	 *
-	 * @since 1.8.0
+	 * @since 1.9.0
 	 *
 	 * @return string The plugin basename.
 	 */
@@ -192,7 +192,7 @@ class WP_Widget_Disable {
 	/**
 	 * Saves network options in the network admin.
 	 *
-	 * @since 1.8.0
+	 * @since 1.9.0
 	 */
 	public function save_network_options() {
 		$data = '';
