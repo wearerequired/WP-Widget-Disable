@@ -405,16 +405,11 @@ class WP_Widget_Disable {
 	 * @return array
 	 */
 	public function sanitize_sidebar_widgets( $input ) {
-		// Create our array for storing the validated options.
-		$output = array();
+		$output  = array();
+		$message = null;
+
 		if ( empty( $input ) ) {
-			$option = get_option( $this->sidebar_widgets_option, array() );
-
 			$message = __( 'All sidebar widgets are enabled again.', 'wp-widget-disable' );
-
-			if ( empty( $option ) ) {
-				$message = __( 'Settings saved.', 'wp-widget-disable' );
-			}
 		} else {
 			// Loop through each of the incoming options.
 			foreach ( array_keys( $input ) as $key ) {
@@ -441,12 +436,14 @@ class WP_Widget_Disable {
 			}
 		}
 
-		add_settings_error(
-			'wp-widget-disable',
-			esc_attr( 'settings_updated' ),
-			$message,
-			'updated'
-		);
+		if ( $message ) {
+			add_settings_error(
+				'wp-widget-disable',
+				esc_attr( 'settings_updated' ),
+				$message,
+				'updated'
+			);
+		}
 
 		return $output;
 	}
@@ -462,19 +459,11 @@ class WP_Widget_Disable {
 	 */
 	public function sanitize_dashboard_widgets( $input ) {
 		// Create our array for storing the validated options.
-		$output = array();
+		$output  = array();
+		$message = null;
+
 		if ( empty( $input ) ) {
-			$option = get_option( $this->dashboard_widgets_option, array() );
-
-			if ( is_network_admin() ) {
-				$option = get_site_option( $this->dashboard_widgets_option, array() );
-			}
-
 			$message = __( 'All dashboard widgets are enabled again.', 'wp-widget-disable' );
-
-			if ( empty( $option ) ) {
-				$message = __( 'Settings saved.', 'wp-widget-disable' );
-			}
 		} else {
 			// Loop through each of the incoming options.
 			foreach ( array_keys( $input ) as $key ) {
@@ -501,12 +490,14 @@ class WP_Widget_Disable {
 			}
 		}
 
-		add_settings_error(
-			'wp-widget-disable',
-			esc_attr( 'settings_updated' ),
-			$message,
-			'updated'
-		);
+		if ( $message ) {
+			add_settings_error(
+				'wp-widget-disable',
+				esc_attr( 'settings_updated' ),
+				$message,
+				'updated'
+			);
+		}
 
 		return $output;
 	}
