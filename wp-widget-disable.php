@@ -24,18 +24,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @package WP_Widget_Disable
  */
 
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
-$requirements_check = new WP_Requirements_Check( array(
-	'title' => 'WP Widget Disable',
-	'php'   => '5.3',
-	'wp'    => '4.0',
-	'file'  => __FILE__,
-) );
+$requirements_check = new WP_Requirements_Check(
+	array(
+		'title' => 'WP Widget Disable',
+		'php'   => '5.4',
+		'wp'    => '4.0',
+		'file'  => __FILE__,
+	)
+);
 
 if ( $requirements_check->passes() ) {
 	// Pull in the plugin classes and initialize.

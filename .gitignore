@@ -1,2 +1,5 @@
 # Vendor (e.g. Composer)
 vendor/*
+
+# PHPCS
+phpcs.xml

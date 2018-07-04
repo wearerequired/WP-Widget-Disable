@@ -11,36 +11,49 @@
  * @link      http://wp.required.ch/plugins/wp-widget-disable
  * @copyright 2015 required gmbh
  */
+
+$sidebar_tab_url = add_query_arg(
+	array(
+		'page' => 'wp-widget-disable',
+		'tab'  => 'sidebar',
+	)
+);
+
+$dashboard_tab_url = add_query_arg(
+	array(
+		'page' => 'wp-widget-disable',
+		'tab'  => 'dashboard',
+	)
+);
+
+$active_tab = $this->sidebar_widgets_option;
+
+// phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification
+if ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) {
+	$active_tab = $this->dashboard_widgets_option;
+}
+
+$form_action = is_network_admin() ? network_admin_url( 'edit.php?action=wp-widget-disable' ) : admin_url( 'options.php' );
 ?>
 
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
+
 	<?php
-	$active_tab = $this->sidebar_widgets_option;
-
-	if ( ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) || is_network_admin() ) {
-		$active_tab = $this->dashboard_widgets_option;
-	}
-
-	$form_action = is_network_admin() ? network_admin_url( 'edit.php?action=wp-widget-disable' ) : admin_url( 'options.php' );
-
 	if ( is_network_admin() ) {
 		settings_errors();
 	}
 
 	if ( ! is_network_admin() ) :
-	?>
-
+		?>
 	<h2 class="nav-tab-wrapper">
-		<a href="<?php echo esc_url( add_query_arg( array(
-			'page' => 'wp-widget-disable',
-			'tab'  => 'sidebar'
-		) ) ); ?>" class="nav-tab <?php echo $this->sidebar_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>"><?php _e( 'Sidebar Widgets', 'wp-widget-disable' ); ?></a>
-		<a href="<?php echo esc_url( add_query_arg( array(
-			'page' => 'wp-widget-disable',
-			'tab'  => 'dashboard'
-		) ) ); ?>" class="nav-tab <?php echo $this->dashboard_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>"><?php _e( 'Dashboard Widgets', 'wp-widget-disable' ); ?></a>
+		<a href="<?php echo esc_url( $sidebar_tab_url ); ?>" class="nav-tab <?php echo $this->sidebar_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>">
+			<?php _e( 'Sidebar Widgets', 'wp-widget-disable' ); ?>
+		</a>
+		<a href="<?php echo esc_url( $dashboard_tab_url ); ?>" class="nav-tab <?php echo $this->dashboard_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>">
+			<?php _e( 'Dashboard Widgets', 'wp-widget-disable' ); ?>
+		</a>
 	</h2>
 	<?php endif; ?>
 

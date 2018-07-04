@@ -82,7 +82,7 @@ class WP_Widget_Disable {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
-		// Multisite compatibility
+		// Multisite compatibility.
 		add_action( 'network_admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'network_admin_edit_wp-widget-disable', array( $this, 'save_network_options' ) );
 
@@ -201,9 +201,11 @@ class WP_Widget_Disable {
 	public function save_network_options() {
 		$data = array();
 
+		// phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
 		if ( isset( $_POST[ $this->dashboard_widgets_option ] ) ) {
 			$data = $this->sanitize_dashboard_widgets( $_POST[ $this->dashboard_widgets_option ] );
 		}
+		// phpcs:enable
 
 		update_site_option( $this->dashboard_widgets_option, $data );
 
@@ -217,7 +219,7 @@ class WP_Widget_Disable {
 		wp_safe_redirect(
 			add_query_arg(
 				array(
-					'page' => 'wp-widget-disable',
+					'page'             => 'wp-widget-disable',
 					'settings-updated' => 1,
 				),
 				network_admin_url( 'settings.php' )
@@ -236,14 +238,16 @@ class WP_Widget_Disable {
 	 * @return array
 	 */
 	public function plugin_action_links( array $links ) {
+		$settings_url = add_query_arg(
+			array( 'page' => 'wp-widget-disable' ),
+			admin_url( 'themes.php' )
+		);
+
 		return array_merge(
 			array(
 				'settings' => sprintf(
 					'<a href="%s">%s</a>',
-					esc_url( add_query_arg(
-						array( 'page' => 'wp-widget-disable' ),
-						admin_url( 'themes.php' )
-					) ),
+					esc_url( $settings_url ),
 					__( 'Settings', 'wp-widget-disable' )
 				),
 			),
@@ -263,7 +267,7 @@ class WP_Widget_Disable {
 	public function admin_footer_text( $text ) {
 		$screen = get_current_screen();
 
-		if ( $this->page_hook === $screen->base ) {
+		if ( $screen && $this->page_hook === $screen->base ) {
 			/* translators: %s: required */
 			$text = sprintf( __( 'WP Widget Disable is brought to you by %s. We &hearts; WordPress.', 'wp-widget-disable' ), '<a href="https://required.com">required</a>' );
 		}
@@ -278,7 +282,8 @@ class WP_Widget_Disable {
 	 */
 	public function print_admin_styles() {
 		$screen = get_current_screen();
-		if ( $this->page_hook !== $screen->base ) {
+
+		if ( ! $screen || $this->page_hook !== $screen->base ) {
 			return;
 		}
 
@@ -660,9 +665,7 @@ class WP_Widget_Disable {
 		if ( ! is_network_admin() ) {
 			?>
 			<p>
-				<input type="checkbox" id="dashboard_welcome_panel"
-				       name="rplus_wp_widget_disable_dashboard_option[dashboard_welcome_panel]"
-				       value="normal"
+				<input type="checkbox" id="dashboard_welcome_panel" name="rplus_wp_widget_disable_dashboard_option[dashboard_welcome_panel]" value="normal"
 					<?php checked( 'dashboard_welcome_panel', ( array_key_exists( 'dashboard_welcome_panel', $options ) ? 'dashboard_welcome_panel' : false ) ); ?>>
 				<label for="dashboard_welcome_panel">
 					<?php
@@ -673,6 +676,7 @@ class WP_Widget_Disable {
 			</p>
 			<?php
 		}
+
 		foreach ( $widgets as $id => $widget ) {
 			if ( empty( $widget['title'] ) ) {
 				printf(
