@@ -10,5 +10,7 @@ composer.json
 composer.lock
 phpunit.xml
 phpunit.xml.dist
+phpcs.xml
+phpcs.xml.dist
 README.md
 tests
