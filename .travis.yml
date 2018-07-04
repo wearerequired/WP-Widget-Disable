@@ -35,15 +35,15 @@ before_install:
 install:
   - case "$TRAVIS_PHP_VERSION" in
       7.2|7.1|7.0|nightly)
-        echo "Using PHPUnit 6.x"
+        echo "Using PHPUnit 6.x";
         ;;
       5.6|5.5|5.4|5.3)
-        echo "Using PHPUnit 4.x"
-        composer require "phpunit/phpunit:^4"
+        echo "Using PHPUnit 4.x";
+        composer require "phpunit/phpunit:~4.8";
         ;;
       *)
-        echo "No PHPUnit version handling for PHP version $TRAVIS_PHP_VERSION"
-        exit 1
+        echo "No PHPUnit version handling for PHP version $TRAVIS_PHP_VERSION";
+        exit 1;
         ;;
     esac
   - composer install
