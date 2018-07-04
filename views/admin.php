@@ -25,6 +25,10 @@
 
 	$form_action = is_network_admin() ? network_admin_url( 'edit.php?action=wp-widget-disable' ) : admin_url( 'options.php' );
 
+	if ( is_network_admin() ) {
+		settings_errors();
+	}
+
 	if ( ! is_network_admin() ) :
 	?>
 

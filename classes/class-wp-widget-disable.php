@@ -192,10 +192,14 @@ class WP_Widget_Disable {
 	/**
 	 * Saves network options in the network admin.
 	 *
+	 * Handles settings errors and redirects back to options page.
+	 *
+	 * For single sites, this is handled by wp-admin/options.php.
+	 *
 	 * @since 1.9.0
 	 */
 	public function save_network_options() {
-		$data = '';
+		$data = array();
 
 		if ( isset( $_POST[ $this->dashboard_widgets_option ] ) ) {
 			$data = $this->sanitize_dashboard_widgets( $_POST[ $this->dashboard_widgets_option ] );
@@ -203,9 +207,19 @@ class WP_Widget_Disable {
 
 		update_site_option( $this->dashboard_widgets_option, $data );
 
+		// If no settings errors were registered add a general 'updated' message.
+		if ( ! count( get_settings_errors() ) ) {
+			add_settings_error( 'general', 'settings_updated', __( 'Settings saved.', 'wp-widget-disable' ), 'updated' );
+		}
+
+		set_transient( 'settings_errors', get_settings_errors(), 30 );
+
 		wp_safe_redirect(
 			add_query_arg(
-				array( 'page' => 'wp-widget-disable' ),
+				array(
+					'page' => 'wp-widget-disable',
+					'settings-updated' => 1,
+				),
 				network_admin_url( 'settings.php' )
 			)
 		);
