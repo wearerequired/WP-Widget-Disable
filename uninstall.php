@@ -9,21 +9,18 @@
  * @copyright 2015 required gmbh
  */
 
-// If uninstall not called from WordPress, then exit
-defined( 'WP_UNINSTALL_PLUGIN' ) or die;
+defined( 'WP_UNINSTALL_PLUGIN' ) || die;
 
 $options = array(
 	'rplus_wp_widget_disable_sidebar_option',
-	'rplus_wp_widget_disable_dashboard_option'
+	'rplus_wp_widget_disable_dashboard_option',
 );
 
-// For Single site
 if ( ! is_multisite() ) {
 	foreach ( $options as $option ) {
 		delete_option( $option );
 	}
-} // For Multisite
-else {
+} else {
 	global $wpdb;
 
 	$blog_ids         = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );

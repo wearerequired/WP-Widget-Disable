@@ -171,14 +171,16 @@ class WP_Widget_Disable {
 	 * @return array
 	 */
 	public function plugin_action_links( array $links ) {
+		$settings_url = add_query_arg(
+			array( 'page' => 'wp-widget-disable' ),
+			admin_url( 'themes.php' )
+		);
+
 		return array_merge(
 			array(
 				'settings' => sprintf(
 					'<a href="%s">%s</a>',
-					esc_url( add_query_arg(
-						array( 'page' => 'wp-widget-disable' ),
-						admin_url( 'themes.php' )
-					) ),
+					esc_url( $settings_url ),
 					__( 'Settings', 'wp-widget-disable' )
 				),
 			),
@@ -198,7 +200,7 @@ class WP_Widget_Disable {
 	public function admin_footer_text( $text ) {
 		$screen = get_current_screen();
 
-		if ( $this->page_hook === $screen->base ) {
+		if ( $screen && $this->page_hook === $screen->base ) {
 			/* translators: %s: required */
 			$text = sprintf( __( 'WP Widget Disable is brought to you by %s. We &hearts; WordPress.', 'wp-widget-disable' ), '<a href="https://required.com">required</a>' );
 		}
@@ -213,7 +215,8 @@ class WP_Widget_Disable {
 	 */
 	public function print_admin_styles() {
 		$screen = get_current_screen();
-		if ( $this->page_hook !== $screen->base ) {
+
+		if ( ! $screen || $this->page_hook !== $screen->base ) {
 			return;
 		}
 
@@ -256,7 +259,7 @@ class WP_Widget_Disable {
 	protected function get_default_dashboard_widgets() {
 		global $wp_meta_boxes;
 
-		if ( ! isset( $wp_meta_boxes['dashboard']) || ! is_array( $wp_meta_boxes['dashboard'] ) ) {
+		if ( ! isset( $wp_meta_boxes['dashboard'] ) || ! is_array( $wp_meta_boxes['dashboard'] ) ) {
 			require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 
 			$current_screen = get_current_screen();
@@ -573,9 +576,7 @@ class WP_Widget_Disable {
 		$options = (array) get_option( $this->dashboard_widgets_option, array() );
 		?>
 		<p>
-			<input type="checkbox" id="dashboard_welcome_panel"
-			       name="rplus_wp_widget_disable_dashboard_option[dashboard_welcome_panel]"
-			       value="normal"
+			<input type="checkbox" id="dashboard_welcome_panel" name="rplus_wp_widget_disable_dashboard_option[dashboard_welcome_panel]" value="normal"
 				<?php checked( 'dashboard_welcome_panel', ( array_key_exists( 'dashboard_welcome_panel', $options ) ? 'dashboard_welcome_panel' : false ) ); ?>>
 			<label for="dashboard_welcome_panel">
 				<?php
