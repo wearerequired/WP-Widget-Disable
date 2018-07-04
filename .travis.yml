@@ -46,6 +46,7 @@ install:
         exit 1
         ;;
     esac
+  - composer install
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
