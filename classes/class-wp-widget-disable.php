@@ -211,7 +211,7 @@ class WP_Widget_Disable {
 
 		// If no settings errors were registered add a general 'updated' message.
 		if ( ! count( get_settings_errors() ) ) {
-			add_settings_error( 'general', 'settings_updated', __( 'Settings saved.', 'wp-widget-disable' ), 'updated' );
+			add_settings_error( 'wp-widget-disable', 'settings_updated', __( 'Settings saved.', 'wp-widget-disable' ), 'updated' );
 		}
 
 		set_transient( 'settings_errors', get_settings_errors(), 30 );
