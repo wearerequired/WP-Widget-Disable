@@ -83,8 +83,6 @@ class WP_Widget_Disable {
 		// Add an action link pointing to the setting page.
 		add_action( 'plugin_action_links_' . $this->get_basename(), array( $this, 'plugin_action_links' ) );
 
-		add_action( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
-
 		add_action( 'admin_print_styles', array( $this, 'print_admin_styles' ) );
 	}
 
@@ -247,26 +245,6 @@ class WP_Widget_Disable {
 			),
 			$links
 		);
-	}
-
-	/**
-	 * Add admin footer text to plugins page.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param  string $text Default admin footer text.
-	 *
-	 * @return string
-	 */
-	public function admin_footer_text( $text ) {
-		$screen = get_current_screen();
-
-		if ( $screen && $this->page_hook === $screen->base ) {
-			/* translators: %s: required */
-			$text = sprintf( __( 'WP Widget Disable is brought to you by %s. We &hearts; WordPress.', 'wp-widget-disable' ), '<a href="https://required.com">required</a>' );
-		}
-
-		return $text;
 	}
 
 	/**
