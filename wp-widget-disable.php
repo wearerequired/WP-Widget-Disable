@@ -47,8 +47,6 @@ if ( $requirements_check->passes() ) {
 
 	$wp_widget_disable = new WP_Widget_Disable();
 	add_action( 'plugins_loaded', array( $wp_widget_disable, 'add_hooks' ) );
-
-	register_activation_hook( __FILE__, array( $wp_widget_disable, 'set_default_options' ) );
 }
 
 unset( $requirements_check );

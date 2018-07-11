@@ -55,24 +55,6 @@ class WP_Widget_Disable {
 	protected $page_hook = '';
 
 	/**
-	 * Saves empty values for the plugin's options upon plugin activation.
-	 *
-	 * @link https://core.trac.wordpress.org/ticket/21989
-	 * @link https://github.com/wearerequired/WP-Widget-Disable/issues/11
-	 *
-	 * @since 1.7.0
-	 */
-	public function set_default_options() {
-		if ( false === get_option( $this->sidebar_widgets_option, false ) ) {
-			add_option( $this->sidebar_widgets_option, array() );
-		}
-
-		if ( false === get_option( $this->dashboard_widgets_option, false ) ) {
-			add_option( $this->dashboard_widgets_option, array() );
-		}
-	}
-
-	/**
 	 * Adds hooks.
 	 */
 	public function add_hooks() {
