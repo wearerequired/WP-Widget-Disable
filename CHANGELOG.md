@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.0
+
+* Enhancement: Added Multisite support.
+
 ## 1.8.0
 
 * Enhancement: Widgets are now ordered by name on the settings screen.

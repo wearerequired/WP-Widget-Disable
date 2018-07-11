@@ -48,6 +48,10 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 
 ## Changelog
 
+### 1.9.0
+
+* Enhancement: Added Multisite support.
+
 ### 1.8.0
 
 * Enhancement: Widgets are now ordered by name on the settings screen.
@@ -66,6 +70,10 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 For the complete changelog, check out our [GitHub repository](https://github.com/wearerequired/WP-Widget-Disable).
 
 ## Upgrade Notice
+
+### 1.9.0
+
+WP Widget Disable now fully supports Multisite and lets you disable dashboard widgets in the network admin.
 
 ### 1.8.0
 
