@@ -82,8 +82,6 @@ class WP_Widget_Disable {
 
 		// Add an action link pointing to the setting page.
 		add_action( 'plugin_action_links_' . $this->get_basename(), array( $this, 'plugin_action_links' ) );
-
-		add_action( 'admin_print_styles', array( $this, 'print_admin_styles' ) );
 	}
 
 	/**
@@ -245,31 +243,6 @@ class WP_Widget_Disable {
 			),
 			$links
 		);
-	}
-
-	/**
-	 * Prints additional styles used for the settings form.
-	 *
-	 * @since 1.6.1
-	 */
-	public function print_admin_styles() {
-		$screen = get_current_screen();
-
-		if ( ! $screen || $this->page_hook !== $screen->base ) {
-			return;
-		}
-
-		?>
-		<style>
-		.wp-widget-disable-form .button-link {
-			color: #0073aa;
-		}
-		.wp-widget-disable-form .button-link:hover,
-		.wp-widget-disable-form .button-link:focus {
-			color: #00a0d2;
-		}
-		</style>
-		<?php
 	}
 
 	/**
