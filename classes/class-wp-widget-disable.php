@@ -440,7 +440,8 @@ class WP_Widget_Disable {
 				}
 			}
 
-			if ( 1 === count( $output ) ) {
+			$output_count = count( $output );
+			if ( 1 === $output_count ) {
 				$message = __( 'Settings saved. One sidebar widget disabled.', 'wp-widget-disable' );
 			} else {
 				$message = sprintf(
@@ -448,10 +449,10 @@ class WP_Widget_Disable {
 					_n(
 						'Settings saved. %d sidebar widget disabled.',
 						'Settings saved. %d sidebar widgets disabled.',
-						count( $output ),
+						number_format_i18n( $output_count ),
 						'wp-widget-disable'
 					),
-					count( $output )
+					$output_count
 				);
 			}
 		}
@@ -494,7 +495,8 @@ class WP_Widget_Disable {
 				}
 			}
 
-			if ( 1 === count( $output ) ) {
+			$output_count = count( $output );
+			if ( 1 === $output_count ) {
 				$message = __( 'Settings saved. One dashboard widget disabled.', 'wp-widget-disable' );
 			} else {
 				$message = sprintf(
@@ -502,10 +504,10 @@ class WP_Widget_Disable {
 					_n(
 						'Settings saved. %d dashboard widget disabled.',
 						'Settings saved. %d dashboard widgets disabled.',
-						count( $output ),
+						number_format_i18n( $output_count ),
 						'wp-widget-disable'
 					),
-					count( $output )
+					$output_count
 				);
 			}
 		}
