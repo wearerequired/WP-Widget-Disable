@@ -29,7 +29,7 @@ $dashboard_tab_url = add_query_arg(
 $active_tab = $this->sidebar_widgets_option;
 
 // phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification
-if ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) {
+if ( is_network_admin() || ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) ) {
 	$active_tab = $this->dashboard_widgets_option;
 }
 
