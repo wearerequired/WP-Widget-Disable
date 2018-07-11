@@ -191,6 +191,17 @@ class WP_Widget_Disable {
 	}
 
 	/**
+	 * Whether there are settings errors for the plugin's settings page.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @return bool True if settings errors exist, false if not.
+	 */
+	public function has_settings_errors() {
+		return count( get_settings_errors( 'wp-widget-disable' ) ) > 0;
+	}
+
+	/**
 	 * Saves network options in the network admin.
 	 *
 	 * Handles settings errors and redirects back to options page.
@@ -211,7 +222,7 @@ class WP_Widget_Disable {
 		update_site_option( $this->dashboard_widgets_option, $data );
 
 		// If no settings errors were registered add a general 'updated' message.
-		if ( ! count( get_settings_errors() ) ) {
+		if ( ! $this->has_settings_errors() ) {
 			add_settings_error( 'wp-widget-disable', 'settings_updated', __( 'Settings saved.', 'wp-widget-disable' ), 'updated' );
 		}
 
@@ -425,6 +436,13 @@ class WP_Widget_Disable {
 	 * @return array
 	 */
 	public function sanitize_sidebar_widgets( $input ) {
+		// If there are settings errors the input was already sanitized.
+		// See https://core.trac.wordpress.org/ticket/21989.
+		if ( $this->has_settings_errors() ) {
+			return $input;
+		}
+
+		// Create our array for storing the validated options.
 		$output  = array();
 		$message = null;
 
@@ -479,6 +497,12 @@ class WP_Widget_Disable {
 	 * @return array
 	 */
 	public function sanitize_dashboard_widgets( $input ) {
+		// If there are settings errors the input was already sanitized.
+		// See https://core.trac.wordpress.org/ticket/21989.
+		if ( $this->has_settings_errors() ) {
+			return $input;
+		}
+
 		// Create our array for storing the validated options.
 		$output  = array();
 		$message = null;
