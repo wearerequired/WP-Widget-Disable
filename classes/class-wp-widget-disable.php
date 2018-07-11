@@ -458,7 +458,7 @@ class WP_Widget_Disable {
 		if ( $message ) {
 			add_settings_error(
 				'wp-widget-disable',
-				esc_attr( 'settings_updated' ),
+				'settings_updated',
 				$message,
 				'updated'
 			);
@@ -512,7 +512,7 @@ class WP_Widget_Disable {
 		if ( $message ) {
 			add_settings_error(
 				'wp-widget-disable',
-				esc_attr( 'settings_updated' ),
+				'settings_updated',
 				$message,
 				'updated'
 			);
