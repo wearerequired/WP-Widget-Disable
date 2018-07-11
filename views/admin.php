@@ -29,14 +29,19 @@ $dashboard_tab_url = add_query_arg(
 $active_tab = $this->sidebar_widgets_option;
 
 // phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification
-if ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) {
+if ( is_network_admin() || ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) ) {
 	$active_tab = $this->dashboard_widgets_option;
 }
+
+$form_action = is_network_admin() ? network_admin_url( 'edit.php?action=wp-widget-disable' ) : admin_url( 'options.php' );
 ?>
 
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
+	<?php
+	if ( ! is_network_admin() ) :
+		?>
 	<h2 class="nav-tab-wrapper">
 		<a href="<?php echo esc_url( $sidebar_tab_url ); ?>" class="nav-tab <?php echo $this->sidebar_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>">
 			<?php _e( 'Sidebar Widgets', 'wp-widget-disable' ); ?>
@@ -45,6 +50,7 @@ if ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) {
 			<?php _e( 'Dashboard Widgets', 'wp-widget-disable' ); ?>
 		</a>
 	</h2>
+	<?php endif; ?>
 
 	<script type="text/javascript">
 		jQuery( document ).ready( function( $ ) {
@@ -57,7 +63,7 @@ if ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) {
 		} );
 	</script>
 
-	<form method="post" action="options.php" class="wp-widget-disable-form">
+	<form method="post" action="<?php echo esc_url( $form_action ); ?>" class="wp-widget-disable-form">
 		<?php
 		settings_fields( $active_tab );
 		do_settings_sections( $active_tab );
