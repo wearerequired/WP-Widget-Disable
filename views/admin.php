@@ -39,12 +39,7 @@ $form_action = is_network_admin() ? network_admin_url( 'edit.php?action=wp-widge
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
-
 	<?php
-	if ( is_network_admin() ) {
-		settings_errors();
-	}
-
 	if ( ! is_network_admin() ) :
 		?>
 	<h2 class="nav-tab-wrapper">

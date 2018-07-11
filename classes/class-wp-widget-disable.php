@@ -88,6 +88,7 @@ class WP_Widget_Disable {
 
 		// Display settings errors.
 		add_action( 'admin_notices', array( $this, 'settings_errors' ) );
+		add_action( 'network_admin_notices', array( $this, 'settings_errors' ) );
 
 		// Get and disable the sidebar widgets.
 		add_action( 'widgets_init', array( $this, 'set_default_sidebar_widgets' ), 100 );
