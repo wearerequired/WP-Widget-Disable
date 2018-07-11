@@ -82,6 +82,7 @@ class WP_Widget_Disable {
 
 		// Add an action link pointing to the setting page.
 		add_action( 'plugin_action_links_' . $this->get_basename(), array( $this, 'plugin_action_links' ) );
+		add_action( 'network_admin_plugin_action_links_' . $this->get_basename(), array( $this, 'plugin_action_links' ) );
 	}
 
 	/**
@@ -232,6 +233,13 @@ class WP_Widget_Disable {
 			array( 'page' => 'wp-widget-disable' ),
 			admin_url( 'themes.php' )
 		);
+
+		if ( is_network_admin() ) {
+			$settings_url = add_query_arg(
+				array( 'page' => 'wp-widget-disable' ),
+				network_admin_url( 'settings.php' )
+			);
+		}
 
 		return array_merge(
 			array(
