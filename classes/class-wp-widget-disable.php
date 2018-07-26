@@ -640,17 +640,19 @@ class WP_Widget_Disable {
 					?>
 				</label>
 			</p>
-			<p>
-				<input type="checkbox" id="try_gutenberg_panel" name="rplus_wp_widget_disable_dashboard_option[try_gutenberg_panel]" value="normal"
-					<?php checked( 'try_gutenberg_panel', ( array_key_exists( 'try_gutenberg_panel', $options ) ? 'try_gutenberg_panel' : false ) ); ?>>
-				<label for="try_gutenberg_panel">
-					<?php
-					/* translators: %s: try_gutenberg_panel */
-					printf( __( 'Try Gutenberg callout (%s)', 'wp-widget-disable' ), '<code>try_gutenberg_panel</code>' );
-					?>
-				</label>
-			</p>
+			<?php if ( version_compare( get_bloginfo( 'version' ), '4.9.8-RC1', '>=' ) ) : ?>
+				<p>
+					<input type="checkbox" id="try_gutenberg_panel" name="rplus_wp_widget_disable_dashboard_option[try_gutenberg_panel]" value="normal"
+						<?php checked( 'try_gutenberg_panel', ( array_key_exists( 'try_gutenberg_panel', $options ) ? 'try_gutenberg_panel' : false ) ); ?>>
+					<label for="try_gutenberg_panel">
+						<?php
+						/* translators: %s: try_gutenberg_panel */
+						printf( __( 'Try Gutenberg callout (%s)', 'wp-widget-disable' ), '<code>try_gutenberg_panel</code>' );
+						?>
+					</label>
+				</p>
 			<?php
+			endif;
 		}
 
 		foreach ( $widgets as $id => $widget ) {
