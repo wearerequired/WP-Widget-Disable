@@ -4,7 +4,7 @@ Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets
 Requires at least: 4.0
 Tested up to:      4.9
 Requires PHP:      5.4
-Stable tag:        1.8.0
+Stable tag:        1.9.0
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,11 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 
 ## Changelog
 
+### 1.9.0
+
+* Enhancement: Added Multisite support.
+* Enhancement: Allows hiding the Try Gutenberg callout in WordPress 4.9.8.
+
 ### 1.8.0
 
 * Enhancement: Widgets are now ordered by name on the settings screen.
@@ -66,6 +71,10 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 For the complete changelog, check out our [GitHub repository](https://github.com/wearerequired/WP-Widget-Disable).
 
 ## Upgrade Notice
+
+### 1.9.0
+
+WP Widget Disable now fully supports Multisite and lets you disable dashboard widgets in the network admin as well as the new Try Gutenberg callout in WordPress 4.9.8.
 
 ### 1.8.0
 
