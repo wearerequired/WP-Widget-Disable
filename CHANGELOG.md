@@ -7,6 +7,7 @@
 ## 1.8.0
 
 * Enhancement: Widgets are now ordered by name on the settings screen.
+* Enhancement: Allows hiding the Try Gutenberg callout in WordPress 4.9.8.
 
 ## 1.7.0
 

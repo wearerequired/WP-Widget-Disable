@@ -51,6 +51,7 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 ### 1.9.0
 
 * Enhancement: Added Multisite support.
+* Enhancement: Allows hiding the Try Gutenberg callout in WordPress 4.9.8.
 
 ### 1.8.0
 
@@ -73,7 +74,7 @@ For the complete changelog, check out our [GitHub repository](https://github.com
 
 ### 1.9.0
 
-WP Widget Disable now fully supports Multisite and lets you disable dashboard widgets in the network admin.
+WP Widget Disable now fully supports Multisite and lets you disable dashboard widgets in the network admin as well as the new Try Gutenberg callout in WordPress 4.9.8.
 
 ### 1.8.0
 
