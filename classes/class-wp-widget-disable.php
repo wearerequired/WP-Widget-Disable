@@ -355,6 +355,12 @@ class WP_Widget_Disable {
 				continue;
 			}
 
+			if ( 'try_gutenberg_panel' === $widget_id ) {
+				remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
+
+				continue;
+			}
+
 			remove_meta_box( $widget_id, get_current_screen()->base, $meta_box );
 		}
 	}
@@ -631,6 +637,16 @@ class WP_Widget_Disable {
 					<?php
 					/* translators: %s: welcome_panel */
 					printf( __( 'Welcome panel (%s)', 'wp-widget-disable' ), '<code>welcome_panel</code>' );
+					?>
+				</label>
+			</p>
+			<p>
+				<input type="checkbox" id="try_gutenberg_panel" name="rplus_wp_widget_disable_dashboard_option[try_gutenberg_panel]" value="normal"
+					<?php checked( 'try_gutenberg_panel', ( array_key_exists( 'try_gutenberg_panel', $options ) ? 'try_gutenberg_panel' : false ) ); ?>>
+				<label for="try_gutenberg_panel">
+					<?php
+					/* translators: %s: try_gutenberg_panel */
+					printf( __( 'Try Gutenberg callout (%s)', 'wp-widget-disable' ), '<code>try_gutenberg_panel</code>' );
 					?>
 				</label>
 			</p>
