@@ -648,10 +648,12 @@ class WP_Widget_Disable {
 					?>
 				</label>
 			</p>
-			<?php if (
+			<?php
+			if (
 				version_compare( get_bloginfo( 'version' ), '4.9.8-RC1', '>=' ) &&
 				version_compare( get_bloginfo( 'version' ), '5.0-alpha-43807', '<' )
-			) : ?>
+			) :
+				?>
 				<p>
 					<input type="checkbox" id="try_gutenberg_panel" name="rplus_wp_widget_disable_dashboard_option[try_gutenberg_panel]" value="normal"
 						<?php checked( 'try_gutenberg_panel', ( array_key_exists( 'try_gutenberg_panel', $options ) ? 'try_gutenberg_panel' : false ) ); ?>>
@@ -662,7 +664,7 @@ class WP_Widget_Disable {
 						?>
 					</label>
 				</p>
-			<?php
+				<?php
 			endif;
 		}
 
