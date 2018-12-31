@@ -1,5 +1,6 @@
 # Vendor (e.g. Composer)
 vendor/*
+composer.lock
 
 # PHPCS
 phpcs.xml
