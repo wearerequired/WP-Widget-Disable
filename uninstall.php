@@ -11,10 +11,10 @@
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || die;
 
-$options = array(
+$options = [
 	'rplus_wp_widget_disable_sidebar_option',
 	'rplus_wp_widget_disable_dashboard_option',
-);
+];
 
 if ( ! is_multisite() ) {
 	foreach ( $options as $option ) {

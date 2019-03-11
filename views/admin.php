@@ -13,17 +13,17 @@
  */
 
 $sidebar_tab_url = add_query_arg(
-	array(
+	[
 		'page' => 'wp-widget-disable',
 		'tab'  => 'sidebar',
-	)
+	]
 );
 
 $dashboard_tab_url = add_query_arg(
-	array(
+	[
 		'page' => 'wp-widget-disable',
 		'tab'  => 'dashboard',
-	)
+	]
 );
 
 $active_tab = $this->sidebar_widgets_option;
