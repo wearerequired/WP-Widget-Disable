@@ -32,7 +32,7 @@ class WP_Widget_Disable {
 	 *
 	 * @var array
 	 */
-	protected $sidebar_widgets = array();
+	protected $sidebar_widgets = [];
 
 	/**
 	 * Dashboard widgets option key.
@@ -58,31 +58,31 @@ class WP_Widget_Disable {
 	 * Adds hooks.
 	 */
 	public function add_hooks() {
-		add_action( 'init', array( $this, 'load_textdomain' ) );
+		add_action( 'init', [ $this, 'load_textdomain' ] );
 
 		// Add the options page and menu item.
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_menu', [ $this, 'admin_menu' ] );
+		add_action( 'admin_init', [ $this, 'register_settings' ] );
 
 		// Multisite compatibility.
-		add_action( 'network_admin_menu', array( $this, 'admin_menu' ) );
-		add_action( 'network_admin_edit_wp-widget-disable', array( $this, 'save_network_options' ) );
+		add_action( 'network_admin_menu', [ $this, 'admin_menu' ] );
+		add_action( 'network_admin_edit_wp-widget-disable', [ $this, 'save_network_options' ] );
 
 		// Display settings errors.
-		add_action( 'admin_notices', array( $this, 'settings_errors' ) );
-		add_action( 'network_admin_notices', array( $this, 'settings_errors' ) );
+		add_action( 'admin_notices', [ $this, 'settings_errors' ] );
+		add_action( 'network_admin_notices', [ $this, 'settings_errors' ] );
 
 		// Get and disable the sidebar widgets.
-		add_action( 'widgets_init', array( $this, 'set_default_sidebar_widgets' ), 100 );
-		add_action( 'widgets_init', array( $this, 'disable_sidebar_widgets' ), 100 );
+		add_action( 'widgets_init', [ $this, 'set_default_sidebar_widgets' ], 100 );
+		add_action( 'widgets_init', [ $this, 'disable_sidebar_widgets' ], 100 );
 
 		// Get and disable the dashboard widgets.
-		add_action( 'wp_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
-		add_action( 'wp_network_dashboard_setup', array( $this, 'disable_dashboard_widgets' ), 100 );
+		add_action( 'wp_dashboard_setup', [ $this, 'disable_dashboard_widgets' ], 100 );
+		add_action( 'wp_network_dashboard_setup', [ $this, 'disable_dashboard_widgets' ], 100 );
 
 		// Add an action link pointing to the setting page.
-		add_action( 'plugin_action_links_' . $this->get_basename(), array( $this, 'plugin_action_links' ) );
-		add_action( 'network_admin_plugin_action_links_' . $this->get_basename(), array( $this, 'plugin_action_links' ) );
+		add_action( 'plugin_action_links_' . $this->get_basename(), [ $this, 'plugin_action_links' ] );
+		add_action( 'network_admin_plugin_action_links_' . $this->get_basename(), [ $this, 'plugin_action_links' ] );
 	}
 
 	/**
@@ -134,7 +134,7 @@ class WP_Widget_Disable {
 				__( 'Disable Widgets', 'wp-widget-disable' ),
 				'manage_network_options',
 				'wp-widget-disable',
-				array( $this, 'settings_page_callback' )
+				[ $this, 'settings_page_callback' ]
 			);
 
 			return;
@@ -145,7 +145,7 @@ class WP_Widget_Disable {
 			__( 'Disable Widgets', 'wp-widget-disable' ),
 			'edit_theme_options',
 			'wp-widget-disable',
-			array( $this, 'settings_page_callback' )
+			[ $this, 'settings_page_callback' ]
 		);
 	}
 
@@ -190,9 +190,9 @@ class WP_Widget_Disable {
 	 * @since 1.9.0
 	 */
 	public function save_network_options() {
-		$data = array();
+		$data = [];
 
-		// phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
+		// phpcs:disable WordPress.Security.NonceVerification
 		if ( isset( $_POST[ $this->dashboard_widgets_option ] ) ) {
 			$data = $this->sanitize_dashboard_widgets( $_POST[ $this->dashboard_widgets_option ] );
 		}
@@ -209,10 +209,10 @@ class WP_Widget_Disable {
 
 		wp_safe_redirect(
 			add_query_arg(
-				array(
+				[
 					'page'             => 'wp-widget-disable',
 					'settings-updated' => 1,
-				),
+				],
 				network_admin_url( 'settings.php' )
 			)
 		);
@@ -230,25 +230,25 @@ class WP_Widget_Disable {
 	 */
 	public function plugin_action_links( array $links ) {
 		$settings_url = add_query_arg(
-			array( 'page' => 'wp-widget-disable' ),
+			[ 'page' => 'wp-widget-disable' ],
 			admin_url( 'themes.php' )
 		);
 
 		if ( is_network_admin() ) {
 			$settings_url = add_query_arg(
-				array( 'page' => 'wp-widget-disable' ),
+				[ 'page' => 'wp-widget-disable' ],
 				network_admin_url( 'settings.php' )
 			);
 		}
 
 		return array_merge(
-			array(
+			[
 				'settings' => sprintf(
 					'<a href="%s">%s</a>',
 					esc_url( $settings_url ),
 					__( 'Settings', 'wp-widget-disable' )
 				),
-			),
+			],
 			$links
 		);
 	}
@@ -257,7 +257,7 @@ class WP_Widget_Disable {
 	 * Set the default sidebar widgets.
 	 */
 	public function set_default_sidebar_widgets() {
-		$widgets = array();
+		$widgets = [];
 
 		if ( ! empty( $GLOBALS['wp_widget_factory'] ) ) {
 			$widgets = $GLOBALS['wp_widget_factory']->widgets;
@@ -289,22 +289,22 @@ class WP_Widget_Disable {
 
 			set_current_screen( $screen );
 
-			remove_action( $action, array( $this, 'disable_dashboard_widgets' ), 100 );
+			remove_action( $action, [ $this, 'disable_dashboard_widgets' ], 100 );
 
 			wp_dashboard_setup();
 
-			if ( is_callable( array( 'Antispam_Bee', 'add_dashboard_chart' ) ) ) {
+			if ( is_callable( [ 'Antispam_Bee', 'add_dashboard_chart' ] ) ) {
 				Antispam_Bee::add_dashboard_chart();
 			}
 
-			add_action( $action, array( $this, 'disable_dashboard_widgets' ), 100 );
+			add_action( $action, [ $this, 'disable_dashboard_widgets' ], 100 );
 		}
 
 		if ( isset( $wp_meta_boxes[ $screen ][0] ) ) {
 			unset( $wp_meta_boxes[ $screen ][0] );
 		}
 
-		$widgets = array();
+		$widgets = [];
 
 		if ( isset( $wp_meta_boxes[ $screen ] ) ) {
 			$widgets = $wp_meta_boxes[ $screen ];
@@ -329,7 +329,7 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 */
 	public function disable_sidebar_widgets() {
-		$widgets = (array) get_option( $this->sidebar_widgets_option, array() );
+		$widgets = (array) get_option( $this->sidebar_widgets_option, [] );
 		if ( ! empty( $widgets ) ) {
 			foreach ( array_keys( $widgets ) as $widget_class ) {
 				unregister_widget( $widget_class );
@@ -346,10 +346,10 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 */
 	public function disable_dashboard_widgets() {
-		$widgets = (array) get_option( $this->dashboard_widgets_option, array() );
+		$widgets = (array) get_option( $this->dashboard_widgets_option, [] );
 
 		if ( is_network_admin() ) {
-			$widgets = (array) get_site_option( $this->dashboard_widgets_option, array() );
+			$widgets = (array) get_site_option( $this->dashboard_widgets_option, [] );
 		}
 
 		if ( ! $widgets ) {
@@ -390,7 +390,7 @@ class WP_Widget_Disable {
 		}
 
 		// Create our array for storing the validated options.
-		$output  = array();
+		$output  = [];
 		$message = null;
 
 		if ( empty( $input ) ) {
@@ -401,7 +401,7 @@ class WP_Widget_Disable {
 				// Check to see if the current option has a value. If so, process it.
 				if ( isset( $input[ $key ] ) ) {
 					// Strip all HTML and PHP tags and properly handle quoted strings.
-					$output[ $key ] = strip_tags( stripslashes( $input[ $key ] ) );
+					$output[ $key ] = wp_strip_all_tags( stripslashes( $input[ $key ] ) );
 				}
 			}
 
@@ -451,7 +451,7 @@ class WP_Widget_Disable {
 		}
 
 		// Create our array for storing the validated options.
-		$output  = array();
+		$output  = [];
 		$message = null;
 
 		if ( empty( $input ) ) {
@@ -462,7 +462,7 @@ class WP_Widget_Disable {
 				// Check to see if the current option has a value. If so, process it.
 				if ( isset( $input[ $key ] ) ) {
 					// Strip all HTML and PHP tags and properly handle quoted strings.
-					$output[ $key ] = strip_tags( stripslashes( $input[ $key ] ) );
+					$output[ $key ] = wp_strip_all_tags( stripslashes( $input[ $key ] ) );
 				}
 			}
 
@@ -504,7 +504,7 @@ class WP_Widget_Disable {
 		register_setting(
 			$this->sidebar_widgets_option,
 			$this->sidebar_widgets_option,
-			array( $this, 'sanitize_sidebar_widgets' )
+			[ $this, 'sanitize_sidebar_widgets' ]
 		);
 
 		add_settings_section(
@@ -521,7 +521,7 @@ class WP_Widget_Disable {
 		add_settings_field(
 			'sidebar_widgets',
 			__( 'Sidebar Widgets', 'wp-widget-disable' ),
-			array( $this, 'render_sidebar_checkboxes' ),
+			[ $this, 'render_sidebar_checkboxes' ],
 			$this->sidebar_widgets_option,
 			'widget_disable_widget_section'
 		);
@@ -529,7 +529,7 @@ class WP_Widget_Disable {
 		register_setting(
 			$this->dashboard_widgets_option,
 			$this->dashboard_widgets_option,
-			array( $this, 'sanitize_dashboard_widgets' )
+			[ $this, 'sanitize_dashboard_widgets' ]
 		);
 
 		add_settings_section(
@@ -546,7 +546,7 @@ class WP_Widget_Disable {
 		add_settings_field(
 			'dashboard_widgets',
 			__( 'Dashboard Widgets', 'wp-widget-disable' ),
-			array( $this, 'render_dashboard_checkboxes' ),
+			[ $this, 'render_dashboard_checkboxes' ],
 			$this->dashboard_widgets_option,
 			'widget_disable_dashboard_section'
 		);
@@ -560,7 +560,7 @@ class WP_Widget_Disable {
 	public function render_sidebar_checkboxes() {
 		$widgets = $this->sidebar_widgets;
 
-		$widgets = wp_list_sort( $widgets, array( 'name' => 'ASC' ), null, true );
+		$widgets = wp_list_sort( $widgets, [ 'name' => 'ASC' ], null, true );
 
 		if ( ! $widgets ) {
 			printf(
@@ -570,7 +570,7 @@ class WP_Widget_Disable {
 			return;
 		}
 
-		$options = (array) get_option( $this->sidebar_widgets_option, array() );
+		$options = (array) get_option( $this->sidebar_widgets_option, [] );
 
 		foreach ( $widgets as $id => $widget_object ) {
 			printf(
@@ -602,7 +602,7 @@ class WP_Widget_Disable {
 	public function render_dashboard_checkboxes() {
 		$widgets = $this->get_default_dashboard_widgets();
 
-		$flat_widgets = array();
+		$flat_widgets = [];
 
 		foreach ( $widgets as $context => $priority ) {
 			foreach ( $priority as $data ) {
@@ -620,7 +620,7 @@ class WP_Widget_Disable {
 			}
 		}
 
-		$widgets = wp_list_sort( $flat_widgets, array( 'title_stripped' => 'ASC' ), null, true );
+		$widgets = wp_list_sort( $flat_widgets, [ 'title_stripped' => 'ASC' ], null, true );
 
 		if ( ! $widgets ) {
 			printf(
@@ -630,10 +630,10 @@ class WP_Widget_Disable {
 			return;
 		}
 
-		$options = (array) get_option( $this->dashboard_widgets_option, array() );
+		$options = (array) get_option( $this->dashboard_widgets_option, [] );
 
 		if ( is_network_admin() ) {
-			$options = (array) get_site_option( $this->dashboard_widgets_option, array() );
+			$options = (array) get_site_option( $this->dashboard_widgets_option, [] );
 		}
 
 		if ( ! is_network_admin() ) {
@@ -691,7 +691,7 @@ class WP_Widget_Disable {
 				sprintf(
 					/* translators: 1: widget name, 2: widget ID */
 					_x( '%1$s (%2$s)', 'dashboard widget', 'wp-widget-disable' ),
-					wp_kses( $widget['title'], array( 'span' => array( 'class' => true ) ) ),
+					wp_kses( $widget['title'], [ 'span' => [ 'class' => true ] ] ),
 					'<code>' . esc_html( $id ) . '</code>'
 				)
 			);

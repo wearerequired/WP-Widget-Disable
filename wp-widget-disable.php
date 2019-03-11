@@ -28,10 +28,13 @@
  * @package WP_Widget_Disable
  */
 
+// phpcs:disable Generic.Arrays.DisallowLongArraySyntax -- File needs to be parsable by PHP 5.2.4.
+
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
+// phpcs:ignore WordPress.NamingConventions -- Variable gets unset.
 $requirements_check = new WP_Requirements_Check(
 	array(
 		'title' => 'WP Widget Disable',
@@ -45,8 +48,8 @@ if ( $requirements_check->passes() ) {
 	// Pull in the plugin classes and initialize.
 	include __DIR__ . '/classes/class-wp-widget-disable.php';
 
-	$wp_widget_disable = new WP_Widget_Disable();
-	add_action( 'plugins_loaded', array( $wp_widget_disable, 'add_hooks' ) );
+	$widget_disable = new WP_Widget_Disable();
+	add_action( 'plugins_loaded', array( $widget_disable, 'add_hooks' ) );
 }
 
 unset( $requirements_check );
