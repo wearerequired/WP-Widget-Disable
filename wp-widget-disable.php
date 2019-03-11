@@ -28,10 +28,13 @@
  * @package WP_Widget_Disable
  */
 
+// phpcs:disable Generic.Arrays.DisallowLongArraySyntax -- File needs to be parsable by PHP 5.2.4.
+
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
+// phpcs:ignore WordPress.NamingConventions -- Variable gets unset.
 $requirements_check = new WP_Requirements_Check(
 	array(
 		'title' => 'WP Widget Disable',
