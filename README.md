@@ -1,4 +1,4 @@
-# WP Widget Disable
+# Widget Disable for WordPress
 
 [![Build Status](https://travis-ci.com/wearerequired/WP-Widget-Disable.svg?branch=master)](https://travis-ci.com/wearerequired/WP-Widget-Disable) [![codecov](https://codecov.io/gh/wearerequired/WP-Widget-Disable/branch/master/graph/badge.svg)](https://codecov.io/gh/wearerequired/WP-Widget-Disable)
 

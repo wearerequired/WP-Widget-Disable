@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.1
+
+* Enhancement: Code cleanup, ensuring WordPress 5.1 compatibility.
+
 ## 1.9.0
 
 * Enhancement: Added Multisite support.

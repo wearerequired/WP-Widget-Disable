@@ -1,5 +1,5 @@
-# WP Widget Disable #
-Contributors:      wearerequired, neverything, swissspidy
+# Widget Disable #
+Contributors:      wearerequired, neverything, swissspidy, ocean90, grapplerulrich
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
 Requires at least: 4.0
 Tested up to:      5.1
@@ -48,47 +48,13 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 
 ## Changelog
 
+### 1.9.1
+
+* Enhancement: Cleanup and compatibility with WordPress 5.1.
+
 ### 1.9.0
 
 * Enhancement: Added Multisite support.
 * Enhancement: Allows hiding the Try Gutenberg callout in WordPress 4.9.8.
 
-### 1.8.0
-
-* Enhancement: Widgets are now ordered by name on the settings screen.
-
-### 1.7.0
-
-* Fixed: Improved messages when saving settings.
-* Enhancement: Improved compatibility with latest versions of WordPress.
-* Enhancement: Various accessibility improvements on the settings screen.
-
-### 1.6.0
-* Fixed: Re-added two filters to modify the available widgets.
-* Fixed: Fixed the title of the Quick Draft widget
-* Enhancement: Added compatibility with Antispam Bee.
-
-For the complete changelog, check out our [GitHub repository](https://github.com/wearerequired/WP-Widget-Disable).
-
-## Upgrade Notice
-
-### 1.9.0
-
-WP Widget Disable now fully supports Multisite and lets you disable dashboard widgets in the network admin as well as the new Try Gutenberg callout in WordPress 4.9.8.
-
-### 1.8.0
-
-Being 100% compatible with WordPress 4.9, this update makes lives easier by ordering widgets by name.
-
-### 1.7.0
-
-With a few smaller bug fixes and a keen eye on accessibility, this update is 100% compatible with WordPress 4.7.
-
-### 1.6.0
-Small update under the hood to bring back two filters and add support for Antispam Bee. 100% compatible with WordPress 4.6.
-
-### 1.5.0
-Being 100% compatible with WordPress 4.4, this update includes some smaller enhancements under the hood.
-
-### 1.4.0
-Now let’s you disable the welcome panel in the dashboard.
+For older versions see Changelog.md.
