@@ -20,4 +20,6 @@
             <property name="prefixes" type="array" value="wp_widget_disable"/>
         </properties>
     </rule>
+
+    <exclude-pattern>*/tests/*</exclude-pattern>
 </ruleset>
