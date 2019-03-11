@@ -17,7 +17,7 @@
     <!-- Define both prefixes for functions and hooks.  -->
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
-            <property name="prefixes" type="array" value="wp_widget_disable"/>
+            <property name="prefixes" type="array" value="widget_disable,WP_Widget_Disable"/>
         </properties>
     </rule>
 

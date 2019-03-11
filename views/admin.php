@@ -3,15 +3,10 @@
  * Represents the view for the administration dashboard.
  *
  * This includes the header, options, and other information that should provide
- * The User Interface to the end user.
- *
- * @package   WP_Widget_Disable
- * @author    Silvan Hagen <silvan@required.ch>
- * @license   GPL-2.0+
- * @link      http://wp.required.ch/plugins/wp-widget-disable
- * @copyright 2015 required gmbh
+ * the User Interface to the end user.
  */
 
+// phpcs:disable WordPress.NamingConventions, VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- Variables are not global.
 $sidebar_tab_url = add_query_arg(
 	[
 		'page' => 'wp-widget-disable',
@@ -28,7 +23,7 @@ $dashboard_tab_url = add_query_arg(
 
 $active_tab = $this->sidebar_widgets_option;
 
-// phpcs:ignore WordPress.CSRF.NonceVerification.NoNonceVerification
+// phpcs:ignore WordPress.Security.NonceVerification
 if ( is_network_admin() || ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) ) {
 	$active_tab = $this->dashboard_widgets_option;
 }

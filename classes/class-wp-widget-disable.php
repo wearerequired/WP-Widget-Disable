@@ -192,7 +192,7 @@ class WP_Widget_Disable {
 	public function save_network_options() {
 		$data = [];
 
-		// phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
+		// phpcs:disable WordPress.Security.NonceVerification
 		if ( isset( $_POST[ $this->dashboard_widgets_option ] ) ) {
 			$data = $this->sanitize_dashboard_widgets( $_POST[ $this->dashboard_widgets_option ] );
 		}
@@ -401,7 +401,7 @@ class WP_Widget_Disable {
 				// Check to see if the current option has a value. If so, process it.
 				if ( isset( $input[ $key ] ) ) {
 					// Strip all HTML and PHP tags and properly handle quoted strings.
-					$output[ $key ] = strip_tags( stripslashes( $input[ $key ] ) );
+					$output[ $key ] = wp_strip_all_tags( stripslashes( $input[ $key ] ) );
 				}
 			}
 
@@ -462,7 +462,7 @@ class WP_Widget_Disable {
 				// Check to see if the current option has a value. If so, process it.
 				if ( isset( $input[ $key ] ) ) {
 					// Strip all HTML and PHP tags and properly handle quoted strings.
-					$output[ $key ] = strip_tags( stripslashes( $input[ $key ] ) );
+					$output[ $key ] = wp_strip_all_tags( stripslashes( $input[ $key ] ) );
 				}
 			}
 
