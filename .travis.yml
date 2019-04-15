@@ -55,7 +55,7 @@ script:
 jobs:
   fast_finish: true
   include:
-    - stage: test-min
+    - stage: test
       php: 5.4
       env:
         - WP_VERSION=4.0.26
