@@ -2,7 +2,7 @@
 Contributors:      wearerequired, neverything, swissspidy, ocean90, grapplerulrich
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
 Requires at least: 4.0
-Tested up to:      5.1
+Tested up to:      5.2
 Requires PHP:      5.4
 Stable tag:        1.9.1
 License:           GPLv2 or later
@@ -23,7 +23,7 @@ Have a look at the filters we provide:
 
 **Contributions**
 
-If you would like to contribute to this plugin, report an isse or anything like that, please note that we develop this plugin on [GitHub](https://github.com/wearerequired/WP-Widget-Disable).
+If you would like to contribute to this plugin, report an issue or anything like that, please note that we develop this plugin on [GitHub](https://github.com/wearerequired/WP-Widget-Disable).
 
 Developed by [required](https://required.com/ "Team of experienced web professionals from Switzerland & Germany")
 
@@ -48,13 +48,13 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 
 ## Changelog
 
-### 1.9.1
+### [1.9.1] - 2019-03-11
 
 * Enhancement: Cleanup and compatibility with WordPress 5.1.
 
-### 1.9.0
+### [1.9.0] - 2018-07-26
 
 * Enhancement: Added Multisite support.
 * Enhancement: Allows hiding the Try Gutenberg callout in WordPress 4.9.8.
 
-For older versions see Changelog.md.
+For older versions see CHANGELOG.md.
