@@ -18,11 +18,9 @@ php:
   - 7.3
   - 7.2
   - 5.6
-  - 5.4
 
 env:
-  - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=latest WP_MULTISITE=1
+  - WP_VERSION=latest
 
 before_install:
   - |
@@ -37,21 +35,36 @@ before_install:
     export PATH=`composer config --list --global | grep '\[home\]' | { read a; echo "${a#* }/vendor/bin:$PATH"; }`
 
 install:
-  - composer install
+  - composer install --no-dev --ignore-platform-reqs
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+  - |
+    if [[ ! -z "$WP_VERSION" ]] ; then
+      bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+      composer global require "phpunit/phpunit=4.8.*|6.5.*"
+    fi
 
-script: vendor/bin/phpunit
+script:
+  - |
+    if [[ ! -z "$WP_VERSION" ]] ; then
+      phpunit
+      WP_MULTISITE=1 phpunit
+    fi
 
 jobs:
   fast_finish: true
   include:
+    - stage: test
+      php: 5.4
+      env:
+        - WP_VERSION=4.0.26
     - stage: lint
+      install: composer install
       script:
         - composer lint
     - stage: coverage
+      install: composer install
       before_install: skip
       script:
         - composer test -- --coverage-clover=coverage.xml
@@ -61,5 +74,6 @@ jobs:
 stages:
   - lint
   - test
+  - test-min
   - coverage
   - deploy
