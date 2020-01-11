@@ -77,6 +77,7 @@ class WP_Widget_Disable {
 		add_action( 'widgets_init', [ $this, 'disable_sidebar_widgets' ], 100 );
 
 		// Get and disable the dashboard widgets.
+		add_action( 'load-index.php', [ $this, 'disable_dashboard_widgets_with_remote_requests' ] );
 		add_action( 'wp_dashboard_setup', [ $this, 'disable_dashboard_widgets' ], 100 );
 		add_action( 'wp_network_dashboard_setup', [ $this, 'disable_dashboard_widgets' ], 100 );
 
@@ -136,17 +137,32 @@ class WP_Widget_Disable {
 				'wp-widget-disable',
 				[ $this, 'settings_page_callback' ]
 			);
-
-			return;
+		} else {
+			$this->page_hook = add_theme_page(
+				__( 'Disable Sidebar and Dashboard Widgets', 'wp-widget-disable' ),
+				__( 'Disable Widgets', 'wp-widget-disable' ),
+				'edit_theme_options',
+				'wp-widget-disable',
+				[ $this, 'settings_page_callback' ]
+			);
 		}
 
-		$this->page_hook = add_theme_page(
-			__( 'Disable Sidebar and Dashboard Widgets', 'wp-widget-disable' ),
-			__( 'Disable Widgets', 'wp-widget-disable' ),
-			'edit_theme_options',
-			'wp-widget-disable',
-			[ $this, 'settings_page_callback' ]
-		);
+		add_action( "load-{$this->page_hook}", [ $this, 'settings_page_load_callback' ] );
+	}
+
+	/**
+	 * Runs before the settings page gets rendered.
+	 *
+	 * Disables remote requests for dashboard nags.
+	 *
+	 * @since 2.0.0
+	 */
+	public function settings_page_load_callback() {
+		$key = md5( $_SERVER['HTTP_USER_AGENT'] );
+		add_filter( 'pre_site_transient_browser_' . $key, '__return_null' );
+
+		$key = md5( phpversion() );
+		add_filter( 'pre_site_transient_php_check_' . $key, '__return_null' );
 	}
 
 	/**
@@ -338,6 +354,55 @@ class WP_Widget_Disable {
 	}
 
 	/**
+	 * Retrieves the value of the option depending on current admin screen.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array List of disabled widget IDs.
+	 */
+	protected function get_disabled_dashboard_widgets() {
+		$widgets = (array) get_option( $this->dashboard_widgets_option, [] );
+
+		if ( is_network_admin() ) {
+			$widgets = (array) get_site_option( $this->dashboard_widgets_option, [] );
+		}
+
+		return $widgets;
+	}
+
+	/**
+	 * Disable dashboard widgets with remote requests.
+	 *
+	 * Some widgets are added based on the result of a remote request.
+	 * To prevent the remote request we filter the transients.
+	 *
+	 * @since 2.0.0
+	 */
+	public function disable_dashboard_widgets_with_remote_requests() {
+		$widgets = $this->get_disabled_dashboard_widgets();
+
+		if ( ! $widgets ) {
+			return;
+		}
+
+		foreach ( $widgets as $widget_id => $meta_box ) {
+			if ( 'dashboard_browser_nag' === $widget_id ) {
+				$key = md5( $_SERVER['HTTP_USER_AGENT'] );
+				add_filter( 'pre_site_transient_browser_' . $key, '__return_null' );
+
+				continue;
+			}
+
+			if ( 'dashboard_php_nag' === $widget_id ) {
+				$key = md5( phpversion() );
+				add_filter( 'pre_site_transient_php_check_' . $key, '__return_null' );
+
+				continue;
+			}
+		}
+	}
+
+	/**
 	 * Disable dashboard widgets.
 	 *
 	 * Gets the list of disabled dashboard widgets and
@@ -346,11 +411,7 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 */
 	public function disable_dashboard_widgets() {
-		$widgets = (array) get_option( $this->dashboard_widgets_option, [] );
-
-		if ( is_network_admin() ) {
-			$widgets = (array) get_site_option( $this->dashboard_widgets_option, [] );
-		}
+		$widgets = $this->get_disabled_dashboard_widgets();
 
 		if ( ! $widgets ) {
 			return;
@@ -365,6 +426,12 @@ class WP_Widget_Disable {
 
 			if ( 'try_gutenberg_panel' === $widget_id ) {
 				remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
+
+				continue;
+			}
+
+			if ( 'dashboard_browser_nag' === $widget_id || 'dashboard_php_nag' === $widget_id ) {
+				// Handled by ::disable_dashboard_widgets_with_remote_requests().
 
 				continue;
 			}
@@ -630,11 +697,8 @@ class WP_Widget_Disable {
 			return;
 		}
 
-		$options = (array) get_option( $this->dashboard_widgets_option, [] );
-
-		if ( is_network_admin() ) {
-			$options = (array) get_site_option( $this->dashboard_widgets_option, [] );
-		}
+		$options    = $this->get_disabled_dashboard_widgets();
+		$wp_version = get_bloginfo( 'version' );
 
 		if ( ! is_network_admin() ) {
 			?>
@@ -648,10 +712,11 @@ class WP_Widget_Disable {
 					?>
 				</label>
 			</p>
+
 			<?php
 			if (
-				version_compare( get_bloginfo( 'version' ), '4.9.8-RC1', '>=' ) &&
-				version_compare( get_bloginfo( 'version' ), '5.0-alpha-43807', '<' )
+				version_compare( $wp_version, '4.9.8-RC1', '>=' ) &&
+				version_compare( $wp_version, '5.0-alpha-43807', '<' )
 			) :
 				?>
 				<p>
@@ -667,6 +732,34 @@ class WP_Widget_Disable {
 				<?php
 			endif;
 		}
+		?>
+
+		<p>
+			<input type="checkbox" id="dashboard_browser_nag" name="rplus_wp_widget_disable_dashboard_option[dashboard_browser_nag]" value="normal"
+				<?php checked( 'dashboard_browser_nag', ( array_key_exists( 'dashboard_browser_nag', $options ) ? 'dashboard_browser_nag' : false ) ); ?>>
+			<label for="dashboard_browser_nag">
+				<?php
+				/* translators: %s: dashboard_browser_nag */
+				printf( __( 'Browse Happy (%s)', 'wp-widget-disable' ), '<code>dashboard_browser_nag</code>' );
+				?>
+			</label>
+		</p>
+
+		<?php
+		if ( version_compare( $wp_version, '5.1.0', '>=' ) ) :
+			?>
+			<p>
+				<input type="checkbox" id="dashboard_php_nag" name="rplus_wp_widget_disable_dashboard_option[dashboard_php_nag]" value="normal"
+					<?php checked( 'dashboard_php_nag', ( array_key_exists( 'dashboard_php_nag', $options ) ? 'dashboard_php_nag' : false ) ); ?>>
+				<label for="dashboard_php_nag">
+					<?php
+					/* translators: %s: dashboard_php_nag */
+					printf( __( 'PHP Update Required (%s)', 'wp-widget-disable' ), '<code>dashboard_php_nag</code>' );
+					?>
+				</label>
+			</p>
+			<?php
+		endif;
 
 		foreach ( $widgets as $id => $widget ) {
 			if ( empty( $widget['title'] ) ) {
