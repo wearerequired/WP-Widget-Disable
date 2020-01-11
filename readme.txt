@@ -48,6 +48,10 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 
 ## Changelog
 
+## 2.0.0 - 2020-01-XX
+
+* New: Allows removal of the "Browse Happy" and "PHP Update Required" widgets in the dashboard to suppress remote API requests.
+
 ### [1.9.1] - 2019-03-11
 
 * Enhancement: Cleanup and compatibility with WordPress 5.1.

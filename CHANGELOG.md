@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* New: Allows removal of the "Browse Happy" and "PHP Update Required" widgets in the dashboard to suppress remote API requests.
+
 ## [1.9.1] - 2019-03-11
 
 * Enhancement: Code cleanup, ensuring WordPress 5.1 compatibility.
@@ -52,15 +54,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Complete rewrite of the plugin using our `grunt-wp-plugin` boilerplate.
 * Preparation for deployment on WordPress.org
 
-## 1.1.2
+## [1.1.2] - 2015-03-25
 * Fixed: Removed obsolete hooks that caused an error on plugin (de)activation.
 
-## 1.1.1
+## [1.1.1] - 2015-03-25
 * New: Repdigit version number.
 * Fixed: Added correct changelog.
 * Fixed: Properly translate "Select all" option.
 
-## 1.1.0
+## 1.1.0 - 2015-03-25
 * New: Get Dashboard Widgets without roundtrip to the dashboard first.
 * New: "Select all" option to disable all widgets in one go.
 * New: Added German (Switzerland) translation.
@@ -76,7 +78,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Initial release of the working plugin.
 * German (de_DE) translations added.
 
-[1.9.1]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.0.0...1.9.1
+[Unreleased]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.9.1...master
+[1.9.1]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.9.0...1.9.1
 [1.9.0]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.8.0...1.9.0
 [1.8.0]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.7.0...1.8.0
 [1.7.0]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.6.0...1.7.0
