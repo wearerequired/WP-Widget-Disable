@@ -12,7 +12,7 @@ class WP_Widget_Disable {
 	/**
 	 * Plugin version.
 	 */
-	const VERSION = '2.0.0-RC';
+	const VERSION = '2.0.0';
 
 	/**
 	 * Sidebar widgets option key.

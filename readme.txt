@@ -4,7 +4,7 @@ Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets
 Requires at least: 4.0
 Tested up to:      5.3
 Requires PHP:      5.4
-Stable tag:        1.9.1
+Stable tag:        2.0.0
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,7 +48,7 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 
 ## Changelog
 
-## 2.0.0 - 2020-01-XX
+### 2.0.0 - 2020-02-02
 
 * New: Allows removal of the "Browse Happy" and "PHP Update Required" widgets in the dashboard to suppress remote API requests.
 

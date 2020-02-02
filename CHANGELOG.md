@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0] - 2020-02-02
 
 * New: Allows removal of the "Browse Happy" and "PHP Update Required" widgets in the dashboard to suppress remote API requests.
 
@@ -78,7 +78,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Initial release of the working plugin.
 * German (de_DE) translations added.
 
-[Unreleased]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.9.1...master
+[Unreleased]: https://github.com/wearerequired/WP-Widget-Disable/compare/2.0.0...master
+[2.0.0]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.9.0...2.0.0
 [1.9.1]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.9.0...1.9.1
 [1.9.0]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.8.0...1.9.0
 [1.8.0]: https://github.com/wearerequired/WP-Widget-Disable/compare/1.7.0...1.8.0
