@@ -52,11 +52,11 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 
 * New: Allows removal of the "Browse Happy" and "PHP Update Required" widgets in the dashboard to suppress remote API requests.
 
-### [1.9.1] - 2019-03-11
+### 1.9.1 - 2019-03-11
 
 * Enhancement: Cleanup and compatibility with WordPress 5.1.
 
-### [1.9.0] - 2018-07-26
+### 1.9.0 - 2018-07-26
 
 * Enhancement: Added Multisite support.
 * Enhancement: Allows hiding the Try Gutenberg callout in WordPress 4.9.8.
