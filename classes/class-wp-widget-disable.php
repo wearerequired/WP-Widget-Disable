@@ -1,8 +1,6 @@
 <?php
 /**
  * Holds the main plugin class.
- *
- * @package WP_Widget_Disable
  */
 
 /**
@@ -241,7 +239,6 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 *
 	 * @param array $links Plugin action links.
-	 *
 	 * @return array
 	 */
 	public function plugin_action_links( array $links ) {
@@ -446,7 +443,6 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 *
 	 * @param array $input Sidebar widgets to disable.
-	 *
 	 * @return array
 	 */
 	public function sanitize_sidebar_widgets( $input ) {
@@ -507,7 +503,6 @@ class WP_Widget_Disable {
 	 * @since 1.0.0
 	 *
 	 * @param array $input Dashboards widgets to disable.
-	 *
 	 * @return array
 	 */
 	public function sanitize_dashboard_widgets( $input ) {
