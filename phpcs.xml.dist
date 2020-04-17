@@ -4,7 +4,10 @@
 
     <file>.</file>
 
-    <rule ref="Required"/>
+    <rule ref="Required">
+        <!-- Exclude till plugin minimum PHP version increases to 7.0. -->
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator"/>
+    </rule>
 
     <!-- Verify that the text_domain is set to the desired text-domain.
      Multiple valid text domains can be provided as a comma-delimited list. -->
