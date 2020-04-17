@@ -9,9 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: pxgamer/composer-action@master
+    - uses: shivammathur/setup-php@v2
       with:
-        command: install --prefer-dist --no-dev --optimize-autoloader
+            php-version: '7.3'
+            coverage: none
+            tools: composer
+      with:
+        command: install --prefer-dist --no-dev --no-suggest --no-progress --optimize-autoloader
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@develop
       env:
