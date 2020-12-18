@@ -1,6 +1,7 @@
 name: Plugin asset/readme update
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
