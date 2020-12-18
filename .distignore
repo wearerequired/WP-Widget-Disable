@@ -3,6 +3,7 @@
 .editorconfig
 .git
 .github
+.wordpress-org
 .gitignore
 .idea
 .travis.yml
