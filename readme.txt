@@ -1,9 +1,9 @@
 # Widget Disable #
 Contributors:      wearerequired, neverything, swissspidy, ocean90, grapplerulrich
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
-Requires at least: 4.0
+Requires at least: 4.7
 Tested up to:      5.8
-Requires PHP:      5.4
+Requires PHP:      5.6
 Stable tag:        2.0.0
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html

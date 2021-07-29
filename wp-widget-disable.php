@@ -36,8 +36,8 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 $requirements_check = new WP_Requirements_Check(
 	array(
 		'title' => 'WP Widget Disable',
-		'php'   => '5.4',
-		'wp'    => '4.0',
+		'php'   => '5.6',
+		'wp'    => '4.7',
 		'file'  => __FILE__,
 	)
 );
