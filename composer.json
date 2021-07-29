@@ -25,9 +25,9 @@
     "wearerequired/wp-requirements-check": "~1.1"
   },
   "require-dev":  {
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-    "phpunit/phpunit": "~4.8 || ~6.5",
-    "wearerequired/coding-standards": "dev-master"
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+    "phpunit/phpunit": "^5 || ^7",
+    "wearerequired/coding-standards": "^1.6"
   },
   "scripts": {
     "format": "vendor/bin/phpcbf --report-summary --report-source .",

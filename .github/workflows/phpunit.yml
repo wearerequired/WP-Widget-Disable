@@ -1,0 +1,96 @@
+name: PHPUnit
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  phpunit:
+    name: PHPUnit (PHP ${{ matrix.php }} with WordPress ${{ matrix.wordpress }})
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        ports:
+          - 3306/tcp
+        env:
+          MYSQL_ROOT_PASSWORD: password
+        # Set health checks to wait until mysql has started
+        options: >-
+          --health-cmd "mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.2', '7.3', '7.4']
+        wordpress: ['trunk']
+        experimental: [false]
+        include:
+          - php: '7.4'
+            wordpress: 'latest'
+            experimental: false
+          - php: '5.6'
+            wordpress: '4.7'
+            experimental: false
+          - php: '8.0'
+            wordpress: 'latest'
+            experimental: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          extensions: mysqli
+          tools: composer, cs2pr
+
+      - name: Install WordPress test setup
+        env:
+          WP_VERSION: ${{ matrix.wordpress }}
+          MYSQL_PORT: ${{ job.services.mysql.ports[3306] }}
+        run: bash bin/install-wp-tests.sh wordpress_test root password "127.0.0.1:$MYSQL_PORT" "$WP_VERSION"
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Setup cache
+        uses: pat-s/always-upload-cache@v1.1.4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      # wearerequired/coding-standards is not compatible with PHP 8 and is not needed for PHPUnit
+      - name: Remove coding standards
+        run: composer remove --dev wearerequired/coding-standards --ignore-platform-reqs
+
+      - name: Install dependencies (PHP < 8.0)
+        if: ${{ matrix.php < '8.0' }}
+        run: |
+          composer update
+          composer install --no-interaction --no-scripts
+
+      - name: Install dependencies (PHP => 8.0)
+        if: ${{ matrix.php >= '8.0' }}
+        # Use --ignore-platform-reqs as PHPUnit 7 PHP requirment is PHP 7.1 but it works on PHP 8
+        run: composer install --no-interaction --no-scripts --ignore-platform-reqs
+
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Run tests
+        run: composer run test
