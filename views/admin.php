@@ -6,16 +6,6 @@
  * the User Interface to the end user.
  */
 
-/**
- * Check if block editor is enabled for widgets.
- */
-function widget_disable_use_widgets_block_editor(): bool {
-	if ( function_exists( 'wp_use_widgets_block_editor' ) ) {
-		return wp_use_widgets_block_editor();
-	}
-	return false;
-}
-
 // phpcs:disable WordPress.NamingConventions, VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- Variables are not global.
 $sidebar_tab_url = add_query_arg(
 	[
@@ -34,7 +24,7 @@ $dashboard_tab_url = add_query_arg(
 $active_tab = $this->sidebar_widgets_option;
 
 // phpcs:ignore WordPress.Security.NonceVerification
-if ( is_network_admin() || ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) || widget_disable_use_widgets_block_editor() ) {
+if ( is_network_admin() || ( isset( $_GET['tab'] ) && 'dashboard' === $_GET['tab'] ) ) {
 	$active_tab = $this->dashboard_widgets_option;
 }
 
@@ -48,11 +38,9 @@ $form_action = is_network_admin() ? network_admin_url( 'edit.php?action=wp-widge
 	if ( ! is_network_admin() ) :
 		?>
 	<h2 class="nav-tab-wrapper">
-		<?php if ( ! widget_disable_use_widgets_block_editor() ) : ?>
-			<a href="<?php echo esc_url( $sidebar_tab_url ); ?>" class="nav-tab <?php echo $this->sidebar_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>">
-				<?php _e( 'Sidebar Widgets', 'wp-widget-disable' ); ?>
-			</a>
-		<?php endif; ?>
+		<a href="<?php echo esc_url( $sidebar_tab_url ); ?>" class="nav-tab <?php echo $this->sidebar_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>">
+			<?php _e( 'Sidebar Widgets', 'wp-widget-disable' ); ?>
+		</a>
 		<a href="<?php echo esc_url( $dashboard_tab_url ); ?>" class="nav-tab <?php echo $this->dashboard_widgets_option === $active_tab ? 'nav-tab-active' : ''; ?>">
 			<?php _e( 'Dashboard Widgets', 'wp-widget-disable' ); ?>
 		</a>
