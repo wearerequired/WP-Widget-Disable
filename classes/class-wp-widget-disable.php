@@ -799,8 +799,10 @@ class WP_Widget_Disable {
 
 	/**
 	 * Check if block editor is enabled for widgets.
+	 *
+	 * @return bool
 	 */
-	public function use_widgets_block_editor(): bool {
+	public function use_widgets_block_editor() {
 		if ( function_exists( 'wp_use_widgets_block_editor' ) ) {
 			return wp_use_widgets_block_editor();
 		}
@@ -809,8 +811,10 @@ class WP_Widget_Disable {
 
 	/**
 	 * Get list of widgets to hide from legacy widget block.
+	 *
+	 * @return array
 	 */
-	public function get_widgets_to_hide_from_legacy_widget_block(): array {
+	public function get_widgets_to_hide_from_legacy_widget_block() {
 		if ( function_exists( 'get_legacy_widget_block_editor_settings' ) ) {
 			return get_legacy_widget_block_editor_settings()['widgetTypesToHideFromLegacyWidgetBlock'];
 		}
