@@ -800,7 +800,7 @@ class WP_Widget_Disable {
 	/**
 	 * Check if block editor is enabled for widgets.
 	 */
-	function use_widgets_block_editor(): bool {
+	public function use_widgets_block_editor(): bool {
 		if ( function_exists( 'wp_use_widgets_block_editor' ) ) {
 			return wp_use_widgets_block_editor();
 		}
