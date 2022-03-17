@@ -632,12 +632,13 @@ class WP_Widget_Disable {
 			return;
 		}
 
-		$options         = (array) get_option( $this->sidebar_widgets_option, [] );
-		$widgets_to_hide = $this->get_widgets_to_hide_from_legacy_widget_block();
+		$options                  = (array) get_option( $this->sidebar_widgets_option, [] );
+		$widgets_to_hide          = $this->get_widgets_to_hide_from_legacy_widget_block();
+		$use_widgets_block_editor = $this->use_widgets_block_editor();
 
 		foreach ( $widgets as $id => $widget_object ) {
 			// Hide widgets if widgets block is enabled.
-			if ( $this->use_widgets_block_editor() && in_array( $widget_object->id_base, $widgets_to_hide, true ) ) {
+			if ( $use_widgets_block_editor && in_array( $widget_object->id_base, $widgets_to_hide, true ) ) {
 				continue;
 			}
 			printf(
