@@ -50,7 +50,7 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 
 ### 2.1.0 - 2022-03-17
 
-* Enhancement: Hide disbaled sidebar widgets when widget block editor is enabled.
+* Enhancement: Hide disabled sidebar widgets when widget block editor is enabled.
 * Changed: Requires at least PHP 5.6 and WordPress 4.7.
 
 ### 2.0.0 - 2020-02-02
