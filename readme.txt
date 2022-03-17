@@ -2,9 +2,9 @@
 Contributors:      wearerequired, neverything, swissspidy, ocean90, grapplerulrich
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
 Requires at least: 4.7
-Tested up to:      5.8
+Tested up to:      5.9
 Requires PHP:      5.6
-Stable tag:        2.0.0
+Stable tag:        2.1.0
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,11 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 4. The stripped-down dashboard.
 
 ## Changelog
+
+### 2.1.0 - 2022-03-17
+
+* Enhancement: Hide disbaled sidebar widgets when widget block editor is enabled.
+* Changed: Requires at least PHP 5.6 and WordPress 4.7.
 
 ### 2.0.0 - 2020-02-02
 
