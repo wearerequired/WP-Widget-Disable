@@ -1,37 +1,37 @@
 {
-  "name":         "wearerequired/wp-widget-disable",
-  "description":  "WordPress plugin to disable sidebar and dashboard widgets with an easy to use interface.",
-  "type":         "wordpress-plugin",
-  "license":      "GPL-2.0-or-later",
-  "authors":      [
-    {
-      "name":     "required",
-      "email":    "support@required.ch",
-      "homepage": "https://required.com",
-      "role":     "Developer"
-    }
-  ],
+  "name": "wearerequired/wp-widget-disable",
+  "description": "WordPress plugin to disable sidebar and dashboard widgets with an easy to use interface.",
+  "license": "GPL-2.0-or-later",
+  "type": "wordpress-plugin",
   "keywords": [
     "wordpress",
     "widgets"
   ],
-  "config": {
-    "sort-packages": true,
-    "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
+  "authors": [
+    {
+      "name": "required",
+      "email": "support@required.ch",
+      "homepage": "https://required.com",
+      "role": "Developer"
     }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
+  ],
   "require": {
-    "php": ">=5.6",
+    "php": ">=7.4",
     "wearerequired/wp-requirements-check": "~1.1"
   },
-  "require-dev":  {
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7 || ^1.0",
     "phpunit/phpunit": "^5 || ^7",
     "wearerequired/coding-standards": "^1.6",
     "yoast/phpunit-polyfills": "^1.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    },
+    "sort-packages": true
   },
   "scripts": {
     "format": "vendor/bin/phpcbf --report-summary --report-source .",
