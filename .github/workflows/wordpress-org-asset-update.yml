@@ -19,8 +19,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: WordPress.org plugin asset/readme update
-        uses: wearerequired/action-wordpress-plugin-asset-update@copy-only
+        uses: 10up/action-wordpress-plugin-asset-update@stable
         env:
           SLUG: 'wp-widget-disable'
+          IGNORE_OTHER_FILES: 'true'
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
