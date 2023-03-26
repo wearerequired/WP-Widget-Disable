@@ -1,9 +1,9 @@
 # Widget Disable #
 Contributors:      wearerequired, neverything, swissspidy, ocean90, grapplerulrich
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
-Requires at least: 4.7
-Tested up to:      6.0
-Requires PHP:      5.6
+Requires at least: 6.0
+Tested up to:      6.2
+Requires PHP:      7.4
 Stable tag:        2.1.0
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -35,10 +35,6 @@ Developed by [required](https://required.com/ "Team of experienced web professio
 2. Activate WP Widget Disable through the Plugins menu in WordPress.
 3. Go to Appearance -> Disable Widgets to manage sidebar and dashboard widgets.
 
-## Frequently Asked Questions
-
-None so far. But you can ask us any time on [twitter](https://twitter.com/wearerequired)!
-
 ## Screenshots
 
 1. Disable the sidebar widgets you don’t need.
@@ -47,6 +43,11 @@ None so far. But you can ask us any time on [twitter](https://twitter.com/wearer
 4. The stripped-down dashboard.
 
 ## Changelog
+
+### 3.0.0 - 2023-03-26
+
+* Fixed: Replace use of jQuery to avoid deprecation warnings.
+* Changed: Requires at least PHP 7.4 and WordPress 6.0.
 
 ### 2.1.0 - 2022-03-17
 
