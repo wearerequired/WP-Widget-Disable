@@ -3,7 +3,7 @@
  * Plugin Name:       Widget Disable
  * Plugin URI:        https://required.com/services/wordpress-plugins/wp-widget-disable/
  * Description:       Disable sidebar and dashboard widgets with an easy to use interface. Simply use the checkboxes provided under <strong>Appearance -> Disable Widgets</strong> and select the widgets you'd like to hide.
- * Version:           2.1.0
+ * Version:           3.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            required
