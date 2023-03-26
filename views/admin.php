@@ -47,17 +47,6 @@ $form_action = is_network_admin() ? network_admin_url( 'edit.php?action=wp-widge
 	</h2>
 	<?php endif; ?>
 
-	<script type="text/javascript">
-		jQuery( document ).ready( function( $ ) {
-			$( '#wp_widget_disable_select_all, #wp_widget_disable_deselect_all' ).click( function() {
-				var isChecked = 'wp_widget_disable_select_all' === $( this ).attr( 'id' );
-				$( this ).parents( 'td' ).find( 'input' ).each( function() {
-					$( this ).get( 0 ).checked = isChecked;
-				} );
-			} );
-		} );
-	</script>
-
 	<form method="post" action="<?php echo esc_url( $form_action ); ?>" class="wp-widget-disable-form">
 		<?php
 		settings_fields( $active_tab );
@@ -66,3 +55,16 @@ $form_action = is_network_admin() ? network_admin_url( 'edit.php?action=wp-widge
 		?>
 	</form>
 </div>
+
+<script>
+	const toggleButtons = document.querySelectorAll( '#wp_widget_disable_select_all, #wp_widget_disable_deselect_all' );
+	toggleButtons.forEach( function( button ) {
+		button.addEventListener( 'click', function() {
+			const isChecked = 'wp_widget_disable_select_all' === button.id;
+			const inputs = button.closest( 'td' ).querySelectorAll( 'input' );
+			inputs.forEach( function( input ) {
+				input.checked = isChecked;
+			} );
+		} );
+	} );
+</script>
