@@ -40,5 +40,4 @@ jobs:
       - name: Run linters
         uses: wearerequired/lint-action@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           php_codesniffer: true
