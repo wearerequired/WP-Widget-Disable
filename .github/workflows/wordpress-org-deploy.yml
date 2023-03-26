@@ -25,7 +25,7 @@ jobs:
           composer install --no-progress --no-dev --no-ansi --prefer-dist --no-interaction --no-scripts --optimize-autoloader
 
       - name: WordPress Plugin Deploy
-        uses: 10up/action-wordpress-plugin-deploy@1.5.0
+        uses: 10up/action-wordpress-plugin-deploy@2.1.1
         env:
           SLUG: 'wp-widget-disable'
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
