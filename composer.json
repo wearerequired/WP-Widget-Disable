@@ -21,8 +21,8 @@
   },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7 || ^1.0",
-    "phpunit/phpunit": "^5 || ^7",
-    "wearerequired/coding-standards": "^1.6",
+    "phpunit/phpunit": "^7 || ^9",
+    "wearerequired/coding-standards": "^5.0",
     "yoast/phpunit-polyfills": "^1.0"
   },
   "minimum-stability": "dev",

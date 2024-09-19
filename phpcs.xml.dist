@@ -4,6 +4,11 @@
 
     <file>.</file>
 
+	<!-- The minimum supported WordPress version for all sniffs which use it. -->
+	<config name="minimum_supported_wp_version" value="6.0"/>
+	<!-- The minimum PHP requirement. -->
+	<config name="testVersion" value="7.4-"/>
+
     <rule ref="Required">
         <!-- Exclude till plugin minimum PHP version increases to 7.0. -->
         <exclude name="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator"/>
