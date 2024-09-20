@@ -51,7 +51,7 @@ class WP_Widget_Disable {
 	/**
 	 * Adds hooks.
 	 */
-	public function add_hooks() {
+	public function add_hooks(): void {
 		add_action( 'init', [ $this, 'load_textdomain' ] );
 
 		// Add the options page and menu item.
@@ -85,7 +85,7 @@ class WP_Widget_Disable {
 	 *
 	 * @return string The URL to the plugin directory.
 	 */
-	protected function get_url() {
+	protected function get_url(): string {
 		return plugin_dir_url( __DIR__ );
 	}
 
@@ -94,7 +94,7 @@ class WP_Widget_Disable {
 	 *
 	 * @return string The absolute path to the plugin directory.
 	 */
-	protected function get_path() {
+	protected function get_path(): string {
 		return plugin_dir_path( __DIR__ );
 	}
 
@@ -105,14 +105,14 @@ class WP_Widget_Disable {
 	 *
 	 * @return string The plugin basename.
 	 */
-	protected function get_basename() {
+	protected function get_basename(): string {
 		return plugin_basename( $this->get_path() . 'wp-widget-disable.php' );
 	}
 
 	/**
 	 * Initializes the plugin, registers textdomain, etc.
 	 */
-	public function load_textdomain() {
+	public function load_textdomain(): void {
 		load_plugin_textdomain( 'wp-widget-disable' );
 	}
 
@@ -121,7 +121,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 */
-	public function admin_menu() {
+	public function admin_menu(): void {
 		if ( is_network_admin() ) {
 			$this->page_hook = add_submenu_page(
 				'settings.php',
@@ -151,7 +151,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 2.0.0
 	 */
-	public function settings_page_load_callback() {
+	public function settings_page_load_callback(): void {
 		$key = md5( $_SERVER['HTTP_USER_AGENT'] );
 		add_filter( 'pre_site_transient_browser_' . $key, '__return_null' );
 
@@ -166,7 +166,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.6.0
 	 */
-	public function settings_page_callback() {
+	public function settings_page_callback(): void {
 		include trailingslashit( $this->get_path() ) . 'views/admin.php';
 	}
 
@@ -175,7 +175,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.7.0
 	 */
-	public function settings_errors() {
+	public function settings_errors(): void {
 		settings_errors( 'wp-widget-disable' );
 	}
 
@@ -186,7 +186,7 @@ class WP_Widget_Disable {
 	 *
 	 * @return bool True if settings errors exist, false if not.
 	 */
-	public function has_settings_errors() {
+	public function has_settings_errors(): bool {
 		return count( get_settings_errors( 'wp-widget-disable' ) ) > 0;
 	}
 
@@ -199,7 +199,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.9.0
 	 */
-	public function save_network_options() {
+	public function save_network_options(): void {
 		$data = [];
 
 		// phpcs:disable WordPress.Security.NonceVerification
@@ -234,10 +234,10 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $links Plugin action links.
-	 * @return array
+	 * @param mixed[] $links Plugin action links.
+	 * @return mixed[]
 	 */
-	public function plugin_action_links( array $links ) {
+	public function plugin_action_links( array $links ): array {
 		$settings_url = add_query_arg(
 			[ 'page' => 'wp-widget-disable' ],
 			admin_url( 'themes.php' )
@@ -265,7 +265,7 @@ class WP_Widget_Disable {
 	/**
 	 * Set the default sidebar widgets.
 	 */
-	public function set_default_sidebar_widgets() {
+	public function set_default_sidebar_widgets(): void {
 		$widgets = [];
 
 		if ( ! empty( $GLOBALS['wp_widget_factory'] ) ) {
@@ -283,9 +283,9 @@ class WP_Widget_Disable {
 	/**
 	 * Get the default dashboard widgets.
 	 *
-	 * @return array Sidebar widgets.
+	 * @return mixed[] Sidebar widgets.
 	 */
-	protected function get_default_dashboard_widgets() {
+	protected function get_default_dashboard_widgets(): array {
 		global $wp_meta_boxes;
 
 		$screen = is_network_admin() ? 'dashboard-network' : 'dashboard';
@@ -337,7 +337,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 */
-	public function disable_sidebar_widgets() {
+	public function disable_sidebar_widgets(): void {
 		$widgets = (array) get_option( $this->sidebar_widgets_option, [] );
 		if ( ! empty( $widgets ) ) {
 			foreach ( array_keys( $widgets ) as $widget_class ) {
@@ -351,9 +351,9 @@ class WP_Widget_Disable {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return array List of disabled widget IDs.
+	 * @return mixed[] List of disabled widget IDs.
 	 */
-	protected function get_disabled_dashboard_widgets() {
+	protected function get_disabled_dashboard_widgets(): array {
 		$widgets = (array) get_option( $this->dashboard_widgets_option, [] );
 
 		if ( is_network_admin() ) {
@@ -371,7 +371,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 2.0.0
 	 */
-	public function disable_dashboard_widgets_with_remote_requests() {
+	public function disable_dashboard_widgets_with_remote_requests(): void {
 		$widgets = $this->get_disabled_dashboard_widgets();
 
 		if ( ! $widgets ) {
@@ -403,7 +403,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 */
-	public function disable_dashboard_widgets() {
+	public function disable_dashboard_widgets(): void {
 		$widgets = $this->get_disabled_dashboard_widgets();
 
 		if ( ! $widgets ) {
@@ -438,10 +438,10 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $input Sidebar widgets to disable.
-	 * @return array
+	 * @param mixed $input Sidebar widgets to disable.
+	 * @return mixed[]
 	 */
-	public function sanitize_sidebar_widgets( $input ) {
+	public function sanitize_sidebar_widgets( mixed $input ): array {
 		// If there are settings errors the input was already sanitized.
 		// See https://core.trac.wordpress.org/ticket/21989.
 		if ( $this->has_settings_errors() ) {
@@ -498,10 +498,10 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $input Dashboards widgets to disable.
-	 * @return array
+	 * @param mixed $input Dashboards widgets to disable.
+	 * @return mixed[]
 	 */
-	public function sanitize_dashboard_widgets( $input ) {
+	public function sanitize_dashboard_widgets( mixed $input ): array {
 		// If there are settings errors the input was already sanitized.
 		// See https://core.trac.wordpress.org/ticket/21989.
 		if ( $this->has_settings_errors() ) {
@@ -558,7 +558,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 */
-	public function register_settings() {
+	public function register_settings(): void {
 		register_setting(
 			$this->sidebar_widgets_option,
 			$this->sidebar_widgets_option,
@@ -568,7 +568,7 @@ class WP_Widget_Disable {
 		add_settings_section(
 			'widget_disable_widget_section',
 			__( 'Disable Sidebar Widgets', 'wp-widget-disable' ),
-			function () {
+			function (): void {
 				echo '<p>';
 				_e( 'Choose the sidebar widgets you would like to disable. Note that developers can still display widgets using PHP.', 'wp-widget-disable' );
 				echo '</p>';
@@ -593,7 +593,7 @@ class WP_Widget_Disable {
 		add_settings_section(
 			'widget_disable_dashboard_section',
 			__( 'Disable Dashboard Widgets', 'wp-widget-disable' ),
-			function () {
+			function (): void {
 				echo '<p>';
 				_e( 'Choose the dashboard widgets you would like to disable.', 'wp-widget-disable' );
 				echo '</p>';
@@ -615,7 +615,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 */
-	public function render_sidebar_checkboxes() {
+	public function render_sidebar_checkboxes(): void {
 		$widgets = $this->sidebar_widgets;
 
 		$widgets = wp_list_sort( $widgets, [ 'name' => 'ASC' ], null, true );
@@ -663,7 +663,7 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 */
-	public function render_dashboard_checkboxes() {
+	public function render_dashboard_checkboxes(): void {
 		$widgets = $this->get_default_dashboard_widgets();
 
 		$flat_widgets = [];
@@ -796,10 +796,8 @@ class WP_Widget_Disable {
 
 	/**
 	 * Check if block editor is enabled for widgets.
-	 *
-	 * @return bool
 	 */
-	public function use_widgets_block_editor() {
+	public function use_widgets_block_editor(): bool {
 		if ( function_exists( 'wp_use_widgets_block_editor' ) ) {
 			return wp_use_widgets_block_editor();
 		}
@@ -809,9 +807,9 @@ class WP_Widget_Disable {
 	/**
 	 * Get list of widgets to hide from legacy widget block.
 	 *
-	 * @return array
+	 * @return mixed[]
 	 */
-	public function get_widgets_to_hide_from_legacy_widget_block() {
+	public function get_widgets_to_hide_from_legacy_widget_block(): array {
 		if ( function_exists( 'get_legacy_widget_block_editor_settings' ) ) {
 			return get_legacy_widget_block_editor_settings()['widgetTypesToHideFromLegacyWidgetBlock'];
 		}
