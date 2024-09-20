@@ -438,10 +438,10 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $input Sidebar widgets to disable.
+	 * @param mixed[] $input Sidebar widgets to disable.
 	 * @return mixed[]
 	 */
-	public function sanitize_sidebar_widgets( mixed $input ): array {
+	public function sanitize_sidebar_widgets( array $input ): array { // phpcs:ignore Squiz.Commenting.FunctionComment.IncorrectTypeHint -- mixed is not a valid type hint in PHP 7.4.
 		// If there are settings errors the input was already sanitized.
 		// See https://core.trac.wordpress.org/ticket/21989.
 		if ( $this->has_settings_errors() ) {
@@ -498,10 +498,10 @@ class WP_Widget_Disable {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param mixed $input Dashboards widgets to disable.
+	 * @param mixed[] $input Dashboards widgets to disable.
 	 * @return mixed[]
 	 */
-	public function sanitize_dashboard_widgets( mixed $input ): array {
+	public function sanitize_dashboard_widgets( array $input ): array { // phpcs:ignore Squiz.Commenting.FunctionComment.IncorrectTypeHint -- mixed is not a valid type hint in PHP 7.4.
 		// If there are settings errors the input was already sanitized.
 		// See https://core.trac.wordpress.org/ticket/21989.
 		if ( $this->has_settings_errors() ) {
