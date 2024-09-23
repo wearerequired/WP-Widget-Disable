@@ -46,7 +46,8 @@ Developed by [required](https://required.com/ "Team of experienced web professio
 
 ### 3.0.1 - 2024-09-19
 
-* Enhancement: Updated required packages
+* Enhancement: Code cleanup, ensuring WordPress 6.6 compatibility.
+
 
 ### 3.0.0 - 2023-03-26
 
