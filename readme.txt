@@ -1,6 +1,6 @@
 # Widget Disable #
 Contributors:      wearerequired, neverything, swissspidy, ocean90, grapplerulrich, hubersen
-Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
+Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets
 Tested up to:      6.7
 Stable tag:        3.0.1
 License:           GPLv2 or later
